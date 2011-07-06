@@ -1,4 +1,4 @@
-# Rspec Approvals
+# RSpec Approvals
 
 Approvals are based on the idea of the 'golden master'.
 
