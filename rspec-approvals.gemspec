@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["katrina.owen@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Approval Tests for Ruby}
-  s.description = %q{TODO: Write a gem description}
+  s.description = %q{An RSpec extension that adds support for approvals. Based on the idea of the Golden Master.}
 
   s.rubyforge_project = "rspec-approvals"
 
