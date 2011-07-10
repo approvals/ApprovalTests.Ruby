@@ -23,4 +23,5 @@ describe Approvals do
       Approvals.initialize_approvals_path
     end
   end
+
 end

@@ -37,6 +37,30 @@ module RSpec
         end
       end
 
+      def failed?
+        approved != received
+      end
+
+      def failure_message
+        <<-FAILURE_MESSAGE
+
+        Approval Failure:
+
+        The received contents did not match the approved contents.
+
+        Inspect the differences in the following files:
+        #{received_path}
+        #{approved_path}
+
+        If you like what you see in the *.received.txt file, you can approve it
+        like so:
+
+        mv #{received_path} #{approved_path}
+
+
+        FAILURE_MESSAGE
+      end
+
     end
   end
 end

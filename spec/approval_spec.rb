@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Approvals::Approval do
+  let(:description) { 'spec/approvals/fairy_dust_and_unicorns' }
+  let(:example) { stub('example', :full_description => 'fairy dust ') }
 
   describe "#normalize" do
     it "downcases" do
@@ -27,13 +29,10 @@ describe Approvals::Approval do
       name = <<-FUNKY_NAME
 
 The::Class       \t \r\n \fname
-FUNKY_NAME
+      FUNKY_NAME
       Approvals::Approval.normalize(name).should eq('the_class_name')
     end
   end
-
-  let(:description) { 'spec/approvals/fairy_dust_and_unicorns' }
-  let(:example) { stub('example', :full_description => 'fairy dust ') }
 
   it "knows the approved_path" do
     approval = Approvals::Approval.new(example, 'and unicorns')
@@ -45,7 +44,7 @@ FUNKY_NAME
     approval.received_path.should eq("#{description}.received.txt")
   end
 
-  context "on the filesystem" do
+  context "approvals" do
     before :each do
       @approved_file = "#{description}.approved.txt"
       @received_file = "#{description}.received.txt"
@@ -56,47 +55,89 @@ FUNKY_NAME
       File.delete(@received_file) if File.exists?(@received_file)
     end
 
-    it "writes the approved file if it doesn't exist" do
-      File.delete(@approved_file) if File.exists?(@approved_file)
+    describe "on the filesystem" do
 
-      Approvals::Approval.new(example, 'and unicorns')
+      it "writes the approved file if it doesn't exist" do
+        File.delete(@approved_file) if File.exists?(@approved_file)
 
-      File.exists?(@approved_file).should be_true
-      File.read(@approved_file).should eq('')
-    end
+        Approvals::Approval.new(example, 'and unicorns')
 
-    it "doesn't overwrite an existing approved file" do
-      File.open(@approved_file, 'w') do |f|
-        f.write "this doesn't get deleted"
+        File.exists?(@approved_file).should be_true
+        File.read(@approved_file).should eq('')
       end
 
-      Approvals::Approval.new(example, 'and unicorns')
+      it "doesn't overwrite an existing approved file" do
+        File.open(@approved_file, 'w') do |f|
+          f.write "this doesn't get deleted"
+        end
 
-      File.exists?(@approved_file).should be_true
-      File.read(@approved_file).should eq("this doesn't get deleted")
-    end
+        Approvals::Approval.new(example, 'and unicorns')
 
-    it "knows the contents of the approved file" do
-      File.open(@approved_file, 'w') do |f|
-        f.write "drunk unicorns spew rainbows"
+        File.exists?(@approved_file).should be_true
+        File.read(@approved_file).should eq("this doesn't get deleted")
       end
 
-      approval = Approvals::Approval.new(example, 'and unicorns')
-      approval.approved.should eq('drunk unicorns spew rainbows')
+      it "knows the contents of the approved file" do
+        File.open(@approved_file, 'w') do |f|
+          f.write "drunk unicorns spew rainbows"
+        end
+
+        approval = Approvals::Approval.new(example, 'and unicorns')
+        approval.approved.should eq('drunk unicorns spew rainbows')
+      end
+
+      it "can return received provided it is set" do
+        approval = Approvals::Approval.new(example, 'and unicorns', 'sparkles!')
+        approval.received.should eq('sparkles!')
+      end
+
+      it "writes the received contents to file" do
+        approval = Approvals::Approval.new(example, 'and unicorns', 'oooh, shiney!')
+
+        File.exists?(@received_file).should be_true
+        File.read(@received_file).should eq("oooh, shiney!")
+      end
+
+      it "cleans up the received file if the approval passes"
     end
 
-    it "can return received provided it is set" do
-      approval = Approvals::Approval.new(example, 'and unicorns', 'sparkles!')
-      approval.received.should eq('sparkles!')
+    describe "the heart of the matter!" do
+      it "recognizes a match as a pass" do
+        approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+        approval.stub(:approved => 'xyz')
+
+        approval.should_not be_failed
+      end
+
+      it "recognizes a mismatch as a failure" do
+        approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+        approval.stub(:approved => 'abc')
+
+        approval.should be_failed
+      end
     end
 
-    it "writes the received contents to file" do
-      approval = Approvals::Approval.new(example, 'and unicorns', 'oooh, shiney!')
+    it "fails magnificently" do
+      approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+      message = <<-FAILURE_MESSAGE
 
-      File.exists?(@received_file).should be_true
-      File.read(@received_file).should eq("oooh, shiney!")
+        Approval Failure:
+
+        The received contents did not match the approved contents.
+
+        Inspect the differences in the following files:
+        #{approval.received_path}
+        #{approval.approved_path}
+
+        If you like what you see in the *.received.txt file, you can approve it
+        like so:
+
+        mv #{approval.received_path} #{approval.approved_path}
+
+
+      FAILURE_MESSAGE
+
+      approval.failure_message.should eq(message)
     end
-
-    it "cleans up the received file if the approval passes"
   end
 end

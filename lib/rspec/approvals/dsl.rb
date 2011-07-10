@@ -1,3 +1,5 @@
+require 'rspec/expectations/errors'
+
 module RSpec
   module Approvals
     module DSL
@@ -6,7 +8,9 @@ module RSpec
         approval = Approval.new(example, description, yield)
 
         specify(description) do
-          approval.received.should eq(approval.approved)
+          if approval.failed?
+            raise RSpec::Expectations::ExpectationNotMetError.new(approval.failure_message)
+          end
         end
       end
 
