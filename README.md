@@ -25,7 +25,7 @@ You can change this using the configuration option
 
 ## Usage
 
-The basic format of the approval is modeled after the RSpec example:
+The basic format of the approval is modeled after RSpec's _it_:
 
     approve "something" do
       "this is the received contents"
@@ -41,9 +41,7 @@ The first time the specs are run, two files will be created:
 Since you have not yet approved anything, the something.approved.txt file is
 empty.
 
-The contents of the two files are compared.
-
-Naturally, the approval will fail at this point.
+The contents of the two files are compared, and naturally, the approval will fail at this point.
 
 If the contents of the received file is to your liking, you can approve
 the file by overwriting the approved file with the received file.
