@@ -6,10 +6,12 @@ module RSpec
 
       def approve(description)
         approval = Approval.new(example, description, yield)
+        backtrace = Approvals.location_of(caller.first)
 
         specify(description) do
           if approval.failed?
-            raise RSpec::Expectations::ExpectationNotMetError.new(approval.failure_message)
+            exception = RSpec::Expectations::ExpectationNotMetError
+            raise exception, approval.failure_message, backtrace
           end
         end
       end

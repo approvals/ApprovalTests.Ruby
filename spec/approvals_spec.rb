@@ -24,4 +24,12 @@ describe Approvals do
     end
   end
 
+  it "cleans up the given line of the backtrace" do
+    Dir.stub(:pwd => 'the/path')
+    location = Approvals.location_of('the/path/to/my/heart:9372 <is through my stomach>')
+    location.should eq('./to/my/heart:9372')
+  end
+
+  it "needs to be able to run with :filtered => true"
+
 end
