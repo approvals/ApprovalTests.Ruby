@@ -34,25 +34,29 @@ The basic format of the approval is modeled after RSpec's `it`:
 
 The `:to_s` method on the object will be used to generate the output for
 the `*.received.txt` file. For custom objects you will need to override
-the `to_s` to get helpful output, rather than the default:
+the `:to_s` to get helpful output, rather than the default:
 
-    #<Object:0x0000010105ea40> 
+    #<Object:0x0000010105ea40>
 
 The first time the specs are run, two files will be created:
 
-    something.received.txt
-    something.approved.txt
+    full_description_of_something.received.txt
+    full_description_of_something.approved.txt
 
 
-Since you have not yet approved anything, the something.approved.txt file is
+Since you have not yet approved anything, the `*.approved.txt` file is
 empty.
 
 The contents of the two files are compared, and the approval will fail at this point.
 
+### Approving a spec
+
 If the contents of the received file is to your liking, you can approve
 the file by overwriting the approved file with the received file.
 
-    mv something.received.txt something.approved.txt
+For an example who's full description is `My Spec`:
+
+    mv my_spec.received.txt my_spec.approved.txt
 
 When you rerun the spec, it should now pass.
 
