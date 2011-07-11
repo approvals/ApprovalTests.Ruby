@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Approvals::Approval do
   let(:description) { 'spec/approvals/fairy_dust_and_unicorns' }
-  let(:example) { stub('example', :full_description => 'fairy dust ') }
+  let(:example) { stub('example', :full_description => 'fairy dust ').as_null_object }
 
   describe "#normalize" do
     it "downcases" do
@@ -84,43 +84,50 @@ The::Class       \t \r\n \fname
         File.read(@approved_file).should eq("this doesn't get deleted")
       end
 
-      it "knows the contents of the approved file" do
-        File.open(@approved_file, 'w') do |f|
-          f.write "drunk unicorns spew rainbows"
-        end
-
-        approval = Approvals::Approval.new(example, 'and unicorns')
-        approval.approved.should eq('drunk unicorns spew rainbows')
-      end
-
-      it "can return received provided it is set" do
-        approval = Approvals::Approval.new(example, 'and unicorns', 'sparkles!')
-        approval.received.should eq('sparkles!')
-      end
-
       it "writes the received contents to file" do
         approval = Approvals::Approval.new(example, 'and unicorns', 'oooh, shiney!')
 
         File.exists?(@received_file).should be_true
         File.read(@received_file).should eq("oooh, shiney!")
       end
-
-      it "cleans up the received file if the approval passes"
     end
 
-    describe "the heart of the matter!" do
-      it "recognizes a match as a pass" do
-        approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
-        approval.stub(:approved => 'xyz')
+    describe "verification" do
 
-        approval.should_not be_failed
+      context "with a match" do
+        before :each do
+          @approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+          @approval.write(:approved, 'xyz')
+        end
+
+        it "does not raise an error" do
+          lambda { @approval.verify }.should_not raise_error(RSpec::Approvals::ReceivedDiffersError)
+        end
+
+        it "does not leave a received file" do
+          lambda { @approval.verify }.call
+          File.exists?(@approval.received_path).should be_false
+        end
       end
 
-      it "recognizes a mismatch as a failure" do
-        approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
-        approval.stub(:approved => 'abc')
+      context "with a mismatch" do
+        before :each do
+          @approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+          @approval.write(:approved, 'abc')
+        end
 
-        approval.should be_failed
+        it "raises an error" do
+          lambda { @approval.verify }.should raise_error(RSpec::Approvals::ReceivedDiffersError)
+        end
+
+        it "leaves a received file" do
+          begin
+            @approval.verify
+          rescue RSpec::Approvals::ReceivedDiffersError => e
+            # we want to land here and then move on
+          end
+          File.exists?(@approval.received_path).should be_true
+        end
       end
     end
 

@@ -9,12 +9,7 @@ module RSpec
         approval.location = caller
 
         specify(description, :approval => true) do
-
-          if approval.failed?
-            exception = RSpec::Expectations::ExpectationNotMetError
-            raise exception, approval.failure_message, approval.location
-          end
-
+          approval.verify
         end
       end
 

@@ -4,6 +4,6 @@ describe Approvals::DSL do
 
   it "initializes an approval"
   it "calls specify"
-  it "raises an exception with the approval failure message"
+  it "calls verify on the approval"
 
 end

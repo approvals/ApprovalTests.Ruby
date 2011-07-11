@@ -1,5 +1,9 @@
+require 'rspec/expectations/errors'
+
 module RSpec
   module Approvals
+
+    class ReceivedDiffersError < RSpec::Expectations::ExpectationNotMetError; end
 
     class Approval
 
@@ -11,16 +15,13 @@ module RSpec
         Approvals.path + normalize(s)
       end
 
-      attr_reader :received, :approved, :location
+      attr_reader :location
 
       def initialize(example, description, received = '')
         @path = Approval.base_path(example.full_description + description)
 
         write(:approved, '') unless File.exists?(approved_path)
         write(:received, received)
-
-        @received = received
-        @approved ||= File.read approved_path
       end
 
       def approved_path
@@ -35,10 +36,6 @@ module RSpec
         File.open("#{@path}.#{suffix}.txt", 'w') do |f|
           f.write contents
         end
-      end
-
-      def failed?
-        approved != received
       end
 
       def failure_message
@@ -63,6 +60,14 @@ module RSpec
 
       def location=(backtrace)
         @location = [backtrace.first.gsub(Dir.pwd, '.')]
+      end
+
+      def verify
+        if FileUtils.cmp(received_path, approved_path)
+          File.unlink(received_path)
+        else
+          raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
+        end
       end
     end
   end
