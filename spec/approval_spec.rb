@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Approvals::Approval do
   let(:description) { 'spec/approvals/fairy_dust_and_unicorns' }
-  let(:example) { stub('example', :full_description => 'fairy dust ').as_null_object }
+  let(:example) { stub('example', :full_description => 'fairy dust and unicorns').as_null_object }
 
   describe "#normalize" do
     it "downcases" do
@@ -35,18 +35,18 @@ The::Class       \t \r\n \fname
   end
 
   it "knows the approved_path" do
-    approval = Approvals::Approval.new(example, 'and unicorns')
+    approval = Approvals::Approval.new(example)
     approval.approved_path.should eq("#{description}.approved.txt")
   end
 
   it "knows the received path" do
-    approval = Approvals::Approval.new(example, 'and unicorns')
+    approval = Approvals::Approval.new(example)
     approval.received_path.should eq("#{description}.received.txt")
   end
 
   it "can set a location" do
     Dir.stub(:pwd => 'the/path')
-    approval = Approvals::Approval.new(example, 'and unicorns')
+    approval = Approvals::Approval.new(example)
     approval.location = ['the/path/to/my/heart:9372 <is through my stomach>', 'bla bla bla']
     approval.location.should eq(['./to/my/heart:9372 <is through my stomach>'])
   end
@@ -67,7 +67,7 @@ The::Class       \t \r\n \fname
       it "writes the approved file if it doesn't exist" do
         File.delete(@approved_file) if File.exists?(@approved_file)
 
-        Approvals::Approval.new(example, 'and unicorns')
+        Approvals::Approval.new(example)
 
         File.exists?(@approved_file).should be_true
         File.read(@approved_file).should eq('')
@@ -78,14 +78,14 @@ The::Class       \t \r\n \fname
           f.write "this doesn't get deleted"
         end
 
-        Approvals::Approval.new(example, 'and unicorns')
+        Approvals::Approval.new(example)
 
         File.exists?(@approved_file).should be_true
         File.read(@approved_file).should eq("this doesn't get deleted")
       end
 
       it "writes the received contents to file" do
-        approval = Approvals::Approval.new(example, 'and unicorns', 'oooh, shiney!')
+        approval = Approvals::Approval.new(example, 'oooh, shiney!')
 
         File.exists?(@received_file).should be_true
         File.read(@received_file).should eq("oooh, shiney!")
@@ -96,7 +96,7 @@ The::Class       \t \r\n \fname
 
       context "with a match" do
         before :each do
-          @approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+          @approval = Approvals::Approval.new(example, 'xyz')
           @approval.write(:approved, 'xyz')
         end
 
@@ -112,7 +112,7 @@ The::Class       \t \r\n \fname
 
       context "with a mismatch" do
         before :each do
-          @approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+          @approval = Approvals::Approval.new(example, 'xyz')
           @approval.write(:approved, 'abc')
         end
 
@@ -132,7 +132,7 @@ The::Class       \t \r\n \fname
     end
 
     it "fails magnificently" do
-      approval = Approvals::Approval.new(example, 'and unicorns', 'xyz')
+      approval = Approvals::Approval.new(example, 'xyz')
       message = <<-FAILURE_MESSAGE
 
         Approval Failure:

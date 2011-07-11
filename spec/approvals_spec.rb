@@ -26,4 +26,40 @@ describe Approvals do
 
   it "needs to be able to run with :filtered => true"
 
+  approve "a string" do
+    "We have, I fear, confused power with greatness."
+  end
+
+  approve "a hash" do
+    {
+      :universe => {
+        :side => :dark,
+        :other_side => :light
+      },
+      :force => true
+    }
+  end
+
+  approve "an array" do
+    [
+      "abc",
+      123,
+      %w(cheese burger ribs steak bacon)
+    ]
+  end
+
+  approve "a complex object" do
+    hello = Object.new
+    def hello.to_s
+      "Hello, World!"
+    end
+
+    def hello.inspect
+      "<HelloWorld id:#{object_id}>"
+    end
+
+    hello # => output matches hello.to_s
+  end
+
+
 end

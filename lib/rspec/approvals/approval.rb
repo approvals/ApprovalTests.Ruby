@@ -17,8 +17,8 @@ module RSpec
 
       attr_reader :location
 
-      def initialize(example, description, received = '')
-        @path = Approval.base_path(example.full_description + description)
+      def initialize(example, received = '')
+        @path = Approval.base_path(example.full_description)
 
         write(:approved, '') unless File.exists?(approved_path)
         write(:received, received)
