@@ -18,10 +18,6 @@ module RSpec
       def path
         RSpec.configuration.approvals_path + "/"
       end
-
-      def location_of(approval)
-        approval.gsub(Dir.pwd, '.').gsub(/(:\d*).*$/, '\1')
-      end
     end
 
   end

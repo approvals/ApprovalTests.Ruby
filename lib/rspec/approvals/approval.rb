@@ -11,7 +11,7 @@ module RSpec
         Approvals.path + normalize(s)
       end
 
-      attr_reader :received, :approved
+      attr_reader :received, :approved, :location
 
       def initialize(example, description, received = '')
         @path = Approval.base_path(example.full_description + description)
@@ -61,6 +61,9 @@ module RSpec
         FAILURE_MESSAGE
       end
 
+      def location=(backtrace)
+        @location = [backtrace.first.gsub(Dir.pwd, '.')]
+      end
     end
   end
 end

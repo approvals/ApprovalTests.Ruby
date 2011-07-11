@@ -44,6 +44,13 @@ The::Class       \t \r\n \fname
     approval.received_path.should eq("#{description}.received.txt")
   end
 
+  it "can set a location" do
+    Dir.stub(:pwd => 'the/path')
+    approval = Approvals::Approval.new(example, 'and unicorns')
+    approval.location = ['the/path/to/my/heart:9372 <is through my stomach>', 'bla bla bla']
+    approval.location.should eq(['./to/my/heart:9372 <is through my stomach>'])
+  end
+
   context "approvals" do
     before :each do
       @approved_file = "#{description}.approved.txt"
