@@ -1,6 +1,10 @@
+
 require "rspec/approvals/version"
-require "rspec/approvals/dsl"
 require "rspec/approvals/approval"
+require "rspec/approvals/dsl"
+
+#require "rspec/approvals/formatters/opendiff_formatter"
+#require "rspec/approvals/opendiff_formatter"
 
 module RSpec
   RSpec.configure do |c|

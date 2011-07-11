@@ -20,6 +20,12 @@ module RSpec
       def initialize(example, received = '')
         @path = Approval.base_path(example.full_description)
 
+        example.options[:approval] = true
+        example.options[:approval_diff_paths] = {
+          :received => received_path,
+          :approved => approved_path,
+        }
+
         write(:approved, '') unless File.exists?(approved_path)
         write(:received, received)
       end

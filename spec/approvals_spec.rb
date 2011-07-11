@@ -61,5 +61,4 @@ describe Approvals do
     hello # => output matches hello.to_s
   end
 
-
 end
