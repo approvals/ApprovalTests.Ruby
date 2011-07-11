@@ -60,5 +60,22 @@ For an example who's full description is `My Spec`:
 
 When you rerun the spec, it should now pass.
 
+### Formatters
+
+You can specify a custom formatter when you run the specs.
+
+E.g.
+
+    rspec --require /path/to/lib/rspec/approvals/formatters/opendiff_formatter.rb \
+    -f RSpec::Approvals::Formatters::OpendiffFormatter spec/
+
+The OpendiffFormatter automatically launches opendiff for each failed
+approval. It falls back on the ProgressFormatter for all non-approval
+specs.
+
+That's pretty unweildy, so I'm looking at options to add shortcuts for
+this.
+
+
 
 Copyright (c) 2011 Katrina Owen, released under the MIT license
