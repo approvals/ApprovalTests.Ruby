@@ -9,6 +9,20 @@ See [ApprovalTests](http://www.approvaltests.com) for videos and additional docu
 
 The original Approvals libraries for Java and C# were developed by Llewellyn Falco.
 
+One of the areas where approvals come in very handy, is when you have
+code without tests that you need to make changes to, and where those
+changes are going to be difficult to make without changing the structure
+of the program first (i.e. _refactoring_).
+
+From Fields, Harvie, and Fowler, _Refactoring, Ruby Edition_:
+> Because the statement result produces a string, I create a few
+> customers, give each customer a few rentals of various kinds of films,
+> and generate the statement strings. I then do a string comparison
+> between the new string and some reference strings that I have hand
+> checked.
+
+Approvals make this type of checking against reference strings extremely
+simple to do.
 
 ## Configuration
 
