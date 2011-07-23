@@ -5,24 +5,14 @@ Approvals are based on the idea of the *_golden master_*.
 You take a snapshot of an object, and then compare all future
 versions of the object to the snapshot.
 
+Big hat tip to Llewellyn Falco who developed the approvals concept, as
+well as the original approvals libraries (.NET, Java, Ruby, PHP,
+probably others).
+
 See [ApprovalTests](http://www.approvaltests.com) for videos and additional documentation about the general concept.
 
-The original Approvals libraries for Java and C# were developed by Llewellyn Falco.
-
-One of the areas where approvals come in very handy, is when you have
-code without tests that you need to make changes to, and where those
-changes are going to be difficult to make without changing the structure
-of the program first (i.e. _refactoring_).
-
-From Fields, Harvie, and Fowler, _Refactoring, Ruby Edition_:
-> Because the statement result produces a string, I create a few
-> customers, give each customer a few rentals of various kinds of films,
-> and generate the statement strings. I then do a string comparison
-> between the new string and some reference strings that I have hand
-> checked.
-
-Approvals make this type of checking against reference strings extremely
-simple to do.
+Also, check out  Herding Code's podcast #117 http://t.co/GLn88R5 in
+which Llewellyn Falco is interviewed about approvals.
 
 ## Configuration
 
