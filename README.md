@@ -40,7 +40,7 @@ The `:inspect` method on the object will be used to generate the output for
 the `*.received.txt` file. For custom objects you will need to override
 the `:inspect` to get helpful output, rather than the default:
 
-    #<Object:0x0000010105ea40>
+    #<Object:0x0000010105ea40> # or whatever the object id is
 
 The first time the specs are run, two files will be created:
 
