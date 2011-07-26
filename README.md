@@ -36,9 +36,9 @@ The basic format of the approval is modeled after RSpec's `it`:
     end
 
 
-The `:to_s` method on the object will be used to generate the output for
+The `:inspect` method on the object will be used to generate the output for
 the `*.received.txt` file. For custom objects you will need to override
-the `:to_s` to get helpful output, rather than the default:
+the `:inspect` to get helpful output, rather than the default:
 
     #<Object:0x0000010105ea40>
 

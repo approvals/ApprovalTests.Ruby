@@ -5,6 +5,12 @@ module RSpec
 
     class ReceivedDiffersError < RSpec::Expectations::ExpectationNotMetError; end
 
+    class EmptyApproval
+      def inspect
+        ""
+      end
+    end
+
     class Approval
 
       def self.normalize(s)
@@ -26,7 +32,7 @@ module RSpec
           :approved => approved_path,
         }
 
-        write(:approved, '') unless File.exists?(approved_path)
+        write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
         write(:received, received)
       end
 
@@ -40,7 +46,7 @@ module RSpec
 
       def write(suffix, contents)
         File.open("#{@path}.#{suffix}.txt", 'w') do |f|
-          f.write contents
+          f.write contents.inspect
         end
       end
 

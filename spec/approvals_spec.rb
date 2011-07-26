@@ -36,7 +36,8 @@ describe Approvals do
         :side => :dark,
         :other_side => :light
       },
-      :force => true
+      :force => true,
+      :evil => "undecided"
     }
   end
 
@@ -44,6 +45,7 @@ describe Approvals do
     [
       "abc",
       123,
+      :zomg_fooooood,
       %w(cheese burger ribs steak bacon)
     ]
   end
@@ -55,10 +57,10 @@ describe Approvals do
     end
 
     def hello.inspect
-      "<HelloWorld id:#{object_id}>"
+      "#<The World Says: Hello!>"
     end
 
-    hello # => output matches hello.to_s
+    hello # => output matches hello.inspect
   end
 
 end

@@ -1,1 +1,1 @@
-["abc", 123, ["cheese", "burger", "ribs", "steak", "bacon"]]
+["abc", 123, :zomg_fooooood, ["cheese", "burger", "ribs", "steak", "bacon"]]

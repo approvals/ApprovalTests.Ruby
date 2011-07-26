@@ -88,7 +88,7 @@ The::Class       \t \r\n \fname
         approval = Approvals::Approval.new(example, 'oooh, shiney!')
 
         File.exists?(@received_file).should be_true
-        File.read(@received_file).should eq("oooh, shiney!")
+        File.read(@received_file).should eq('"oooh, shiney!"')
       end
     end
 
