@@ -144,7 +144,7 @@ The::Class       \t \r\n \fname
         #{approval.approved_path}
 
         If you like what you see in the *.received.txt file, you can approve it
-        like so:
+        by renaming it with the .approved.txt suffix.
 
         mv #{approval.received_path} #{approval.approved_path}
 

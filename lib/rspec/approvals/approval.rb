@@ -72,7 +72,7 @@ module RSpec
         #{approved_path}
 
         If you like what you see in the *.received.txt file, you can approve it
-        like so:
+        by renaming it with the .approved.txt suffix.
 
         mv #{received_path} #{approved_path}
 
