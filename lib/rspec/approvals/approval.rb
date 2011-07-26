@@ -46,7 +46,17 @@ module RSpec
 
       def write(suffix, contents)
         File.open("#{@path}.#{suffix}.txt", 'w') do |f|
-          f.write contents.inspect
+          if contents.respond_to?(:each_pair)
+            contents.each_pair do |k,v|
+              f.write "#{k.inspect} => #{v.inspect}\n"
+            end
+          elsif contents.respond_to?(:each_with_index)
+            contents.each_with_index do |v,i|
+              f.write "[#{i.inspect}] #{v.inspect}\n"
+            end
+          else
+            f.write contents.inspect
+          end
         end
       end
 
