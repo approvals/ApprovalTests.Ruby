@@ -53,6 +53,18 @@ empty.
 
 The contents of the two files are compared, and the approval will fail at this point.
 
+### Formatting
+
+You can pass options to format output before it gets written to the file.
+At the moment, only xml and html are supported.
+
+Simply add a `:format => :xml` or `:format => :html` option to the example:
+
+    approve "some html", :format => :html do
+      "<html><head></head><body><h1>ZOMG</h1></body></html>"
+    end
+
+
 ### Approving a spec
 
 If the contents of the received file is to your liking, you can approve

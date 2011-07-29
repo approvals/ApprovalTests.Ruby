@@ -153,5 +153,32 @@ The::Class       \t \r\n \fname
 
       approval.failure_message.should eq(message)
     end
+
+    it "fails with exposed 'received'" do
+      approval = Approvals::Approval.new(example, 'aoeu', :show_received => true)
+      message = <<-FAILURE_MESSAGE
+
+        Approval Failure:
+
+        The received contents did not match the approved contents.
+
+        Inspect the differences in the following files:
+        #{approval.received_path}
+        #{approval.approved_path}
+
+        If you like what you see in the *.received.txt file, you can approve it
+        by renaming it with the .approved.txt suffix.
+
+        mv #{approval.received_path} #{approval.approved_path}
+
+
+        received:
+        #{approval.received}
+
+
+      FAILURE_MESSAGE
+
+      approval.failure_message.should eq(message)
+    end
   end
 end

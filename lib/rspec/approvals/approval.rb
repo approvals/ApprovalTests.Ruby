@@ -9,6 +9,7 @@ module RSpec
       def inspect
         ""
       end
+      def strip; end
     end
 
     class Approval
@@ -23,8 +24,9 @@ module RSpec
 
       attr_reader :location
 
-      def initialize(example, received = '')
+      def initialize(example, received = '', options = {})
         @path = Approval.base_path(example.full_description)
+        @options = options
 
         example.options[:approval] = true
         example.options[:approval_diff_paths] = {
@@ -46,7 +48,11 @@ module RSpec
 
       def write(suffix, contents)
         File.open("#{@path}.#{suffix}.txt", 'w') do |f|
-          if contents.respond_to?(:each_pair)
+          if xml?
+            parser = XML::Parser.string contents.strip
+            doc = parser.parse
+            f.write doc.to_s
+          elsif contents.respond_to?(:each_pair)
             contents.each_pair do |k,v|
               f.write "#{k.inspect} => #{v.inspect}\n"
             end
@@ -61,6 +67,11 @@ module RSpec
       end
 
       def failure_message
+        return failure_message_exposing_received if show_received?
+        return default_failure_message
+      end
+
+      def default_failure_message
         <<-FAILURE_MESSAGE
 
         Approval Failure:
@@ -80,6 +91,10 @@ module RSpec
         FAILURE_MESSAGE
       end
 
+      def failure_message_exposing_received
+        default_failure_message << "        received:\n        " << received << "\n\n\n"
+      end
+
       def location=(backtrace)
         @location = [backtrace.first.gsub(Dir.pwd, '.')]
       end
@@ -90,6 +105,22 @@ module RSpec
         else
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
         end
+      end
+
+      def approved
+        File.read(approved_path)
+      end
+
+      def received
+        File.read(received_path)
+      end
+
+      def xml?
+        [:xml, :html].include? @options[:format]
+      end
+
+      def show_received?
+        @options[:show_received]
       end
     end
   end

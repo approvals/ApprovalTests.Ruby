@@ -1,4 +1,5 @@
 
+require 'xml'
 require "rspec/approvals/version"
 require "rspec/approvals/approval"
 require "rspec/approvals/dsl"

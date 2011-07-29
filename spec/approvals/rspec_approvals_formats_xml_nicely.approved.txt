@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml testsdf="dsfsdf">
+  <test/>
+  <node>
+    <content attr="fgsd"/>
+  </node>
+  <node id="2">
+    <content/>
+  </node>
+</xml>

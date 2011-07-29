@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'rspec', '~> 2.6'
+  s.add_dependency 'libxml-ruby'
 end
