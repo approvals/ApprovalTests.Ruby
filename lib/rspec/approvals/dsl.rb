@@ -4,7 +4,7 @@ module RSpec
   module Approvals
     module DSL
 
-      def approve(description, options = {})
+      def verify(description, options = {})
 
         specify(description) do
           approval = Approval.new(example, yield, options)
