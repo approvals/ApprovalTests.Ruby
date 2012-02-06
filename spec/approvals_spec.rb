@@ -74,4 +74,8 @@ describe Approvals do
   verify "formats xml nicely", :format => :xml, :show_received => true do
     "<xml testsdf=\"dsfsdf\"><test/><node><content attr='fgsd' /></node><node id='2'><content /></node></xml>"
   end
+
+  verify "formats json nicely", :format => :json, :show_received => true do
+    {"hello" => "world"}.to_json
+  end
 end

@@ -52,6 +52,8 @@ module RSpec
             parser = XML::Parser.string contents.strip
             doc = parser.parse
             f.write doc.to_s
+          elsif json?
+            f.write as_json(contents)
           elsif contents.respond_to?(:each_pair)
             contents.each_pair do |k,v|
               f.write "#{k.inspect} => #{v.inspect}\n"
@@ -119,8 +121,16 @@ module RSpec
         [:xml, :html].include? @options[:format]
       end
 
+      def json?
+        @options[:format] == :json
+      end
+
       def show_received?
         @options[:show_received]
+      end
+
+      def as_json(contents)
+        JSON.pretty_generate(JSON.parse(contents))
       end
     end
   end
