@@ -31,7 +31,7 @@ You can change this using the configuration option
 
 The basic format of the approval is modeled after RSpec's `it`:
 
-    approve "something" do
+    verify "something" do
       "this is the received contents"
     end
 
@@ -56,12 +56,16 @@ The contents of the two files are compared, and the approval will fail at this p
 ### Formatting
 
 You can pass options to format output before it gets written to the file.
-At the moment, only xml and html are supported.
+At the moment, only xml, html, and json are supported.
 
-Simply add a `:format => :xml` or `:format => :html` option to the example:
+Simply add a `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
 
-    approve "some html", :format => :html do
+    verify "some html", :format => :html do
       "<html><head></head><body><h1>ZOMG</h1></body></html>"
+    end
+
+    verify "some json", :format => :json do
+      {"beverage" => "coffee"}.to_json
     end
 
 
