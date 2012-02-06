@@ -49,19 +49,13 @@ module RSpec
       def write(suffix, contents)
         File.open("#{@path}.#{suffix}.txt", 'w') do |f|
           if xml?
-            parser = XML::Parser.string contents.strip
-            doc = parser.parse
-            f.write doc.to_s
+            f.write as_xml(contents)
           elsif json?
             f.write as_json(contents)
           elsif contents.respond_to?(:each_pair)
-            contents.each_pair do |k,v|
-              f.write "#{k.inspect} => #{v.inspect}\n"
-            end
+            f.write as_hash(contents)
           elsif contents.respond_to?(:each_with_index)
-            contents.each_with_index do |v,i|
-              f.write "[#{i.inspect}] #{v.inspect}\n"
-            end
+            f.write as_array(contents)
           else
             f.write contents.inspect
           end
@@ -131,6 +125,27 @@ module RSpec
 
       def as_json(contents)
         JSON.pretty_generate(JSON.parse(contents))
+      end
+
+      def as_xml(contents)
+        parser = XML::Parser.string contents.strip
+        parser.parse.to_s
+      end
+
+      def as_hash(contents)
+        s = ""
+        contents.each_pair do |k,v|
+          s << "#{k.inspect} => #{v.inspect}\n"
+        end
+        s
+      end
+
+      def as_array(contents)
+        s = ""
+        contents.each_with_index do |v,i|
+          s << "[#{i.inspect}] #{v.inspect}\n"
+        end
+        s
       end
     end
   end
