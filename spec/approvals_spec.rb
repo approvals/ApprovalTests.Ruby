@@ -25,8 +25,6 @@ describe Approvals do
     end
   end
 
-  it "needs to be able to run with :filtered => true"
-
   verify "a string" do
     "We have, I fear, confused power with greatness."
   end
@@ -51,7 +49,7 @@ describe Approvals do
     ]
   end
 
-  verify "a complex object" do
+  verify "a complex object with implicit #inspect" do
     hello = Object.new
     def hello.to_s
       "Hello, World!"
@@ -61,7 +59,7 @@ describe Approvals do
       "#<The World Says: Hello!>"
     end
 
-    hello # => output matches hello.inspect
+    hello
   end
 
   verify "formats html nicely", :format => :html, :show_received => true do
