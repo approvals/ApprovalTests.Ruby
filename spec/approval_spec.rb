@@ -108,6 +108,22 @@ The::Class       \t \r\n \fname
           lambda { @approval.verify }.call
           File.exists?(@approval.received_path).should be_false
         end
+
+        it "deletes a previously rejected change from the dotfile" do
+          expected = "spec/approvals/fairy_dust_and_unicorns.received.txt spec/approvals/fairy_dust_and_unicorns.approved.txt"
+
+          @approval.write(:approved, 'abc')
+          begin
+            @approval.verify
+          rescue RSpec::Approvals::ReceivedDiffersError => e
+            # guard
+            File.read('.approvals').split("\n").should include(expected)
+          end
+
+          @approval.write(:approved, 'xyz')
+          lambda { @approval.verify }.call
+          File.read('.approvals').split("\n").should_not include(expected)
+        end
       end
 
       context "with a mismatch" do
@@ -127,6 +143,33 @@ The::Class       \t \r\n \fname
             # we want to land here and then move on
           end
           File.exists?(@approval.received_path).should be_true
+        end
+
+        it "appends the name to the .approvals file" do
+          begin
+            @approval.verify
+          rescue RSpec::Approvals::ReceivedDiffersError => e
+            # moving on
+          end
+          expected = "spec/approvals/fairy_dust_and_unicorns.received.txt spec/approvals/fairy_dust_and_unicorns.approved.txt"
+          File.read('.approvals').split("\n").should include(expected)
+        end
+
+        it "only appends the name once" do
+          begin
+            @approval.verify
+          rescue RSpec::Approvals::ReceivedDiffersError => e
+            # moving on
+          end
+
+          begin
+            @approval.verify
+          rescue RSpec::Approvals::ReceivedDiffersError => e
+            # moving on
+          end
+
+          lines = File.read('.approvals').split("\n")
+          lines.size.should eq(lines.sort.uniq.size)
         end
       end
     end

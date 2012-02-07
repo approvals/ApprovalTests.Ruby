@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'thor'
+require 'rspec'
+require 'rspec-approvals'
+require 'rspec/approvals/cli'
+
+RSpec::Approvals::CLI.start
+

@@ -22,10 +22,11 @@ module RSpec
         Approvals.path + normalize(s)
       end
 
-      attr_reader :location
+      attr_reader :location, :name
 
       def initialize(example, received = '', options = {})
-        @path = Approval.base_path(example.full_description)
+        @name = Approval.normalize(example.full_description)
+        @path = Approvals.path + name
         @options = options
 
         example.options[:approval] = true
@@ -36,6 +37,7 @@ module RSpec
 
         write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
         write(:received, received)
+        FileUtils.touch('.approvals')
       end
 
       def approved_path
@@ -98,9 +100,36 @@ module RSpec
       def verify
         if FileUtils.cmp(received_path, approved_path)
           File.unlink(received_path)
+          delete_from_dot_file
         else
+          append_to_dot_file
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
         end
+      end
+
+      def append_to_dot_file
+        unless in_dotfile?
+          File.open('.approvals', 'a+') do |f|
+            f.write "#{diff_path}\n"
+          end
+        end
+      end
+
+      def delete_from_dot_file
+        if in_dotfile?
+          failures = File.read('.approvals').split("\n")
+          File.open('.approvals', 'w') do |f|
+            f.write (failures - [diff_path]).join("\n")
+          end
+        end
+      end
+
+      def in_dotfile?
+        system("cat .approvals | grep -q \"^#{diff_path}$\"")
+      end
+
+      def diff_path
+        "#{received_path} #{approved_path}"
       end
 
       def approved
