@@ -1,4 +1,3 @@
-
 require 'nokogiri'
 require "rspec/approvals/version"
 require "rspec/approvals/approval"
@@ -6,6 +5,7 @@ require "rspec/approvals/dsl"
 require 'rspec/approvals/dotfile'
 require 'rspec/approvals/formatter'
 require 'rspec/approvals/executable'
+require 'rspec/approvals/reporters'
 
 module RSpec
   RSpec.configure do |c|
