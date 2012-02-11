@@ -25,7 +25,7 @@ module RSpec
       end
 
       def reset
-        File.delete(dotfile)
+        File.delete(dotfile) if File.exists?(dotfile)
       end
 
       def dotfile
