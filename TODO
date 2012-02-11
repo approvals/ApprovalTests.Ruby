@@ -1,0 +1,16 @@
+# class Executable
+# 
+#   def self.result(text, &block)
+#     [text, block]
+#   end
+# end
+# 
+# describe Executable do
+#   verify_executable "calls on failure" do
+#     Executable.result("received") do |result|
+#       puts result
+#     end
+#   end
+# end
+# 
+
