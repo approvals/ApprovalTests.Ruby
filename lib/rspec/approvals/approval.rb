@@ -87,7 +87,7 @@ module RSpec
       end
 
       def location=(backtrace)
-        @location = [backtrace.first.gsub(Dir.pwd, '.')]
+        @location = [backtrace.first.gsub(Dir.pwd, '.').gsub(/:in\ .*$/, '')]
       end
 
       def verify

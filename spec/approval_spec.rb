@@ -41,8 +41,8 @@ The::Class       \t \r\n \fname
 
     it "can set a location" do
       Dir.stub(:pwd => 'the/path')
-      subject.location = ['the/path/to/my/heart:9372 <is through my stomach>', 'bla bla bla']
-      subject.location.should eq(['./to/my/heart:9372 <is through my stomach>'])
+      subject.location = ['the/path/to/my/heart:9372:in <is through my stomach>', 'bla bla bla']
+      subject.location.should eq(['./to/my/heart:9372'])
     end
   end
 
@@ -54,6 +54,7 @@ The::Class       \t \r\n \fname
       File.delete(approved_file) if File.exists?(approved_file)
       File.delete(received_file) if File.exists?(received_file)
     end
+
     it "writes the approved file if it doesn't exist" do
       File.delete(approved_file) if File.exists?(approved_file)
 
