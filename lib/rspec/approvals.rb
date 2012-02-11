@@ -10,6 +10,7 @@ module RSpec
   RSpec.configure do |c|
     c.extend RSpec::Approvals::DSL
     c.add_setting :approvals_path, :default => 'spec/approvals'
+    c.before(:suite) { RSpec::Approvals.reset }
   end
 
   module Approvals
@@ -22,6 +23,15 @@ module RSpec
       def path
         RSpec.configuration.approvals_path + "/"
       end
+
+      def reset
+        File.delete(dotfile)
+      end
+
+      def dotfile
+        '.approvals'
+      end
+
     end
 
   end

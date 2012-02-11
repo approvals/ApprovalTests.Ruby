@@ -37,7 +37,7 @@ module RSpec
 
         write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
         write(:received, received)
-        FileUtils.touch('.approvals')
+        FileUtils.touch(Approvals.dotfile)
       end
 
       def approved_path
@@ -102,7 +102,7 @@ module RSpec
 
       def append_to_dot_file
         unless in_dotfile?
-          File.open('.approvals', 'a+') do |f|
+          File.open(Approvals.dotfile, 'a+') do |f|
             f.write "#{diff_path}\n"
           end
         end
@@ -110,15 +110,15 @@ module RSpec
 
       def delete_from_dot_file
         if in_dotfile?
-          failures = File.read('.approvals').split("\n")
-          File.open('.approvals', 'w') do |f|
+          failures = File.read(Approvals.dotfile).split("\n")
+          File.open(Approvals.dotfile, 'w') do |f|
             f.write (failures - [diff_path]).join("\n")
           end
         end
       end
 
       def in_dotfile?
-        system("cat .approvals | grep -q \"^#{diff_path}$\"")
+        system("cat #{Approvals.dotfile} | grep -q \"^#{diff_path}$\"")
       end
 
       def diff_path
