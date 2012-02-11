@@ -73,18 +73,11 @@ module RSpec
         <<-FAILURE_MESSAGE
 
         Approval Failure:
-
-        The received contents did not match the approved contents.
+          The received contents did not match the approved contents.
 
         Inspect the differences in the following files:
         #{received_path}
         #{approved_path}
-
-        If you like what you see in the *.received.txt file, you can approve it
-        by renaming it with the .approved.txt suffix.
-
-        mv #{received_path} #{approved_path}
-
 
         FAILURE_MESSAGE
       end

@@ -179,18 +179,11 @@ The::Class       \t \r\n \fname
       message = <<-FAILURE_MESSAGE
 
         Approval Failure:
-
-        The received contents did not match the approved contents.
+          The received contents did not match the approved contents.
 
         Inspect the differences in the following files:
         #{approval.received_path}
         #{approval.approved_path}
-
-        If you like what you see in the *.received.txt file, you can approve it
-        by renaming it with the .approved.txt suffix.
-
-        mv #{approval.received_path} #{approval.approved_path}
-
 
       FAILURE_MESSAGE
 
@@ -202,18 +195,11 @@ The::Class       \t \r\n \fname
       message = <<-FAILURE_MESSAGE
 
         Approval Failure:
-
-        The received contents did not match the approved contents.
+          The received contents did not match the approved contents.
 
         Inspect the differences in the following files:
         #{approval.received_path}
         #{approval.approved_path}
-
-        If you like what you see in the *.received.txt file, you can approve it
-        by renaming it with the .approved.txt suffix.
-
-        mv #{approval.received_path} #{approval.approved_path}
-
 
         received:
         #{approval.received}
