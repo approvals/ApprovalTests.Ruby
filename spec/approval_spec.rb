@@ -90,7 +90,7 @@ The::Class       \t \r\n \fname
 
     context "with a match" do
       before :each do
-        approval.write(:approved, 'xyz')
+        approval.writer.write(:approved, 'xyz')
       end
 
       it "does not raise an error" do
@@ -105,7 +105,7 @@ The::Class       \t \r\n \fname
 
     context "with a mismatch" do
       before :each do
-        approval.write(:approved, 'abc')
+        approval.writer.write(:approved, 'abc')
       end
 
       it "raises an error" do

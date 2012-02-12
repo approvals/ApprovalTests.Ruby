@@ -24,7 +24,7 @@ module RSpec
         end
       end
 
-      attr_reader :location, :name
+      attr_reader :location, :name, :options, :path, :writer
 
       def initialize(example, received = '', options = {})
         @name = Approval.normalize(example.full_description)
@@ -36,9 +36,10 @@ module RSpec
           :received => received_path,
           :approved => approved_path,
         }
+        @writer = Writer.new(self)
 
-        write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
-        write(:received, received)
+        @writer.write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
+        @writer.write(:received, received)
       end
 
       def approved_path
@@ -47,22 +48,6 @@ module RSpec
 
       def received_path
         "#{@path}.received.txt"
-      end
-
-      def write(suffix, contents)
-        File.open("#{@path}.#{suffix}.txt", 'w') do |f|
-          if xml?
-            f.write as_xml(contents)
-          elsif json?
-            f.write as_json(contents)
-          elsif contents.respond_to?(:each_pair)
-            f.write as_hash(contents)
-          elsif contents.respond_to?(:each_with_index)
-            f.write as_array(contents)
-          else
-            f.write contents.inspect
-          end
-        end
       end
 
       def failure_message
@@ -101,39 +86,6 @@ module RSpec
 
       def received
         File.read(received_path)
-      end
-
-      def xml?
-        [:xml, :html].include? @options[:format]
-      end
-
-      def json?
-        @options[:format] == :json
-      end
-
-      def as_json(contents)
-        JSON.pretty_generate(JSON.parse(contents))
-      end
-
-      def as_xml(contents)
-        parser = XML::Parser.string contents.strip
-        parser.parse.to_s
-      end
-
-      def as_hash(contents)
-        s = ""
-        contents.each_pair do |k,v|
-          s << "#{k.inspect} => #{v.inspect}\n"
-        end
-        s
-      end
-
-      def as_array(contents)
-        s = ""
-        contents.each_with_index do |v,i|
-          s << "[#{i.inspect}] #{v.inspect}\n"
-        end
-        s
       end
     end
   end
