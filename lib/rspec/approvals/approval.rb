@@ -14,12 +14,14 @@ module RSpec
 
     class Approval
 
-      def self.normalize(s)
-        s.gsub(/[\W]/, ' ').strip.squeeze(" ").gsub(' ', '_').downcase
-      end
+      class << self
+        def normalize(s)
+          s.gsub(/[\W]/, ' ').strip.squeeze(" ").gsub(' ', '_').downcase
+        end
 
-      def self.base_path(s)
-        Approvals.path + normalize(s)
+        def base_path(s)
+          Approvals.path + normalize(s)
+        end
       end
 
       attr_reader :location, :name
