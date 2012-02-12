@@ -94,8 +94,7 @@ If this output looks right, approve the query. The next time the spec is run, it
 If someone changes the query, then the comparison will fail. Both the previously approved command and the received command will be executed so that you can inspect the difference between the results of the two.
 
     verify "an executable" do
-      sql = subject.expensive_sql # the actual sql as a string
-      RSpec::Approvals::Executable.new(sql) do |command|
+      executable(subject.slow_sql) do |command|
          result = ActiveRecord::Base.connection.execute(command)
          # do something to display the result
       end

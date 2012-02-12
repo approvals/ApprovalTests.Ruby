@@ -56,7 +56,7 @@ describe "Verifications" do
   end
 
   verify "an executable" do
-    executable = RSpec::Approvals::Executable.new('SELECT 1') do |command|
+    executable('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
     end
   end

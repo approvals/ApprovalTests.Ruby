@@ -19,6 +19,10 @@ module RSpec
         end
       end
 
+      def executable(command, &block)
+        Executable.new(command, &block)
+      end
+
     end
   end
 end
