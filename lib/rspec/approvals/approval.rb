@@ -37,7 +37,7 @@ module RSpec
 
         write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
         write(:received, received)
-        FileUtils.touch(Approvals.dotfile)
+        Dotfile.touch
       end
 
       def approved_path
@@ -85,21 +85,9 @@ module RSpec
         if FileUtils.cmp(received_path, approved_path)
           File.unlink(received_path)
         else
-          append_to_dot_file
+          Dotfile.append(diff_path)
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
         end
-      end
-
-      def append_to_dot_file
-        unless in_dotfile?
-          File.open(Approvals.dotfile, 'a+') do |f|
-            f.write "#{diff_path}\n"
-          end
-        end
-      end
-
-      def in_dotfile?
-        system("cat #{Approvals.dotfile} | grep -q \"^#{diff_path}$\"")
       end
 
       def diff_path

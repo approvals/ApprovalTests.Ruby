@@ -3,6 +3,7 @@ require 'xml'
 require "rspec/approvals/version"
 require "rspec/approvals/approval"
 require "rspec/approvals/dsl"
+require 'rspec/approvals/dotfile'
 
 module RSpec
   RSpec.configure do |c|
@@ -23,7 +24,7 @@ module RSpec
       end
 
       def reset
-        File.delete(dotfile) if File.exists?(dotfile)
+        Dotfile.reset
       end
 
       def dotfile
