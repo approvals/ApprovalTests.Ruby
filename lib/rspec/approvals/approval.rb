@@ -14,7 +14,7 @@ module RSpec
         end
       end
 
-      attr_reader :location, :name, :options, :path, :writer, :received
+      attr_reader :location, :name, :options, :path, :received
 
       def initialize(example, received = '', options = {})
         @name = Approval.normalize(example.full_description)
@@ -28,8 +28,6 @@ module RSpec
           :received => received_path,
           :approved => approved_path,
         }
-        write(approved_path, EmptyApproval.new.inspect) unless File.exists?(approved_path)
-        write(received_path, Formatter.new(self).as_s(received))
       end
 
       def write(path, contents)
@@ -64,10 +62,8 @@ module RSpec
       end
 
       def verify
-
-        if FileUtils.cmp(received_path, approved_path)
-          File.unlink(received_path)
-        else
+        unless received_text == approved_text
+          write(received_path, received_text)
           Dotfile.append(diff_path)
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
         end
@@ -76,6 +72,19 @@ module RSpec
       def diff_path
         "#{received_path} #{approved_path}"
       end
+
+      def approved_text
+        if File.exists?(approved_path)
+          File.read(approved_path)
+        else
+          EmptyApproval.new.inspect
+        end
+      end
+
+      def received_text
+        @received_text ||= Formatter.new(self).as_s(received)
+      end
+
     end
   end
 end

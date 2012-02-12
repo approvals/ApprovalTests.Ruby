@@ -48,49 +48,13 @@ The::Class       \t \r\n \fname
     end
   end
 
-  describe "on the filesystem" do
-    let(:approved_file) { "#{description}.approved.txt" }
-    let(:received_file) { "#{description}.received.txt" }
-
-    after :each do
-      File.delete(approved_file) if File.exists?(approved_file)
-      File.delete(received_file) if File.exists?(received_file)
-    end
-
-    it "writes the approved file if it doesn't exist" do
-      File.delete(approved_file) if File.exists?(approved_file)
-
-      Approval.new(example)
-
-      File.exists?(approved_file).should be_true
-      File.read(approved_file).should eq('')
-    end
-
-    it "doesn't overwrite an existing approved file" do
-      File.open(approved_file, 'w') do |f|
-        f.write "this doesn't get deleted"
-      end
-
-      Approval.new(example)
-
-      File.exists?(approved_file).should be_true
-      File.read(approved_file).should eq("this doesn't get deleted")
-    end
-
-    it "writes the received contents to file" do
-      approval = Approval.new(example, 'oooh, shiney!')
-
-      File.exists?(received_file).should be_true
-      File.read(received_file).should eq('"oooh, shiney!"')
-    end
-  end
-
   describe "verification" do
     let(:approval) { Approval.new(example, 'xyz') }
 
     context "with a match" do
       before :each do
         approval.write(approval.approved_path, 'xyz'.inspect)
+        File.delete(approval.received_path) if File.exists?(approval.received_path)
       end
 
       it "does not raise an error" do
