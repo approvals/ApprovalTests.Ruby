@@ -6,6 +6,7 @@ module RSpec
 
         def reset
           File.delete(path) if File.exists?(path)
+          touch
         end
 
         def path
