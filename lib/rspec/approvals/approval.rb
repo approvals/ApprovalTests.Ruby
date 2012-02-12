@@ -65,11 +65,6 @@ module RSpec
       end
 
       def failure_message
-        return failure_message_exposing_received if show_received?
-        return default_failure_message
-      end
-
-      def default_failure_message
         <<-FAILURE_MESSAGE
 
         Approval Failure:
@@ -80,10 +75,6 @@ module RSpec
         #{approved_path}
 
         FAILURE_MESSAGE
-      end
-
-      def failure_message_exposing_received
-        default_failure_message << "        received:\n        " << received << "\n\n\n"
       end
 
       def location=(backtrace)
@@ -139,10 +130,6 @@ module RSpec
 
       def json?
         @options[:format] == :json
-      end
-
-      def show_received?
-        @options[:show_received]
       end
 
       def as_json(contents)
