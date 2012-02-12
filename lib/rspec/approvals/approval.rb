@@ -30,10 +30,8 @@ module RSpec
         }
       end
 
-      def write(path, contents)
-        File.open(path, 'w') do |f|
-          f.write contents
-        end
+      def location=(backtrace)
+        @location = [backtrace.first.gsub(Dir.pwd, '.').gsub(/:in\ .*$/, '')]
       end
 
       def approved_path
@@ -42,31 +40,6 @@ module RSpec
 
       def received_path
         "#{@path}.received.txt"
-      end
-
-      def failure_message
-        <<-FAILURE_MESSAGE
-
-        Approval Failure:
-          The received contents did not match the approved contents.
-
-        Inspect the differences in the following files:
-        #{received_path}
-        #{approved_path}
-
-        FAILURE_MESSAGE
-      end
-
-      def location=(backtrace)
-        @location = [backtrace.first.gsub(Dir.pwd, '.').gsub(/:in\ .*$/, '')]
-      end
-
-      def verify
-        unless received_text == approved_text
-          write(received_path, received_text)
-          Dotfile.append(diff_path)
-          raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
-        end
       end
 
       def diff_path
@@ -83,6 +56,33 @@ module RSpec
 
       def received_text
         @received_text ||= Formatter.new(self).as_s(received)
+      end
+
+      def verify
+        unless received_text == approved_text
+          write(received_path, received_text)
+          Dotfile.append(diff_path)
+          raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
+        end
+      end
+
+      def write(path, contents)
+        File.open(path, 'w') do |f|
+          f.write contents
+        end
+      end
+
+      def failure_message
+        <<-FAILURE_MESSAGE
+
+        Approval Failure:
+          The received contents did not match the approved contents.
+
+        Inspect the differences in the following files:
+        #{received_path}
+        #{approved_path}
+
+        FAILURE_MESSAGE
       end
 
     end
