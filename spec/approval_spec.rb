@@ -33,13 +33,14 @@ The::Class       \t \r\n \fname
     end
   end
 
-  let(:description) { 'spec/approvals/fairy_dust_and_unicorns' }
   let(:example) { stub('example', :full_description => 'fairy dust and unicorns').as_null_object }
 
   describe "an approval" do
+    let(:path) { 'spec/approvals/fairy_dust_and_unicorns' }
     subject { Approval.new(example) }
-    its(:approved_path) { should eq("#{description}.approved.txt") }
-    its(:received_path) { should eq("#{description}.received.txt") }
+
+    its(:approved_path) { should eq("#{path}.approved.txt") }
+    its(:received_path) { should eq("#{path}.received.txt") }
 
     it "can set a location" do
       Dir.stub(:pwd => 'the/path')
@@ -53,8 +54,7 @@ The::Class       \t \r\n \fname
 
     context "with a match" do
       before :each do
-        approval.write(approval.approved_path, 'xyz'.inspect)
-        File.delete(approval.received_path) if File.exists?(approval.received_path)
+        approval.stub(:approved_text => 'xyz', :received_text => 'xyz')
       end
 
       it "does not raise an error" do
@@ -69,7 +69,11 @@ The::Class       \t \r\n \fname
 
     context "with a mismatch" do
       before :each do
-        approval.write(approval.approved_path, 'abc'.inspect)
+        approval.stub(:approved_text => 'xyz', :received_text => 'abc')
+      end
+
+      after :each do
+        File.delete(approval.received_path) if File.exists?(approval.received_path)
       end
 
       it "raises an error" do
