@@ -69,14 +69,6 @@ module RSpec
       def diff_path
         "#{received_path} #{approved_path}"
       end
-
-      def approved
-        File.read(approved_path)
-      end
-
-      def received
-        File.read(received_path)
-      end
     end
   end
 end
