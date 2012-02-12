@@ -77,4 +77,11 @@ describe RSpec::Approvals do
   verify "formats json nicely", :format => :json do
     {"hello" => "world"}.to_json
   end
+
+  verify "an executable" do
+    command = 'SELECT 1'
+    executable = RSpec::Approvals::Executable.new(command) do
+      puts 'your slip is showing'
+    end
+  end
 end

@@ -62,6 +62,9 @@ module RSpec
         unless received_text == approved_text
           write(received_path, received_text)
           Dotfile.append(diff_path)
+          if received.respond_to?(:on_failure)
+            received.on_failure.call
+          end
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
         end
       end
