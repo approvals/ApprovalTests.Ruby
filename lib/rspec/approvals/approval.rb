@@ -1,16 +1,10 @@
 require 'rspec/expectations/errors'
+require 'rspec/approvals/empty_approval'
 
 module RSpec
   module Approvals
 
     class ReceivedDiffersError < RSpec::Expectations::ExpectationNotMetError; end
-
-    class EmptyApproval
-      def inspect
-        ""
-      end
-      def strip; end
-    end
 
     class Approval
 
