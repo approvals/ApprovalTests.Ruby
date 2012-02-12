@@ -37,7 +37,6 @@ module RSpec
 
         write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
         write(:received, received)
-        Dotfile.touch
       end
 
       def approved_path
