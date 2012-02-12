@@ -1,25 +1,27 @@
-require 'spec_helper'
+require 'rspec/approvals'
 
-describe Approvals::Approval do
+describe RSpec::Approvals::Approval do
+  include RSpec::Approvals
+
   describe "#normalize" do
     it "downcases" do
-      Approvals::Approval.normalize("KTHXBYE").should eq("kthxbye")
+      Approval.normalize("KTHXBYE").should eq("kthxbye")
     end
 
     it "replaces spaces with underscores" do
-      Approvals::Approval.normalize("the spec").should eq("the_spec")
+      Approval.normalize("the spec").should eq("the_spec")
     end
 
     it "leaves numbers alone" do
-      Approvals::Approval.normalize('a 2009 party').should eq("a_2009_party")
+      Approval.normalize('a 2009 party').should eq("a_2009_party")
     end
 
     it "deletes funky characters" do
-      Approvals::Approval.normalize('the !@\#$%^&*(){}+| name').should eq("the_name")
+      Approval.normalize('the !@\#$%^&*(){}+| name').should eq("the_name")
     end
 
     it "collapses spaces before replacing with underscores" do
-      Approvals::Approval.normalize('omf             g').should eq('omf_g')
+      Approval.normalize('omf             g').should eq('omf_g')
     end
 
     it "deletes all sorts of spaces" do
@@ -27,7 +29,7 @@ describe Approvals::Approval do
 
 The::Class       \t \r\n \fname
       FUNKY_NAME
-      Approvals::Approval.normalize(name).should eq('the_class_name')
+      Approval.normalize(name).should eq('the_class_name')
     end
   end
 
@@ -35,7 +37,7 @@ The::Class       \t \r\n \fname
   let(:example) { stub('example', :full_description => 'fairy dust and unicorns').as_null_object }
 
   describe "an approval" do
-    subject { Approvals::Approval.new(example) }
+    subject { Approval.new(example) }
     its(:approved_path) { should eq("#{description}.approved.txt") }
     its(:received_path) { should eq("#{description}.received.txt") }
 
@@ -58,7 +60,7 @@ The::Class       \t \r\n \fname
     it "writes the approved file if it doesn't exist" do
       File.delete(approved_file) if File.exists?(approved_file)
 
-      Approvals::Approval.new(example)
+      Approval.new(example)
 
       File.exists?(approved_file).should be_true
       File.read(approved_file).should eq('')
@@ -69,14 +71,14 @@ The::Class       \t \r\n \fname
         f.write "this doesn't get deleted"
       end
 
-      Approvals::Approval.new(example)
+      Approval.new(example)
 
       File.exists?(approved_file).should be_true
       File.read(approved_file).should eq("this doesn't get deleted")
     end
 
     it "writes the received contents to file" do
-      approval = Approvals::Approval.new(example, 'oooh, shiney!')
+      approval = Approval.new(example, 'oooh, shiney!')
 
       File.exists?(received_file).should be_true
       File.read(received_file).should eq('"oooh, shiney!"')
@@ -84,7 +86,7 @@ The::Class       \t \r\n \fname
   end
 
   describe "verification" do
-    let(:approval) { Approvals::Approval.new(example, 'xyz') }
+    let(:approval) { Approval.new(example, 'xyz') }
 
     context "with a match" do
       before :each do
@@ -119,31 +121,15 @@ The::Class       \t \r\n \fname
         File.exists?(approval.received_path).should be_true
       end
 
-      it "appends the name to the .approvals file" do
-        begin
-          approval.verify
-        rescue RSpec::Approvals::ReceivedDiffersError => e
-          # moving on
-        end
-        expected = "spec/approvals/fairy_dust_and_unicorns.received.txt spec/approvals/fairy_dust_and_unicorns.approved.txt"
-        File.read('.approvals').split("\n").should include(expected)
-      end
-
-      it "only appends the name once" do
-        begin
-          approval.verify
-        rescue RSpec::Approvals::ReceivedDiffersError => e
-          # moving on
-        end
+      it "appends to the dotfile" do
+        approval.stub(:diff_path => 'the diff path')
+        Dotfile.should_receive(:append).with "the diff path"
 
         begin
           approval.verify
         rescue RSpec::Approvals::ReceivedDiffersError => e
           # moving on
         end
-
-        lines = File.read('.approvals').split("\n")
-        lines.size.should eq(lines.sort.uniq.size)
       end
     end
 

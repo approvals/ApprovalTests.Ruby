@@ -1,7 +1,8 @@
-require 'spec_helper'
+require 'rspec/approvals'
 require 'json'
 
-describe Approvals do
+describe RSpec::Approvals do
+  include RSpec
 
   it "defaults the output dir to spec/approvals" do
     RSpec.configuration.approvals_path.should == 'spec/approvals'
