@@ -84,7 +84,6 @@ module RSpec
       def verify
         if FileUtils.cmp(received_path, approved_path)
           File.unlink(received_path)
-          delete_from_dot_file
         else
           append_to_dot_file
           raise RSpec::Approvals::ReceivedDiffersError, failure_message, location
@@ -95,15 +94,6 @@ module RSpec
         unless in_dotfile?
           File.open(Approvals.dotfile, 'a+') do |f|
             f.write "#{diff_path}\n"
-          end
-        end
-      end
-
-      def delete_from_dot_file
-        if in_dotfile?
-          failures = File.read(Approvals.dotfile).split("\n")
-          File.open(Approvals.dotfile, 'w') do |f|
-            f.write (failures - [diff_path]).join("\n")
           end
         end
       end

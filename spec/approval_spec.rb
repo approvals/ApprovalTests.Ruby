@@ -99,22 +99,6 @@ The::Class       \t \r\n \fname
         lambda { approval.verify }.call
         File.exists?(approval.received_path).should be_false
       end
-
-      it "deletes a previously rejected change from the dotfile" do
-        expected = "spec/approvals/fairy_dust_and_unicorns.received.txt spec/approvals/fairy_dust_and_unicorns.approved.txt"
-
-        approval.write(:approved, 'abc')
-        begin
-          approval.verify
-        rescue RSpec::Approvals::ReceivedDiffersError => e
-          # guard
-          File.read('.approvals').split("\n").should include(expected)
-        end
-
-        approval.write(:approved, 'xyz')
-        lambda { approval.verify }.call
-        File.read('.approvals').split("\n").should_not include(expected)
-      end
     end
 
     context "with a mismatch" do
