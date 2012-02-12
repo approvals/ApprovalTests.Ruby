@@ -80,5 +80,24 @@ For an example who's full description is `My Spec`:
 
 When you rerun the spec, it should now pass.
 
+### Expensive computations
+
+The Executable class allows you to perform expensive operations only when the command to execute it changes.
+
+For example, if you have a SQL query that is very slow, you can create an executable with the actual SQL to be performed.
+
+The first time the spec runs, it will fail, allowing you to inspect the results.
+If this output looks right, approve the query. The next time the spec is run, it will compare only the actual SQL.
+
+If someone changes the query, then the comparison will fail, the query will be executed, and you can inspect the new results.
+
+    verify "an executable" do
+      sql = subject.expensive_sql # the actual sql as a string
+      RSpec::Approvals::Executable.new(sql) do
+         result = ActiveRecord::Base.connection.execute(sql)
+         # do something to display the result
+      end
+    end
+
 
 Copyright (c) 2011 Katrina Owen, released under the MIT license
