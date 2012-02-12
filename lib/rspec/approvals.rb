@@ -27,10 +27,6 @@ module RSpec
         Dotfile.reset
       end
 
-      def dotfile
-        '.approvals'
-      end
-
     end
 
   end

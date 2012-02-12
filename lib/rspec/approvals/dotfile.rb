@@ -10,7 +10,7 @@ module RSpec
         end
 
         def path
-          Approvals.dotfile
+          '.approvals'
         end
 
         def touch
