@@ -1,4 +1,5 @@
 require 'rspec/expectations/errors'
+require 'rspec/approvals/empty_approval'
 
 module RSpec
   module Approvals
@@ -20,14 +21,21 @@ module RSpec
         @path = Approvals.path + name
         @options = options
         @received = received
-        @writer = Writer.new(self)
+        @formatter = Formatter.new(self)
 
         example.options[:approval] = true
         example.options[:approval_diff_paths] = {
           :received => received_path,
           :approved => approved_path,
         }
-        writer.write(:received, received)
+        write(approved_path, EmptyApproval.new.inspect) unless File.exists?(approved_path)
+        write(received_path, Formatter.new(self).as_s(received))
+      end
+
+      def write(path, contents)
+        File.open(path, 'w') do |f|
+          f.write contents
+        end
       end
 
       def approved_path

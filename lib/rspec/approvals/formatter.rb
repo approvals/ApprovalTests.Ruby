@@ -1,33 +1,22 @@
-require 'rspec/approvals/empty_approval'
-
 module RSpec
   module Approvals
-
-    class Writer
-
+    class Formatter
       attr_accessor :approval
       def initialize(approval)
         self.approval = approval
-        init_approved
       end
 
-      def init_approved
-        write(:approved, EmptyApproval.new) unless File.exists?(approval.approved_path)
-      end
-
-      def write(suffix, contents)
-        File.open("#{approval.path}.#{suffix}.txt", 'w') do |f|
-          if xml?
-            f.write as_xml(contents)
-          elsif json?
-            f.write as_json(contents)
-          elsif contents.respond_to?(:each_pair)
-            f.write as_hash(contents)
-          elsif contents.respond_to?(:each_with_index)
-            f.write as_array(contents)
-          else
-            f.write contents.inspect
-          end
+      def as_s(contents)
+        if xml?
+          as_xml(contents)
+        elsif json?
+          as_json(contents)
+        elsif contents.respond_to?(:each_pair)
+          as_hash(contents)
+        elsif contents.respond_to?(:each_with_index)
+          as_array(contents)
+        else
+          contents.inspect
         end
       end
 
@@ -64,5 +53,6 @@ module RSpec
         s
       end
     end
+
   end
 end

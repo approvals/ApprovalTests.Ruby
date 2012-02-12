@@ -4,7 +4,7 @@ require "rspec/approvals/version"
 require "rspec/approvals/approval"
 require "rspec/approvals/dsl"
 require 'rspec/approvals/dotfile'
-require 'rspec/approvals/writer'
+require 'rspec/approvals/formatter'
 
 module RSpec
   RSpec.configure do |c|
