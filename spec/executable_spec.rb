@@ -7,10 +7,9 @@ describe RSpec::Approvals::Executable do
   its(:inspect) { should eq('SELECT 1') }
 
   it "takes a block" do
-    command = 'SELECT 1'
-    executable = Executable.new(command) do
-      'execute query'
+    executable = Executable.new('SELECT 1') do |command|
+      "execute query: #{command}"
     end
-    executable.on_failure.call.should eq('execute query')
+    executable.on_failure.call('SELECT 1').should eq('execute query: SELECT 1')
   end
 end

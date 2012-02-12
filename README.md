@@ -89,15 +89,14 @@ For example, if you have a SQL query that is very slow, you can create an execut
 The first time the spec runs, it will fail, allowing you to inspect the results.
 If this output looks right, approve the query. The next time the spec is run, it will compare only the actual SQL.
 
-If someone changes the query, then the comparison will fail, the query will be executed, and you can inspect the new results.
+If someone changes the query, then the comparison will fail. Both the previously approved command and the received command will be executed so that you can inspect the difference between the results of the two.
 
     verify "an executable" do
       sql = subject.expensive_sql # the actual sql as a string
-      RSpec::Approvals::Executable.new(sql) do
-         result = ActiveRecord::Base.connection.execute(sql)
+      RSpec::Approvals::Executable.new(sql) do |command|
+         result = ActiveRecord::Base.connection.execute(command)
          # do something to display the result
       end
     end
-
 
 Copyright (c) 2011 Katrina Owen, released under the MIT license
