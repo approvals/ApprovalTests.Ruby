@@ -1,3 +1,5 @@
+require 'rspec/approvals/empty_approval'
+
 module RSpec
   module Approvals
 
@@ -6,6 +8,11 @@ module RSpec
       attr_accessor :approval
       def initialize(approval)
         self.approval = approval
+        init_approved
+      end
+
+      def init_approved
+        write(:approved, EmptyApproval.new) unless File.exists?(approval.approved_path)
       end
 
       def write(suffix, contents)

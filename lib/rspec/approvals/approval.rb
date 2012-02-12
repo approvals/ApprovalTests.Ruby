@@ -1,5 +1,4 @@
 require 'rspec/expectations/errors'
-require 'rspec/approvals/empty_approval'
 
 module RSpec
   module Approvals
@@ -14,22 +13,21 @@ module RSpec
         end
       end
 
-      attr_reader :location, :name, :options, :path, :writer
+      attr_reader :location, :name, :options, :path, :writer, :received
 
       def initialize(example, received = '', options = {})
         @name = Approval.normalize(example.full_description)
         @path = Approvals.path + name
         @options = options
+        @received = received
+        @writer = Writer.new(self)
 
         example.options[:approval] = true
         example.options[:approval_diff_paths] = {
           :received => received_path,
           :approved => approved_path,
         }
-        @writer = Writer.new(self)
-
-        @writer.write(:approved, EmptyApproval.new) unless File.exists?(approved_path)
-        @writer.write(:received, received)
+        writer.write(:received, received)
       end
 
       def approved_path
@@ -58,6 +56,7 @@ module RSpec
       end
 
       def verify
+
         if FileUtils.cmp(received_path, approved_path)
           File.unlink(received_path)
         else
