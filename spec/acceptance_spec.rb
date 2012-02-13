@@ -52,7 +52,7 @@ describe "Verifications" do
   end
 
   verify "formats json nicely", :format => :json do
-    {"hello" => "world"}.to_json
+    "{\"hello\":\"world\"}"
   end
 
   verify "an executable" do
