@@ -21,7 +21,6 @@ module RSpec
         @path = Approvals.path + name
         @options = options
         @received = received
-        @formatter = Formatter.new(self)
 
         example.options[:approval] = true
         example.options[:approval_diff_paths] = {
@@ -55,7 +54,7 @@ module RSpec
       end
 
       def received_text
-        @received_text ||= Formatter.new(self).as_s(received)
+        @received_text ||= Formatter.new(self).to_s
       end
 
       def verify
