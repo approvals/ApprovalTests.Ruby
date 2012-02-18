@@ -7,7 +7,9 @@ module RSpec
       end
 
       def as_s(contents)
-        if xml?
+        if html?
+          as_html(contents)
+        elsif xml?
           as_xml(contents)
         elsif json?
           as_json(contents)
@@ -21,7 +23,11 @@ module RSpec
       end
 
       def xml?
-        [:xml, :html].include? approval.options[:format]
+        approval.options[:format] == :xml
+      end
+
+      def html?
+        approval.options[:format] == :html
       end
 
       def json?
@@ -32,9 +38,12 @@ module RSpec
         JSON.pretty_generate(JSON.parse(contents))
       end
 
+      def as_html(contents)
+        Nokogiri::XML(contents.to_s.strip,&:noblanks).to_xhtml(:indent => 2, :encoding => 'UTF-8')
+      end
+
       def as_xml(contents)
-        parser = XML::Parser.string contents.strip
-        parser.parse.to_s
+        Nokogiri::XML(contents.to_s.strip,&:noblanks).to_xml(:indent => 2, :encoding => 'UTF-8')
       end
 
       def as_hash(contents)

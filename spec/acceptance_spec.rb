@@ -41,10 +41,10 @@ describe "Verifications" do
   end
 
   verify "formats html nicely", :format => :html do
-    <<-XML
-    <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>blog</title><script type="text/javascript" src="/blog/static/jquery-1.1.3.pack.js"></script><script type="text/javascript" src="/blog/static/blog.js"></script><link type="text/css" rel="stylesheet" href="/blog/styles.css" media="screen"/></head><body><h1 class="header"><a href="/blog/">blog</a></h1><div class="content"><h1 class="post_head"><a href="/blog/view/2">Hej</a><a class="edit_link" href="/blog/edit/2">edit</a></h1><p>ASDJlksdjfsld
+    <<-HTML
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>blog</title><script type="text/javascript" src="/blog/static/jquery-1.1.3.pack.js"></script><script type="text/javascript" src="/blog/static/blog.js"></script><link type="text/css" rel="stylesheet" href="/blog/styles.css" media="screen"/></head><body><h1 class="header"><a href="/blog/">blog</a></h1><div class="content"><h1 class="post_head"><a href="/blog/view/2">Hej</a><a class="edit_link" href="/blog/edit/2">edit</a></h1><p>ASDJlksdjfsld
     </p><h2 class="comment_head"><a href="javascript:getComments(2)">See comments (2)</a></h2><div id="comments"><h3>tyysen</h3><p>miljoooner</p><h3>hej</h3><p>bulan</p></div><h2 class="add_comment_head"><a href="#comment_form">Add comment</a></h2><form method="post" name="comment_form" id="comment_form" action="/blog/comment"><label for="post_username">Name</label><br/><input type="text" name="post_username"/><br/><label for="post_body">Comment</label><br/><textarea name="post_body"></textarea><br/><input type="hidden" name="post_id" value="2"/><input type="submit" value="Add comment"/></form></div></body></html>
-    XML
+    HTML
   end
 
   verify "formats xml nicely", :format => :xml, do

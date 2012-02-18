@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rspec', '~> 2.7'
   s.add_dependency 'thor'
-  s.add_dependency 'libxml-ruby'
+  s.add_dependency 'nokogiri'
 end
