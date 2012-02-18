@@ -1,4 +1,4 @@
-require 'tempfile'
+require 'rspec/approvals'
 
 module RSpec
   module Approvals
@@ -19,10 +19,11 @@ module RSpec
       end
 
       def display(page)
-        file = Tempfile.new(['foo', '.html'])
-        file.write page
-        file.close
-        system("open #{file.path}")
+        filename = "#{Approvals.path}tmp-#{rand(Time.now.to_i)}.html"
+        File.open(filename, 'w') do |file|
+          file.write page
+        end
+        system("open #{filename}")
       end
 
       private
