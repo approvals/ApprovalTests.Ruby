@@ -25,6 +25,10 @@ module RSpec
         RSpec.configuration.approvals_path + "/"
       end
 
+      def tmp_path
+        'tmp/'
+      end
+
       def reset
         Dotfile.reset
       end
@@ -36,3 +40,4 @@ module RSpec
 end
 
 RSpec::Approvals.initialize_approvals_path
+FileUtils.makedirs(RSpec::Approvals.tmp_path) unless Dir.exists?(RSpec::Approvals.tmp_path)

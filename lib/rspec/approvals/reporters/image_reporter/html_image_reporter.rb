@@ -19,7 +19,7 @@ module RSpec
       end
 
       def display(page)
-        filename = "#{Approvals.path}tmp-#{rand(Time.now.to_i)}.html"
+        filename = "#{Approvals.tmp_path}tmp-#{rand(Time.now.to_i)}.html"
         File.open(filename, 'w') do |file|
           file.write page
         end
