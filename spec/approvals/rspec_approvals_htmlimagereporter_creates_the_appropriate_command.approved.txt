@@ -8,9 +8,9 @@
       <table style="text-align: center;" border="1">
         <tr>
           <td>
-            <img src="file:///Users/katrina/code/gems/rspec-approvals/spec/fixtures/one.png" />
+            <img src="file://{{current_dir}}/spec/fixtures/one.png" />
             <td>
-              <img src="file:///Users/katrina/code/gems/rspec-approvals/spec/fixtures/two.png" />
+              <img src="file://{{current_dir}}/spec/fixtures/two.png" />
             </td>
             <tr>
               <td>received</td>
