@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Approval</title>
+  </head>
+  <body>
+    <center>
+      <table style="text-align: center;" border="1">
+        <tr>
+          <td>
+            <img src="file://{{current_dir}}/spec/fixtures/one.png" />
+            <td>
+              <img src="file://{{current_dir}}/spec/fixtures/two.png" />
+            </td>
+            <tr>
+              <td>received</td>
+              <td>approved</td>
+            </tr>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>
