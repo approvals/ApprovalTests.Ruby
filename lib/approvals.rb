@@ -1,10 +1,13 @@
 require 'nokogiri'
-require 'approvals/dsl'
+require 'approvals/configuration'
 require 'approvals/approval'
+require 'approvals/dsl'
 require 'approvals/error'
 require 'approvals/utilities'
 require 'approvals/reporters'
 require 'approvals/writer'
+
+require 'approvals/extensions/rspec'
 
 
 module Approvals

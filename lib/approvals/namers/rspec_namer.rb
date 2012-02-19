@@ -12,15 +12,14 @@ module Approvals
       end
 
       def output_dir
-        'spec/fixtures/approvals/'
-        # unless @output_dir
-        #   if defined? RSpec
-        #     @output_dir = RSpec.configuration.approvals_path
-        #   else
-        #     'approvals/'
-        #   end
-        # end
-        # @output_dir
+        unless @output_dir
+          begin
+            @output_dir = ::RSpec.configuration.approvals_path
+          rescue NoMethodError => e
+            @output_dir = 'spec/fixtures/approvals/'
+          end
+        end
+        @output_dir
       end
 
     end
