@@ -58,12 +58,12 @@ module Approvals
     def fail_with(message)
       writer.touch(approved_path) unless File.exists? approved_path
 
+      Dotfile.append(diff_path)
+
       if subject.respond_to?(:on_failure)
         subject.on_failure.call(approved_text) if approved?
         subject.on_failure.call(received_text)
       end
-
-      Dotfile.append(diff_path)
 
       raise ApprovalError.new("Approval Error: #{message}")
     end

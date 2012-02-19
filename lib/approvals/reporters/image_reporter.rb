@@ -1,6 +1,3 @@
-require 'approvals/reporters/image_reporter/image_magick_reporter'
-require 'approvals/reporters/image_reporter/html_image_reporter'
-
 module Approvals
   module Reporters
 
