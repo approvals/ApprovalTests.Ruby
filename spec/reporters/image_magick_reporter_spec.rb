@@ -1,7 +1,8 @@
-require 'rspec/approvals/reporters'
+require 'approvals/reporters'
 
-describe RSpec::Approvals::ImageMagickReporter do
-  subject { RSpec::Approvals::ImageMagickReporter.instance }
+describe Approvals::Reporters::ImageMagickReporter do
+  include Approvals::Reporters
+  subject { ImageMagickReporter.instance }
 
   it "creates the appropriate command" do
     result = subject.create_command_line("spec/fixtures/one.png", "spec/fixtures/two.png")

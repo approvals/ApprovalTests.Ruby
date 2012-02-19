@@ -1,0 +1,5 @@
+require 'approvals/writers/text_writer'
+require 'approvals/writers/array_writer'
+require 'approvals/writers/html_writer'
+require 'approvals/writers/xml_writer'
+require 'approvals/writers/json_writer'

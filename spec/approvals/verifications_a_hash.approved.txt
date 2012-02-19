@@ -1,3 +1,0 @@
-:universe => {:side=>:dark, :other_side=>:light}
-:force => true
-:evil => "undecided"

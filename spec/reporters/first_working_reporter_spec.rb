@@ -1,7 +1,7 @@
-require 'rspec/approvals/reporters/first_working_reporter'
+require 'approvals/reporters/first_working_reporter'
 
-describe RSpec::Approvals::FirstWorkingReporter do
-  include RSpec::Approvals
+describe Approvals::Reporters::FirstWorkingReporter do
+  include Approvals::Reporters
 
   let(:no) { stub(:working_in_this_environment? => false) }
   let(:yes) { stub(:working_in_this_environment? => true) }
