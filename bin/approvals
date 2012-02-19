@@ -2,9 +2,8 @@
 
 require 'rubygems'
 require 'thor'
-require 'rspec'
-require 'rspec-approvals'
-require 'rspec/approvals/cli'
+require 'approvals'
+require 'approvals/utilities/cli'
 
-RSpec::Approvals::CLI.start
+Approvals::CLI.start
 
