@@ -18,6 +18,12 @@ describe Approvals::Namers::RSpecNamer do
       end
     end
 
+    after :each do
+      RSpec.configure do |c|
+        c.approvals_path = nil
+      end
+    end
+
     it "uses the rspec config option" do
       RSpecNamer.new(self.example).output_dir.should eq('spec/output/dir/')
     end

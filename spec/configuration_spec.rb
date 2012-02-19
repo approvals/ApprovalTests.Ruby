@@ -13,6 +13,12 @@ describe Approvals::Configuration do
       end
     end
 
+    after(:each) do
+      Approvals.configure do |c|
+        c.approvals_path = nil
+      end
+    end
+
     it "overrides the output directory" do
       Approvals.configuration.approvals_path.should eq('output/dir/')
     end

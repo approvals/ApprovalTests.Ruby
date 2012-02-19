@@ -8,7 +8,7 @@ module Approvals
       end
 
       def normalize(string)
-        string.gsub(/[\W]/, ' ').strip.squeeze(" ").gsub(' ', '_').downcase
+        string.strip.squeeze(" ").gsub(/[\ :-]+/, '_').gsub(/[\W]/, '').downcase
       end
 
       def output_dir
