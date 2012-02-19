@@ -3,7 +3,8 @@ module Approvals
     class DefaultNamer
 
       attr_reader :name
-      def initialize(name)
+      def initialize(name = nil)
+        raise ArgumentError.new("DefaultNamer: You must specify a name") if name.nil?
         @name = normalize(name)
       end
 

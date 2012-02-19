@@ -7,7 +7,7 @@ module Approvals
     attr_reader :subject, :namer, :failure
     def initialize(subject, options = {})
       @subject = subject
-      @namer = options[:namer]
+      @namer = options[:namer] || Namers::DefaultNamer.new(options[:name])
       @format = options[:format] || identify_format
     end
 
@@ -68,6 +68,10 @@ module Approvals
 
     def full_path(state)
       "#{namer.output_dir}#{namer.name}.#{state}.#{writer.extension}"
+    end
+
+    def name
+      namer.name
     end
 
     def approved_path

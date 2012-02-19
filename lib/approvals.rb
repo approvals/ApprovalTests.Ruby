@@ -6,6 +6,7 @@ require 'approvals/error'
 require 'approvals/utilities'
 require 'approvals/reporters'
 require 'approvals/writer'
+require 'approvals/namers/default_namer'
 
 require 'approvals/extensions/rspec'
 
