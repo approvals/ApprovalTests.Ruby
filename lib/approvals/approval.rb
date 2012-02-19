@@ -56,6 +56,8 @@ module Approvals
     end
 
     def fail_with(message)
+      writer.touch(approved_path) unless File.exists? approved_path
+
       if subject.respond_to?(:on_failure)
         subject.on_failure.call(approved_text) if approved?
         subject.on_failure.call(received_text)

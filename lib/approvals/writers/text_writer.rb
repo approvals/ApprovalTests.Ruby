@@ -17,6 +17,10 @@ module Approvals
         data.inspect
       end
 
+      def touch(path)
+        FileUtils.touch(path)
+      end
+
     end
   end
 end
