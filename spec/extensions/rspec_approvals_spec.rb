@@ -1,4 +1,4 @@
-require 'approvals/extensions/rspec'
+require 'approvals'
 
 describe "Verifies" do
   verify "a string" do

@@ -7,8 +7,12 @@ module Approvals
     attr_reader :subject, :namer, :failure
     def initialize(subject, options = {})
       @subject = subject
-      @namer = options[:namer] || Namers::DefaultNamer.new(options[:name])
+      @namer = options[:namer] || default_namer(options[:name])
       @format = options[:format] || identify_format
+    end
+
+    def default_namer(name)
+      Namers::DefaultNamer.new(options[:name])
     end
 
     def identify_format
