@@ -1,1 +1,2 @@
-Make it possible to configure the rspec default path (on namer)
+[ ] add default namer
+    Approvals.verify(something, :name => 'the name of this test')
