@@ -4,16 +4,23 @@ module Approvals
     module Launcher
 
       class << self
-        [:opendiff, :diffmerge, :vimdiff].each do |name|
+        REPORTERS = [:opendiff, :diffmerge, :vimdiff, :tortoisediff, :filelauncher]
+
+        def memoized(instance_variable)
+          unless self.instance_variable_get(instance_variable)
+            value = yield
+            self.instance_variable_set(instance_variable, value)
+          end
+          self.instance_variable_get(instance_variable)
+        end
+
+        REPORTERS.each do |name|
           define_method name do
-            instance_variable = :"@#{name}"
-            unless self.instance_variable_get(instance_variable)
-              launcher = lambda {|received, approved|
+            memoized(:"@#{name}") do
+              lambda {|received, approved|
                 self.send("#{name}_command".to_sym, received, approved)
               }
-              self.instance_variable_set(instance_variable, launcher)
             end
-            self.instance_variable_get(instance_variable)
           end
         end
 
@@ -29,6 +36,13 @@ module Approvals
           "vimdiff #{received} #{approved}"
         end
 
+        def tortoisediff_command(received, approved)
+          "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseMerge.exe #{received} #{approved}"
+        end
+
+        def filelauncher_command(received, approved)
+          "open #{received}"
+        end
       end
     end
   end
