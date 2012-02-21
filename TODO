@@ -1,2 +1,1 @@
-[ ] add default namer
-    Approvals.verify(something, :name => 'the name of this test')
+[ ] add cucumber support (namer + extension + features)
