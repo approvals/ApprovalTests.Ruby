@@ -18,7 +18,7 @@ module Approvals
     attr_writer :approvals_path
 
     def approvals_path
-      @approvals_path ||= 'approvals/'
+      @approvals_path ||= 'fixtures/approvals/'
     end
   end
 end

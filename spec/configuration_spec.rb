@@ -2,8 +2,8 @@ require 'approvals/configuration'
 
 describe Approvals::Configuration do
 
-  it "defaults to 'approvals/'" do
-    Approvals.configuration.approvals_path.should eq('approvals/')
+  it "defaults to 'fixtures/approvals/'" do
+    Approvals.configuration.approvals_path.should eq('fixtures/approvals/')
   end
 
   describe "when set" do
