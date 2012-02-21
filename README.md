@@ -14,7 +14,7 @@ See [ApprovalTests](http://www.approvaltests.com) for videos and additional docu
 Also, check out  Herding Code's [podcast #117](http://t.co/GLn88R5) in
 which Llewellyn Falco is interviewed about approvals.
 
-[![Build Status](https://secure.travis-ci.org/kytrinyx/rspec-approvals.png?branch=master)](http://travis-ci.org/kytrinyx/rspec-approvals)
+[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.png?branch=master)](http://travis-ci.org/kytrinyx/approvals)
 
 ## Configuration
 
