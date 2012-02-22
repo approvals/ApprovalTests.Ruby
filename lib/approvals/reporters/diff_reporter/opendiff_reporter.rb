@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class OpendiffReporter < DiffReporter
+    class OpendiffReporter < Reporter
       include Singleton
 
       class << self

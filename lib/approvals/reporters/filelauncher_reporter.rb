@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class FilelauncherReporter < DiffReporter
+    class FilelauncherReporter < Reporter
       include Singleton
 
       class << self

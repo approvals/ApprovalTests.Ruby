@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class DiffReporter
+    class Reporter
 
       attr_reader :launcher
 

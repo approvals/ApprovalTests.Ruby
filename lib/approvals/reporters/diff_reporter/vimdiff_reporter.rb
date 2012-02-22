@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class VimdiffReporter < DiffReporter
+    class VimdiffReporter < Reporter
       include Singleton
 
       class << self

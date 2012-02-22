@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class TortoisediffReporter < DiffReporter
+    class TortoisediffReporter < Reporter
       include Singleton
 
       class << self

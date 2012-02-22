@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class DiffmergeReporter < DiffReporter
+    class DiffmergeReporter < Reporter
       include Singleton
 
       class << self
