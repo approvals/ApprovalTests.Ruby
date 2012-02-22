@@ -2,9 +2,8 @@ require 'approvals/configuration'
 require 'approvals/namers/default_namer'
 
 describe Approvals::Namers::DefaultNamer do
-  include Approvals::Namers
 
-  subject { DefaultNamer.new("a f!$^%&*(unky name") }
+  subject { Approvals::Namers::DefaultNamer.new("a f!$^%&*(unky name") }
 
   it "normalizes the name" do
     subject.name.should eq("a_funky_name")
@@ -29,7 +28,7 @@ describe Approvals::Namers::DefaultNamer do
   end
 
   it "must have a name" do
-    ->{ DefaultNamer.new(nil) }.should raise_error(ArgumentError)
+    ->{ Approvals::Namers::DefaultNamer.new(nil) }.should raise_error(ArgumentError)
   end
 
 end

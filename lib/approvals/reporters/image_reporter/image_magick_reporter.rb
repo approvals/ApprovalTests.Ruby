@@ -4,7 +4,7 @@ module Approvals
       include Singleton
 
       def working_in_this_environment?
-        SystemCommand.exists? "compare"
+        Approvals::SystemCommand.exists? "compare"
       end
 
       def create_command_line(received, approved)

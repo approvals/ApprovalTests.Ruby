@@ -1,11 +1,10 @@
 require 'approvals/utilities/scrubber'
 
 describe Approvals::Scrubber do
-  include Approvals
 
   describe "defaults" do
     let(:path) { File.expand_path('.') }
-    subject { Scrubber.new("I am currently at #{path}") }
+    subject { Approvals::Scrubber.new("I am currently at #{path}") }
 
     its(:to_s) { should eq("I am currently at {{current_dir}}") }
 
@@ -19,6 +18,6 @@ describe Approvals::Scrubber do
   end
 
   it "overrides default hash" do
-    Scrubber.new("oh, my GAWD", {"deity" => "GAWD"}).to_s.should eq('oh, my {{deity}}')
+    Approvals::Scrubber.new("oh, my GAWD", {"deity" => "GAWD"}).to_s.should eq('oh, my {{deity}}')
   end
 end
