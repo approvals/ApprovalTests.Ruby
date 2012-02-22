@@ -32,13 +32,11 @@ The default location for the output files is
 
 This will raise an `ApprovalError` in the case of a failure.
 
-The `:inspect` method on the subject will be used to generate the output for
+The default writer uses the `:to_s` method on the subject will be used to generate the output for
 the `received` file. For custom complex objects you will need to override
-`:to_s` or `:inspect` to get helpful output, rather than the default:
+`:to_s` to get helpful output, rather than the default:
 
     #<Object:0x0000010105ea40> # or whatever the object id is
-
-Note: `:inspect` uses `:to_s` unless it has been specifically defined to do something else.
 
 The first time the approval is run, a file will be created with the contents of the subject of your approval:
 

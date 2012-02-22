@@ -56,7 +56,7 @@ module Approvals
     end
 
     def fail_with(message)
-      writer.touch(approved_path) unless File.exists? approved_path
+      writer.write("", approved_path) unless File.exists? approved_path
 
       Dotfile.append(diff_path)
 

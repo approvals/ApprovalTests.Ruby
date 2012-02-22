@@ -14,11 +14,7 @@ module Approvals
       end
 
       def format(data)
-        data.inspect
-      end
-
-      def touch(path)
-        FileUtils.touch(path)
+        data.to_s
       end
 
     end
