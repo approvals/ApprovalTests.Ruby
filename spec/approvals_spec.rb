@@ -24,6 +24,16 @@ describe Approvals do
     Approvals.verify array, :namer => namer
   end
 
+  it "verifies a hash" do
+    hash = {
+      :meal => 'breakfast',
+      :proteins => '90%',
+      :price => 38,
+      :delicious => true
+    }
+    Approvals.verify hash, :namer => namer
+  end
+
   it "verifies a complex object" do
     hello = Object.new
     def hello.to_s
