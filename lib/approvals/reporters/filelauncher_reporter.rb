@@ -4,7 +4,7 @@ module Approvals
       include Singleton
 
       class << self
-        def report(received, approved)
+        def report(received, approved = nil)
           self.instance.report(received, approved)
         end
       end
