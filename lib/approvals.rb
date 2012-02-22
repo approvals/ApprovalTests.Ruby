@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'nokogiri'
 require 'approvals/configuration'
 require 'approvals/approval'

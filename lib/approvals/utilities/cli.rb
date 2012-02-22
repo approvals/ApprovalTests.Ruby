@@ -1,3 +1,5 @@
+# don't require the approvals library here, as it will reset the dotfile.
+# or find a better way to reset the dotfile before a run.
 module Approvals
   class CLI < Thor
 
@@ -5,7 +7,6 @@ module Approvals
     method_option :diff, :type => :string, :default => 'vimdiff', :aliases => '-d', :desc => 'The difftool to use'
     method_option :ask, :type => :boolean, :default => false, :aliases => "-a", :desc => 'Offer to approve the received file for you.'
     def verify
-
       approvals = File.read('.approvals').split("\n")
 
       rejected = []
@@ -13,7 +14,7 @@ module Approvals
         system("#{options[:diff]} #{approval}")
 
         if options[:ask] && yes?("Approve?")
-            system("mv #{approval}")
+          system("mv #{approval}")
         else
           rejected << approval
         end
