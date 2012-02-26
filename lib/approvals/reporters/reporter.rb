@@ -23,7 +23,7 @@ module Approvals
       protected
 
       def launch(received, approved)
-        exec launcher.call(received, approved)
+        `#{launcher.call(received, approved)}`
       end
     end
   end
