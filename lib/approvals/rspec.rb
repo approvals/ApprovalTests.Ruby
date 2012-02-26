@@ -1,0 +1,3 @@
+ require 'approvals/extensions/rspec'
+
+
