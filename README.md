@@ -60,19 +60,17 @@ You can override this:
 
 The basic format of the approval is modeled after RSpec's `it`:
 
-    verify "something" do
-      "this is the the thing you want to verify"
+    it "works" do
+      verify do
+        "this is the the thing you want to verify"
+      end
     end
 
 ### Naming
 
-Currently there is only an RSpecNamer that takes an example (or any object that responds to `:full_description`).
+When using RSpec, the namer is set for you, using the example's `full_description`.
 
-    namer = Approvals::Namers::RSpecNamer.new(example)
-
-    Approvals.verify(thing, :namer => namer, :format => :html)
-
-When using RSpec, the namer is set for you.
+    Approvals.verify(thing, :name => "the name of your test")
 
 ### Formatting
 
@@ -81,11 +79,19 @@ At the moment, only xml, html, and json are supported.
 
 Simply add a `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
 
-    verify "some html", :format => :html do
+    page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
+    Approvals.verify page, :format => :html
+
+    data = "{\"beverage\":\"coffee\"}"
+    Approvals.verify data, :format => :html
+
+In RSpec, it looks like this:
+
+    verify :format => :html do
       "<html><head></head><body><h1>ZOMG</h1></body></html>"
     end
 
-    verify "some json", :format => :json do
+    verify :format => :json do
       "{\"beverage\":\"coffee\"}"
     end
 
@@ -112,7 +118,7 @@ If this output looks right, approve the query. The next time the spec is run, it
 If someone changes the query, then the comparison will fail. Both the previously approved command and the received command will be executed so that you can inspect the difference between the results of the two.
 
     executable = Approvals::Executable.new(subject.slow_sql) do |output|
-        # do something on failure
+      # do something on failure
     end
 
     Approvals.verify(executable, :options => :here)
@@ -121,7 +127,7 @@ If someone changes the query, then the comparison will fail. Both the previously
 
 There is a convenience wrapper for RSpec that looks like so:
 
-    verify "an executable" do
+    verify do
       executable(subject.slow_sql) do |command|
          result = ActiveRecord::Base.connection.execute(command)
          # do something to display the result

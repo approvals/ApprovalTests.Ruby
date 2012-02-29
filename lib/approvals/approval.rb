@@ -12,7 +12,7 @@ module Approvals
     end
 
     def default_namer(name)
-      Namers::DefaultNamer.new(name)
+      Approvals::Approval.namer || Namers::DefaultNamer.new(name)
     end
 
     def identify_format

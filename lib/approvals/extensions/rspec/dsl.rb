@@ -4,6 +4,12 @@ module Approvals
       def executable(command, &block)
         Approvals::Executable.new(command, &block)
       end
+
+      def verify(options = {}, &block)
+        group = eval "self", block.binding
+        namer = Approvals::Namers::RSpecNamer.new(group.example)
+        Approvals.verify(block.call, options.merge(:namer => namer))
+      end
     end
   end
 end
