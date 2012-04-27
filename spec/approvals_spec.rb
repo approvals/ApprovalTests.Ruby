@@ -1,4 +1,4 @@
-require 'approvals'
+require 'spec_helper'
 require 'approvals/namers/rspec_namer'
 
 describe Approvals do

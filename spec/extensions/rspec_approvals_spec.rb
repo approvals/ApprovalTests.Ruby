@@ -1,4 +1,4 @@
-require 'approvals'
+require 'spec_helper'
 require 'approvals/rspec'
 
 describe "Verifies" do

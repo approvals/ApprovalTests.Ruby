@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'approvals/reporters/first_working_reporter'
 
 describe Approvals::Reporters::FirstWorkingReporter do

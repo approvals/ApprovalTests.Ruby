@@ -1,4 +1,4 @@
-require 'approvals'
+require 'spec_helper'
 
 describe Approvals::Reporters::OpendiffReporter do
 
