@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'approvals/reporters/launcher'
 
 describe Approvals::Reporters::Launcher do
