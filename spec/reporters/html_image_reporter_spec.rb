@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'approvals/reporters'
 require 'approvals/utilities/scrubber'
 

@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'approvals/utilities/dotfile'
 
 describe Approvals::Dotfile do

@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'approvals/configuration'
 require 'approvals/namers/default_namer'
 
