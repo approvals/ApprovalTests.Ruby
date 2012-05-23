@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'approvals/rspec'
 
-describe "Verifies" do
+shared_context 'verify examples' do
   specify "a string" do
     verify do
       "We have, I fear, confused power with greatness."
@@ -62,3 +62,8 @@ describe "Verifies" do
     end
   end
 end
+
+describe "Verifies" do
+  include_context 'verify examples'
+end
+
