@@ -63,7 +63,19 @@ shared_context 'verify examples' do
   end
 end
 
+RSpec.configure do |c|
+  c.after :each do
+    c.approvals_namer_class = nil
+  end
+end
+
 describe "Verifies" do
+  before :each do
+    RSpec.configure do |c|
+      c.approvals_namer_class = Approvals::Namers::RSpecNamer
+    end
+  end
+
   include_context 'verify examples'
 end
 
@@ -71,12 +83,6 @@ describe "Verifies (directory)" do
   before :each do
     RSpec.configure do |c|
       c.approvals_namer_class = Approvals::Namers::DirectoryNamer
-    end
-  end
-
-  after :each do
-    RSpec.configure do |c|
-      c.approvals_namer_class = nil
     end
   end
 
