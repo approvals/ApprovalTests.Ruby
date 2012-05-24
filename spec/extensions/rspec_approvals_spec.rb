@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'approvals/rspec'
 
-describe "Verifies" do
+shared_context 'verify examples' do
   specify "a string" do
     verify do
       "We have, I fear, confused power with greatness."
@@ -61,4 +61,30 @@ describe "Verifies" do
       end
     end
   end
+end
+
+RSpec.configure do |c|
+  c.after :each do
+    c.approvals_namer_class = nil
+  end
+end
+
+describe "Verifies" do
+  before :each do
+    RSpec.configure do |c|
+      c.approvals_namer_class = Approvals::Namers::RSpecNamer
+    end
+  end
+
+  include_context 'verify examples'
+end
+
+describe "Verifies (directory)" do
+  before :each do
+    RSpec.configure do |c|
+      c.approvals_namer_class = Approvals::Namers::DirectoryNamer
+    end
+  end
+
+  include_context 'verify examples'
 end

@@ -8,6 +8,7 @@ module Approvals
       end
 
       def write(data, path)
+        FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'w') do |f|
           f.write format(data)
         end
