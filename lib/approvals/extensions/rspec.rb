@@ -6,6 +6,6 @@ if defined? RSpec
   RSpec.configure do |c|
     c.include Approvals::RSpec::DSL
     c.add_setting :approvals_path, :default => 'spec/fixtures/approvals/'
-    c.add_setting :approvals_namer_class, :default => Approvals::Namers::RSpecNamer
+    c.add_setting :approvals_namer_class, :default => Approvals::Namers::DirectoryNamer
   end
 end
