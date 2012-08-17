@@ -1,5 +1,4 @@
 require 'approvals'
-require 'approvals/rspec'
 
 # Configure RSpec
 RSpec.configure do |config|

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'approvals/rspec'
 
 describe Approvals::Namers::DirectoryNamer do
 
