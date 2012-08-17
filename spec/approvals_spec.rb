@@ -6,6 +6,7 @@ describe Approvals do
   let(:namer) { Approvals::Namers::RSpecNamer.new(self.example) }
 
   it "fails" do
+    Approvals::Dotfile.stub(:path => '/dev/null')
     ->{ Approvals.verify "this one doesn't exist", :namer => namer }.should raise_error Approvals::ApprovalError
   end
 
