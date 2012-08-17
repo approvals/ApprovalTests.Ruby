@@ -4,8 +4,8 @@ module Approvals
   class CLI < Thor
 
     desc "verify", "Go through all failing approvals with a diff tool"
-    method_option :diff, :type => :string, :default => 'vimdiff', :aliases => '-d', :desc => 'The difftool to use'
-    method_option :ask, :type => :boolean, :default => false, :aliases => "-a", :desc => 'Offer to approve the received file for you.'
+    method_option :diff, :type => :string, :default => 'diff', :aliases => '-d', :desc => 'The difftool to use. e.g. opendiff, vimdiff, etc.'
+    method_option :ask, :type => :boolean, :default => true, :aliases => "-a", :desc => 'Offer to approve the received file for you.'
     def verify
       approvals = File.read('.approvals').split("\n")
 
