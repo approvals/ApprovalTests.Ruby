@@ -29,7 +29,7 @@ describe Approvals::Namers::DefaultNamer do
   end
 
   it "must have a name" do
-    ->{ Approvals::Namers::DefaultNamer.new(nil) }.should raise_error(ArgumentError)
+    lambda { Approvals::Namers::DefaultNamer.new(nil) }.should raise_error(ArgumentError)
   end
 
 end
