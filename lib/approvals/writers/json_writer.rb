@@ -1,5 +1,3 @@
-require 'json'
-
 module Approvals
   module Writers
     class JsonWriter < TextWriter
