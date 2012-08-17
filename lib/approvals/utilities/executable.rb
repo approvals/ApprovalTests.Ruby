@@ -8,6 +8,10 @@ module Approvals
     end
 
     def to_s
+      inspect
+    end
+
+    def inspect
       command
     end
   end
