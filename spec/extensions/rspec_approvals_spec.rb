@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'approvals/rspec'
 
 shared_context 'verify examples' do

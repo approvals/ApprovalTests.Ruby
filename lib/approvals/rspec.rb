@@ -1,3 +1,4 @@
- require 'approvals/extensions/rspec'
+require 'approvals'
+require 'approvals/extensions/rspec'
 
 
