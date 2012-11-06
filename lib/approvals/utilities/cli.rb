@@ -13,7 +13,7 @@ module Approvals
       approvals.each do |approval|
         system("#{options[:diff]} #{approval}")
 
-        if options[:ask] && yes?("Approve?")
+        if options[:ask] && yes?("Approve? [y/N] ")
           system("mv #{approval}")
         else
           rejected << approval
