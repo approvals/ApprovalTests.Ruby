@@ -74,4 +74,10 @@ describe Approvals do
 
     Approvals.verify executable, :namer => namer
   end
+
+  it "passes approved files through ERB" do
+    $what  = 'greatness'
+    string = "We have, I fear, confused power with greatness."
+    Approvals.verify string, :namer => namer
+  end
 end

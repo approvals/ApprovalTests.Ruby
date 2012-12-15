@@ -52,7 +52,7 @@ module Approvals
     end
 
     def received_matches?
-      FileUtils.cmp received_path, approved_path
+      IO.read(received_path) == ERB.new(IO.read(approved_path)).result
     end
 
     def fail_with(message)
