@@ -60,6 +60,11 @@ shared_context 'verify examples' do
       end
     end
   end
+
+  specify "a failure" do
+    ::RSpec::Expectations.should_receive( :fail_with )
+    verify { 'no.' }
+  end
 end
 
 RSpec.configure do |c|
