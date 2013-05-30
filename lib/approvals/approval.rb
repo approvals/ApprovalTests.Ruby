@@ -56,8 +56,6 @@ module Approvals
     end
 
     def fail_with(message)
-      FileUtils.touch(approved_path) unless File.exists? approved_path
-
       Dotfile.append(diff_path)
 
       if subject.respond_to?(:on_failure)
