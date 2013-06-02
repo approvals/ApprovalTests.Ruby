@@ -9,7 +9,7 @@ module Approvals
       end
 
       def path
-        '.approvals'
+        File.join(Approvals.project_dir, '.approvals')
       end
 
       def touch
