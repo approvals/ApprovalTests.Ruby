@@ -52,7 +52,7 @@ module Approvals
     end
 
     def received_matches?
-      IO.read(received_path) == ERB.new(IO.read(approved_path)).result
+      IO.read(received_path).chomp == ERB.new(IO.read(approved_path).chomp).result
     end
 
     def fail_with(message)

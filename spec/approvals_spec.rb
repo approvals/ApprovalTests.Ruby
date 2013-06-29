@@ -67,6 +67,12 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
+
+  it "verifies json and is newline agnostic" do
+    json = '{"pet":{"species":"turtle","color":"green","name":"Anthony"}}'
+    Approvals.verify json, :format => :json, :namer => namer
+  end
+
   it "verifies an executable" do
     executable = Approvals::Executable.new('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
