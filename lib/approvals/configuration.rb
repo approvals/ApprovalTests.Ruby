@@ -16,9 +16,14 @@ module Approvals
     include Singleton
 
     attr_writer :approvals_path
+    attr_writer :excluded_json_keys
 
     def approvals_path
       @approvals_path ||= 'fixtures/approvals/'
+    end
+
+    def excluded_json_keys
+      @excluded_json_keys ||= {}
     end
   end
 end
