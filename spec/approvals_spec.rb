@@ -73,6 +73,18 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
+  it "verifies json with excluded keys" do
+    Approvals.configure do |c|
+      c.excluded_json_keys = {
+        :id => /(\A|_)id$/,
+        :date => /_at$/
+      }
+    end
+    json = JSON.dump(:object => {:id => rand(100), :created_at => Time.now, :name => 'test'})
+
+    Approvals.verify json, :format => :json, :namer => namer
+  end
+
   it "verifies an executable" do
     executable = Approvals::Executable.new('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
