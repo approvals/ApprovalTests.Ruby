@@ -95,6 +95,23 @@ In RSpec, it looks like this:
       "{\"beverage\":\"coffee\"}"
     end
 
+### Exclude dynamicly changed values from json
+
+    Approvals.configure do |c|
+      c.excluded_json_keys = {
+        :id =>/(\A|_)id$/,
+        :date => /_at$/
+      }
+    end
+
+It will replace values with placeholders:
+
+    {id: 5, created_at: "2013-08-29 13:48:08 -0700"}
+
+=>
+
+    {id: "<id>", created_at: "<date>"}
+
 ### Approving a spec
 
 If the contents of the received file is to your liking, you can approve
