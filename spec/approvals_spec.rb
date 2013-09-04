@@ -73,18 +73,6 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
-  it "verifies json with excluded keys" do
-    Approvals.configure do |c|
-      c.excluded_json_keys = {
-        :id => /(\A|_)id$/,
-        :date => /_at$/
-      }
-    end
-    json = JSON.dump(:object => {:id => rand(100), :created_at => Time.now, :name => 'test'})
-
-    Approvals.verify json, :format => :json, :namer => namer
-  end
-
   it "verifies an executable" do
     executable = Approvals::Executable.new('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
@@ -97,5 +85,26 @@ describe Approvals do
     $what  = 'greatness'
     string = "We have, I fear, confused power with greatness."
     Approvals.verify string, :namer => namer
+  end
+
+  describe "supports excluded keys option for json" do
+    let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
+
+    before do
+      Approvals.configure do |c|
+        c.excluded_json_keys = {
+          :id => /(\A|_)id$/,
+          :date => /_at$/
+        }
+      end
+    end
+
+    it "verifies json with excluded keys" do
+      Approvals.verify JSON.dump(hash), :format => :json, :namer => namer
+    end
+
+    it "also supports an array of hashes" do
+      Approvals.verify JSON.dump([hash]), :format => :json, :namer => namer
+    end
   end
 end
