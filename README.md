@@ -48,6 +48,8 @@ Since you have not yet approved anything, the `*.approved` file does not exist, 
 
 For the moment the only direct integration is with RSpec.
 
+    require 'approvals/rspec'
+
 The default directory for output files when using RSpec is
 
     spec/fixtures/approvals/
