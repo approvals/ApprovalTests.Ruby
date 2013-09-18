@@ -63,7 +63,7 @@ module Approvals
     BINARY_FORMATS = [:binary]
     
     def received_matches?
-      if BINARY_FORMATS.include(@format) # Read without ERB
+      if BINARY_FORMATS.include?(@format) # Read without ERB
         IO.read(received_path).chomp == IO.read(approved_path).chomp
       else
         IO.read(received_path).chomp == ERB.new(IO.read(approved_path).chomp).result
