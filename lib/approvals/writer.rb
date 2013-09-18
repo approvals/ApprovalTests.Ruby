@@ -8,15 +8,20 @@ require 'approvals/writers/json_writer'
 module Approvals
   module Writer
     extend Writers
+    
+    REGISTRY = {
+      json: JsonWriter.instance,
+      xml: XmlWriter.instance,
+      html: HtmlWriter.instance,
+      hash: HashWriter.instance,
+      array: ArrayWriter.instancce,
+    }
+        
 
     class << self
       def for(format)
-        case format
-        when :json then JsonWriter.instance
-        when :xml then XmlWriter.instance
-        when :html then HtmlWriter.instance
-        when :hash then HashWriter.instance
-        when :array then ArrayWriter.instance
+        if REGISTRY.include?(format)
+          REGISTRY[format]
         else
           TextWriter.instance
         end
