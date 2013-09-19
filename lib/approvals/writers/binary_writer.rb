@@ -20,6 +20,7 @@ module Approvals
       attr_accessor :autoregister
       attr_accessor :extension
       attr_accessor :write
+      attr_accessor :detect
       
       
       attr_reader :format
