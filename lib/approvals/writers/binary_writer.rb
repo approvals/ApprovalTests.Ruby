@@ -9,7 +9,7 @@ module Approvals
         raise "BinaryWriter#callback missing"
       end
 
-      def new(opts = {})
+      def initialize(opts = {})
         self.autoregister = opts[:autoregister] || true
         self.format = opts[:format] || :binary
         self.extension = opts[:extension] || ''
