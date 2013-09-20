@@ -11,10 +11,10 @@ module Approvals
 
       def initialize(opts = {})
         self.autoregister = opts[:autoregister] || true
-        self.format = opts[:format] || :binary
+        self.detect = opts[:detect]
         self.extension = opts[:extension] || ''
         self.write = opts[:write] || EXCEPTION_WRITER
-        self.detect = opts[:detect]        
+        self.format = opts[:format] || :binary
       end
            
       attr_accessor :autoregister
