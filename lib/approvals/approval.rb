@@ -78,7 +78,11 @@ module Approvals
         subject.on_failure.call(received_text)
       end
 
-      raise ApprovalError.new("Approval Error: #{message}")
+      error = ApprovalError.new("Approval Error: #{message}")
+      error.approved_path = approved_path
+      error.received_path = received_path
+
+      raise error
     end
 
     def diff_path

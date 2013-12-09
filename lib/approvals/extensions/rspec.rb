@@ -7,5 +7,6 @@ if defined? RSpec
     c.include Approvals::RSpec::DSL
     c.add_setting :approvals_path, :default => 'spec/fixtures/approvals/'
     c.add_setting :approvals_namer_class, :default => Approvals::Namers::DirectoryNamer
+    c.add_setting :diff_on_approval_failure, :default => false
   end
 end

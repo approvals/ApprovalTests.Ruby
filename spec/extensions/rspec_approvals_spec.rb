@@ -60,6 +60,22 @@ shared_context 'verify examples' do
       end
     end
   end
+
+  specify "a failure" do
+    expect { verify { 'no.' } }.to raise_error(Approvals::ApprovalError)
+  end
+
+  specify "a failure diff" do
+    ::RSpec.configuration.diff_on_approval_failure = true
+    ::RSpec::Expectations.should_receive( :fail_with )
+    verify { 'no.' }
+    ::RSpec.configuration.diff_on_approval_failure = false
+  end
+
+  specify "a failure diff", :diff_on_approval_failure => true do
+    ::RSpec::Expectations.should_receive( :fail_with )
+    verify { 'no.' }
+  end
 end
 
 RSpec.configure do |c|
