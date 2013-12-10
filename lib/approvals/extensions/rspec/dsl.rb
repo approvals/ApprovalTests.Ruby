@@ -13,7 +13,7 @@ module Approvals
         Approvals.verify(block.call, options.merge(:namer => namer))
       rescue ApprovalError => e
         if diff_on_approval_failure?
-          ::RSpec::Expectations.fail_with(e.message, e.received_text, e.approved_text)
+          ::RSpec::Expectations.fail_with(e.message, e.approved_text, e.received_text)
         else
           raise e
         end
