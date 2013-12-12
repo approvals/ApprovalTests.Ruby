@@ -4,4 +4,8 @@ rvm:
   - 1.9.3
   - rbx
 
+matrix:
+  allow_failures:
+    - rvm: rbx
+
 script: bundle exec rspec spec
