@@ -2,6 +2,10 @@ language: ruby
 rvm:
   - 1.9.2
   - 1.9.3
-  - rbx-19mode
+  - rbx
+
+matrix:
+  allow_failures:
+    - rvm: rbx
 
 script: bundle exec rspec spec
