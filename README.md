@@ -1,5 +1,11 @@
 # Approvals
 
+[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.png?branch=master)](http://travis-ci.org/kytrinyx/approvals)
+[![Gem Version](https://badge.fury.io/rb/approvals.png)](http://badge.fury.io/rb/approvals)
+[![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.png)](https://codeclimate.com/github/kytrinyx/approvals)
+[![Gemnasium](https://gemnasium.com/kytrinyx/approvals.png)](https://gemnasium.com/kytrinyx/approvals)
+
+
 Approvals are based on the idea of the *_golden master_*.
 
 You take a snapshot of an object, and then compare all future
@@ -14,7 +20,7 @@ See [ApprovalTests](http://www.approvaltests.com) for videos and additional docu
 Also, check out  Herding Code's [podcast #117](http://t.co/GLn88R5) in
 which Llewellyn Falco is interviewed about approvals.
 
-[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.png?branch=master)](http://travis-ci.org/kytrinyx/approvals)
+
 
 ## Configuration
 
