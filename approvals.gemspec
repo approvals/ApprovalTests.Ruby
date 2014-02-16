@@ -6,6 +6,7 @@ require 'approvals/version'
 Gem::Specification.new do |s|
   s.name        = "approvals"
   s.version     = Approvals::VERSION
+  s.licenses    = ['MIT']
   s.authors     = ["Katrina Owen"]
   s.email       = ["katrina.owen@gmail.com"]
   s.homepage    = ""
