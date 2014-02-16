@@ -13,6 +13,8 @@ module Approvals
         defaults = {
           :namer => namer
         }
+        format = ::RSpec.configuration.approvals_default_format
+        defaults[:format] = format if format
         Approvals.verify(block.call, defaults.merge(options))
       rescue ApprovalError => e
         if diff_on_approval_failure?
