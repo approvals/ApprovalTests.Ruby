@@ -3,12 +3,11 @@ module Approvals
     class HashWriter < TextWriter
 
       def format(data)
-        s = "{\n"
-        data.each do |key, value|
-          s << "\t#{key.inspect} => #{value.inspect}\n"
-        end
-        s << "}"
-        s
+        lines = data.map do |key, value|
+          "\t#{key.inspect} => #{value.inspect}"
+        end.join("\n")
+
+        "{\n#{lines}\n}\n"
       end
 
     end
