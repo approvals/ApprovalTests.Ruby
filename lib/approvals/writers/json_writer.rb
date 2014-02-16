@@ -3,6 +3,7 @@ module Approvals
     class JsonWriter < TextWriter
       class Filter
         attr_reader :filters
+
         def initialize(filters)
           @filters = filters
           @placeholder = {}
@@ -22,10 +23,10 @@ module Approvals
             value.map { |item| censored(item) }
           when Hash
             Hash[value.map { |key, value| [key, censored(value, key)] }]
-          when nil
-            nil
           else
-            if placeholder_for(key)
+            if value.nil?
+              nil
+            elsif key && placeholder_for(key)
               "<#{placeholder_for(key)}>"
             else
               value
