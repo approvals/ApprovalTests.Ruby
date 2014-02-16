@@ -3,11 +3,9 @@ module Approvals
     class ArrayWriter < TextWriter
 
       def format(data)
-        s = ""
-        data.each_with_index do |value, i|
-          s << "[#{i.inspect}] #{value.inspect}\n"
-        end
-        s
+        data.map.with_index do |value, i|
+          "[#{i.inspect}] #{value.inspect}\n"
+        end.join
       end
 
     end

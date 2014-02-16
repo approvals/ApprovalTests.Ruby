@@ -11,7 +11,7 @@ module Approvals
 
         apply_filters!(hash_or_array) if filters.any?
 
-        JSON.pretty_generate(hash_or_array)
+        JSON.pretty_generate(hash_or_array) + "\n"
       end
 
       private
