@@ -5,36 +5,42 @@ module Approvals
         attr_reader :filters
         def initialize(filters)
           @filters = filters
+          @placeholder = {}
         end
 
         def apply hash_or_array
-          return hash_or_array unless @filters.any?
-          apply_internal hash_or_array
+          if @filters.any?
+            censored(hash_or_array)
+          else
+            hash_or_array
+          end
         end
 
-        def apply_internal hash_or_array, key: nil
-          case hash_or_array
+        def censored value, key=nil
+          case value
           when Array
-            hash_or_array.map do |item|
-              apply_internal(item)
-            end
+            value.map { |item| censored(item) }
           when Hash
-            hash_or_array.each_with_object({}) do |(key, value), res|
-              res[key] = apply_internal(value, key: key)
-            end
+            Hash[value.map { |key, value| [key, censored(value, key)] }]
           when nil
             nil
           else
-            applicable_filters = filters.select do |placeholder, pattern|
-              pattern && key.match(pattern)
-            end
-            if applicable_filters.length > 0
-              placeholder = applicable_filters.keys.last
-              "<#{placeholder}>"
+            if placeholder_for(key)
+              "<#{placeholder_for(key)}>"
             else
-              hash_or_array
+              value
             end
           end
+        end
+
+        def placeholder_for key
+          return @placeholder[key] if @placeholder.key? key
+
+          applicable_filters = filters.select do |placeholder, pattern|
+            pattern && key.match(pattern)
+          end
+
+          @placeholder[key] = applicable_filters.keys.last
         end
       end
 
