@@ -8,38 +8,32 @@ module Approvals
         end
 
         def apply hash_or_array
-          return unless @filters.any?
+          return hash_or_array unless @filters.any?
           apply_internal hash_or_array
         end
 
         def apply_internal hash_or_array, key: nil
           case hash_or_array
           when Array
-            for i in (0 ... hash_or_array.size) do
-              apply_internal(hash_or_array[i])
+            hash_or_array.map do |item|
+              apply_internal(item)
             end
           when Hash
-            hash_or_array.each do |key, value|
-              next if value.nil?
-
-              if value.is_a?(Hash) || value.is_a?(Array)
-                apply_internal(value)
-              else
-                hash_or_array[key] = value_for(key, value)
-              end
+            hash_or_array.each_with_object({}) do |(key, value), res|
+              res[key] = apply_internal(value, key: key)
             end
-          end
-        end
-
-        def value_for key, value
-          applicable_filters = filters.select do |placeholder, pattern|
-            pattern && key.match(pattern)
-          end
-          if applicable_filters.length > 0
-            placeholder = applicable_filters.keys.last
-            "<#{placeholder}>"
+          when nil
+            nil
           else
-            value
+            applicable_filters = filters.select do |placeholder, pattern|
+              pattern && key.match(pattern)
+            end
+            if applicable_filters.length > 0
+              placeholder = applicable_filters.keys.last
+              "<#{placeholder}>"
+            else
+              hash_or_array
+            end
           end
         end
       end
@@ -51,7 +45,7 @@ module Approvals
       def format(data)
         hash_or_array = parse_data(data)
 
-        filter.apply(hash_or_array)
+        hash_or_array = filter.apply(hash_or_array)
 
         JSON.pretty_generate(hash_or_array) + "\n"
       end
