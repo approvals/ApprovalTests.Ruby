@@ -20,8 +20,6 @@ See [ApprovalTests](http://www.approvaltests.com) for videos and additional docu
 Also, check out  Herding Code's [podcast #117](http://t.co/GLn88R5) in
 which Llewellyn Falco is interviewed about approvals.
 
-
-
 ## Configuration
 
 ```ruby
@@ -32,7 +30,9 @@ end
 
 The default location for the output files is
 
-    approvals/
+```plain
+approvals/
+```
 
 ## Usage
 
@@ -53,6 +53,49 @@ The first time the approval is run, a file will be created with the contents of 
     the_name_of_the_approval.received.txt # or .json, .html, .xml as appropriate
 
 Since you have not yet approved anything, the `*.approved` file does not exist, and the comparison will fail.
+
+## CLI
+
+The gem comes with a command-line tool that makes it easier to manage the
+`*.received.*` and `*.approved.*` files.
+
+The basic usage is:
+
+```bash
+approvals verify
+```
+
+This goes through each approval failure in turn showing you the diff.
+
+The option `--diff` or `-d` configures which difftool to use (for example
+`opendiff`, `vimdiff`, etc). The default value is `diff`.
+
+The option `--ask` or `-a`, which after showing you a diff will offer to
+approve the received file (move it from `*.received.*` to `*.approved.*`.).
+The default is `true`.
+
+### Workflow Using VimDiff
+
+I have the following mapped to `<leader>v` in my .vimrc file:
+
+```viml
+map <leader>v :!approvals verify -d vimdiff -a<cr>
+```
+
+I tend to run my tests from within vim with an on-the-fly mapping:
+
+```viml
+:map Q :wa <Bar> :!ruby path/to/test_file.rb<cr>
+```
+
+When I get one or more approval failures, I hit `<leader>v`. This gives me the
+vimdiff.
+
+When I've inspected the result, I hit `:qa` which closes both sides of the
+diff.
+
+Then I'm asked if I want to approve the received file `[yN]`. If there are
+multiple diffs, this handles each failure in turn.
 
 ### RSpec
 
