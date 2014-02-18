@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'approvals/utilities/dotfile'
+require 'approvals/dotfile'
 
 describe Approvals::Dotfile do
   let(:dotfile) { '/tmp/.approvals' }

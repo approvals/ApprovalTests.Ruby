@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'approvals/utilities/system_command'
+require 'approvals/system_command'
 
 describe Approvals::SystemCommand, "#exists?" do
 
