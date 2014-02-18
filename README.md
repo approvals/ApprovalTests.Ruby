@@ -72,7 +72,8 @@ The option `--diff` or `-d` configures which difftool to use (for example
 
 The option `--ask` or `-a`, which after showing you a diff will offer to
 approve the received file (move it from `*.received.*` to `*.approved.*`.).
-The default is `true`.
+The default is `true`. If you set this to `false`, then nothing happens beyond
+showing you the diff, and you will need to rename files manually.
 
 ### Workflow Using VimDiff
 
