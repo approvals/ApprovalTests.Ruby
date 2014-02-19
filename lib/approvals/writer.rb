@@ -9,22 +9,22 @@ require 'approvals/writers/binary_writer'
 module Approvals
   module Writer
     extend Writers
-    
+
     REGISTRY = {
-      json: Writers::JsonWriter.instance,
-      xml: Writers::XmlWriter.instance,
-      html: Writers::HtmlWriter.instance,
-      hash: Writers::HashWriter.instance,
-      array: Writers::ArrayWriter.instance,
+      json: Writers::JsonWriter.new,
+      xml: Writers::XmlWriter.new,
+      html: Writers::HtmlWriter.new,
+      hash: Writers::HashWriter.new,
+      array: Writers::ArrayWriter.new,
     }
-        
+
 
     class << self
       def for(format)
         if REGISTRY.include?(format)
           REGISTRY[format]
         else
-          TextWriter.instance
+          TextWriter.new
         end
       end
     end
