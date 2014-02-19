@@ -6,7 +6,7 @@ module Approvals
       end
 
       def format(data)
-        hash_or_array = filter.apply(parse_data(data))
+        hash_or_array = filter(parse_data(data))
 
         JSON.pretty_generate(hash_or_array) + "\n"
       end
@@ -22,8 +22,9 @@ module Approvals
         end
       end
 
-      def filter
-        ::Approvals::Filter.new(Approvals.configuration.excluded_json_keys)
+      def filter data
+        filter = ::Approvals::Filter.new(Approvals.configuration.excluded_json_keys)
+        filter.apply(data)
       end
     end
   end

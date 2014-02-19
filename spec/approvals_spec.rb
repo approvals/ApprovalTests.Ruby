@@ -96,7 +96,7 @@ describe Approvals do
     Approvals.verify string, :namer => namer
   end
 
-  describe "supports excluded keys option for json" do
+  describe "supports excluded keys option" do
     let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
 
     before do
@@ -114,6 +114,14 @@ describe Approvals do
 
     it "also supports an array of hashes" do
       Approvals.verify JSON.dump([hash]), :format => :json, :namer => namer
+    end
+
+    it "supports the array writer" do
+      Approvals.verify [hash], :format => :array, :namer => namer
+    end
+
+    it "supports the hash writer" do
+      Approvals.verify hash, :format => :array, :namer => namer
     end
   end
 end
