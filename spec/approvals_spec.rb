@@ -3,7 +3,7 @@ require 'approvals/namers/rspec_namer'
 
 describe Approvals do
 
-  let(:namer) { Approvals::Namers::RSpecNamer.new(self.example) }
+  let(:namer) { |example| Approvals::Namers::RSpecNamer.new(example) }
 
   it "fails" do
     Approvals::Dotfile.stub(:path => '/dev/null')
