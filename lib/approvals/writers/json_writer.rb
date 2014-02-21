@@ -21,7 +21,12 @@ module Approvals
       end
 
       def parse_data(data)
-        JSON.parse(data)
+        if data.respond_to?(:to_str)
+          # if the data is a string, assume it has been already json-ified
+          JSON.parse(data)
+        else
+          JSON.parse(data.to_json)
+        end
       end
 
       def apply_filters!(hash_or_array)

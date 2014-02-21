@@ -73,6 +73,15 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
+  it "verifies an array as json when format is set to json" do
+    people = [
+      {"name" => "Alice", "age" => 28},
+      {"name" => "Bob", "age" => 22}
+    ]
+
+    Approvals.verify(people, format: :json, namer: namer)
+  end
+
   it "verifies an executable" do
     executable = Approvals::Executable.new('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
