@@ -7,7 +7,9 @@ describe Approvals::Scrubber do
     let(:path) { File.expand_path('.') }
     subject { Approvals::Scrubber.new("I am currently at #{path}") }
 
-    its(:to_s) { should eq("I am currently at {{current_dir}}") }
+    it "has a sensible to_s" do
+      subject.to_s.should eq("I am currently at {{current_dir}}")
+    end
 
     it "unscrubs" do
       subject.unscrub.should eq("I am currently at #{path}")
