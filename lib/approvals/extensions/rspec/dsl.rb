@@ -8,8 +8,13 @@ module Approvals
       end
 
       def verify(options = {}, &block)
+        # Workaround to support both Rspec 2 and 3
+        # RSpec.current_example is the Rspec 3 way
+        fetch_current_example = ::RSpec.respond_to?(:current_example) ? proc { ::RSpec.current_example } : proc { |context| context.example }
+        # /Workaround
+
         group = eval "self", block.binding
-        namer = ::RSpec.configuration.approvals_namer_class.new(group.example)
+        namer = ::RSpec.configuration.approvals_namer_class.new(fetch_current_example.call(group))
         defaults = {
           :namer => namer
         }
@@ -27,8 +32,12 @@ module Approvals
       private
 
       def diff_on_approval_failure?
+        # Workaround to support both RSpec 2 and 3
+        fetch_current_example = ::RSpec.respond_to?(:current_example) ? proc { ::RSpec.current_example } : proc { |context| context.example }
+        # /Workaround
+
         ::RSpec.configuration.diff_on_approval_failure? ||
-          example.metadata[:diff_on_approval_failure]
+          fetch_current_example.call(self).metadata[:diff_on_approval_failure]
       end
     end
   end
