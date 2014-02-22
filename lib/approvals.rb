@@ -11,6 +11,7 @@ require 'approvals/scrubber'
 require 'approvals/dotfile'
 require 'approvals/executable'
 require 'approvals/reporters'
+require 'approvals/filter'
 require 'approvals/writer'
 require 'approvals/namers/default_namer'
 
