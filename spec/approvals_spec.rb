@@ -57,6 +57,17 @@ describe Approvals do
     Approvals.verify html, :format => :html, :namer => namer
   end
 
+  it "verifies a malformed html fragment" do
+    html = <<-HTML
+<!DOCTYPE html>
+<html>
+<title>Hoi</title>
+<script async defer src="http://foo.com/bar.js"></script>
+<h1>yo</h1>
+    HTML
+    Approvals.verify html, :format => :html, :namer => namer
+  end
+
   it "verifies xml" do
     xml = "<xml char=\"kiddo\"><node><content name='beatrice' /></node><node aliases='5'><content /></node></xml>"
     Approvals.verify xml, :format => :xml, :namer => namer
