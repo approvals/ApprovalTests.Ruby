@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'thor'
-require 'commandline'
+require 'approvals/cli'
 
 Approvals::CLI.start
 
