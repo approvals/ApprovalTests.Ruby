@@ -106,11 +106,11 @@ module Approvals
     end
 
     def approved_text
-      File.read approved_path
+      File.read(approved_path).chomp
     end
 
     def received_text
-      File.read received_path
+      File.read(received_path).chomp
     end
   end
 end
