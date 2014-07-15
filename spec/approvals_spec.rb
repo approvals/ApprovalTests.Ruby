@@ -108,12 +108,19 @@ describe Approvals do
   end
 
   describe "supports excluded keys option" do
-    let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
+    let(:hash) { {:object => {
+      :id => rand(100),
+      :other_ids => [1, 2, 3, 4],
+      :created_at => Time.now,
+      :name => 'test',
+      deleted_at: nil
+    }} }
 
     before do
       Approvals.configure do |c|
         c.excluded_json_keys = {
           :id => /(\A|_)id$/,
+          :id_array => /(\A|_)ids$/,
           :date => /_at$/
         }
       end

@@ -18,7 +18,13 @@ module Approvals
     def censored value, key=nil
       case value
       when Array
-        value.map { |item| censored(item) }
+        if value.empty?
+          value
+        elsif key && placeholder_for(key)
+          "<#{placeholder_for(key)}>"
+        else
+          value.map { |item| censored(item) }
+        end
       when Hash
         Hash[value.map { |key, value| [key, censored(value, key)] }]
       else
