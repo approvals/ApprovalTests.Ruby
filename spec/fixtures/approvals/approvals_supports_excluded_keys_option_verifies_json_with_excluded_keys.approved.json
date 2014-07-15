@@ -1,6 +1,7 @@
 {
   "object": {
     "id": "<id>",
+    "other_ids": "<id_array>",
     "created_at": "<date>",
     "name": "test",
     "deleted_at": null
