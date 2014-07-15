@@ -3,8 +3,8 @@ require 'approvals/rspec'
 
 describe Approvals::Namers do
 
-  it "uses the RSpecNamer" do
-    approval = Approvals::Approval.new("naming with rspec namer", :namer => Approvals::Namers::RSpecNamer.new(self.example))
+  it "uses the RSpecNamer" do |example|
+    approval = Approvals::Approval.new("naming with rspec namer", :namer => Approvals::Namers::RSpecNamer.new(example))
     approval.name.should eq("approvals_namers_uses_the_rspecnamer")
   end
 

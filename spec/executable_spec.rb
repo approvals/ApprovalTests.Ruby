@@ -1,10 +1,12 @@
 require 'spec_helper'
-require 'approvals/utilities/executable'
+require 'approvals/executable'
 
 describe Approvals::Executable do
 
-  subject { Approvals::Executable.new('SELECT 1') }
-  its(:inspect) { should eq('SELECT 1') }
+  it "reflects the its value in inspect" do
+    executable = Approvals::Executable.new('SELECT 1')
+    executable.inspect.should eq 'SELECT 1'
+  end
 
   it "takes a block" do
     executable = Approvals::Executable.new('SELECT 1') do |command|

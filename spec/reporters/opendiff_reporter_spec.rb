@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Approvals::Reporters::OpendiffReporter do
 
   it "has a nice launcher" do
-    pending "Breaks off execution of the tests. Horrible."
+    skip "Breaks off execution of the tests. Horrible."
     one = 'spec/fixtures/one.txt'
     two = 'spec/fixtures/two.txt'
     executable = Approvals::Executable.new(Approvals::Reporters::OpendiffReporter.instance.launcher.call(one, two)) do |command|

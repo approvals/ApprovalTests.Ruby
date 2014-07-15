@@ -4,22 +4,19 @@ module Approvals
     class << self
 
       def reset
-        File.delete(path) if File.exists?(path)
-        touch
-      end
-
-      def path
-        File.join(Approvals.project_dir, '.approvals')
-      end
-
-      def touch
-        FileUtils.touch(path)
+        File.truncate(path, 0) if File.exists?(path)
       end
 
       def append(text)
         unless includes?(text)
           write text
         end
+      end
+
+      private
+
+      def path
+        File.join(Approvals.project_dir, '.approvals')
       end
 
       def includes?(text)
@@ -31,8 +28,6 @@ module Approvals
           f.write "#{text}\n"
         end
       end
-
     end
   end
-
 end

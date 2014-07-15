@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'thor'
-require 'approvals/utilities/cli'
+require 'approvals/cli'
 
 Approvals::CLI.start
 

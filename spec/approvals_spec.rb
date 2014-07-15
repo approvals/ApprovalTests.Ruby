@@ -3,7 +3,7 @@ require 'approvals/namers/rspec_namer'
 
 describe Approvals do
 
-  let(:namer) { Approvals::Namers::RSpecNamer.new(self.example) }
+  let(:namer) { |example| Approvals::Namers::RSpecNamer.new(example) }
 
   it "fails" do
     Approvals::Dotfile.stub(:path => '/dev/null')
@@ -57,6 +57,17 @@ describe Approvals do
     Approvals.verify html, :format => :html, :namer => namer
   end
 
+  it "verifies a malformed html fragment" do
+    html = <<-HTML
+<!DOCTYPE html>
+<html>
+<title>Hoi</title>
+<script async defer src="http://foo.com/bar.js"></script>
+<h1>yo</h1>
+    HTML
+    Approvals.verify html, :format => :html, :namer => namer
+  end
+
   it "verifies xml" do
     xml = "<xml char=\"kiddo\"><node><content name='beatrice' /></node><node aliases='5'><content /></node></xml>"
     Approvals.verify xml, :format => :xml, :namer => namer
@@ -73,6 +84,15 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
+  it "verifies an array as json when format is set to json" do
+    people = [
+      {"name" => "Alice", "age" => 28},
+      {"name" => "Bob", "age" => 22}
+    ]
+
+    Approvals.verify(people, format: :json, namer: namer)
+  end
+
   it "verifies an executable" do
     executable = Approvals::Executable.new('SELECT 1') do |command|
       puts "your slip is showing (#{command})"
@@ -87,13 +107,20 @@ describe Approvals do
     Approvals.verify string, :namer => namer
   end
 
-  describe "supports excluded keys option for json" do
-    let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
+  describe "supports excluded keys option" do
+    let(:hash) { {:object => {
+      :id => rand(100),
+      :other_ids => [1, 2, 3, 4],
+      :created_at => Time.now,
+      :name => 'test',
+      deleted_at: nil
+    }} }
 
     before do
       Approvals.configure do |c|
         c.excluded_json_keys = {
           :id => /(\A|_)id$/,
+          :id_array => /(\A|_)ids$/,
           :date => /_at$/
         }
       end
@@ -105,6 +132,14 @@ describe Approvals do
 
     it "also supports an array of hashes" do
       Approvals.verify JSON.dump([hash]), :format => :json, :namer => namer
+    end
+
+    it "supports the array writer" do
+      Approvals.verify [hash], :format => :array, :namer => namer
+    end
+
+    it "supports the hash writer" do
+      Approvals.verify hash, :format => :array, :namer => namer
     end
   end
 end

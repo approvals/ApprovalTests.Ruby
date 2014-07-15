@@ -1,8 +1,6 @@
 module Approvals
   module Writers
     class TextWriter
-      include Singleton
-
       def extension
         'txt'
       end

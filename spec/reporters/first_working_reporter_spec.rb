@@ -4,18 +4,18 @@ require 'approvals/reporters/first_working_reporter'
 describe Approvals::Reporters::FirstWorkingReporter do
 
 
-  let(:no) { stub(:working_in_this_environment? => false) }
-  let(:yes) { stub(:working_in_this_environment? => true) }
-  let(:yes_too) { stub(:working_in_this_environment? => true) }
+  let(:no) { double(:working_in_this_environment? => false) }
+  let(:yes) { double(:working_in_this_environment? => true) }
+  let(:yes_too) { double(:working_in_this_environment? => true) }
 
-  context "when at least one reporter works" do
-    subject { Approvals::Reporters::FirstWorkingReporter.new(no, yes) }
-    its(:working_in_this_environment?) { should be_true }
+  it "when at least one reporter works it is working" do
+    reporter = Approvals::Reporters::FirstWorkingReporter.new(no, yes)
+    reporter.should be_working_in_this_environment
   end
 
-  context "when no reporters work" do
-    subject { Approvals::Reporters::FirstWorkingReporter.new(no, no) }
-    its(:working_in_this_environment?) { should be_false }
+  it "when no reporters work it's not working" do
+    reporter = Approvals::Reporters::FirstWorkingReporter.new(no, no)
+    reporter.should_not be_working_in_this_environment
   end
 
   it "calls the first working reporter" do

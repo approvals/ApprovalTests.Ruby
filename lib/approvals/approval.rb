@@ -1,3 +1,4 @@
+require 'erb' # It is referenced on line 56
 module Approvals
   class Approval
     class << self
@@ -15,9 +16,17 @@ module Approvals
       Approvals::Approval.namer || Namers::DefaultNamer.new(name)
     end
 
+    # Add a Proc that tests if subject is a kind of format
+    IDENTITIES = {
+      hash: Proc.new(){|subject|subject.respond_to? :each_pair},
+      array: Proc.new(){|subject|subject.respond_to? :each_with_index},      
+    }
+    
     def identify_format
-      return :hash if subject.respond_to? :each_pair
-      return :array if subject.respond_to? :each_with_index
+      IDENTITIES.each_pair do |format, id_test|
+        return format if id_test.call(subject)
+      end
+      # otherwise
       return :txt
     end
 
@@ -51,8 +60,14 @@ module Approvals
       File.exists? approved_path
     end
 
+    BINARY_FORMATS = [:binary]
+    
     def received_matches?
-      IO.read(received_path).chomp == ERB.new(IO.read(approved_path).chomp).result
+      if BINARY_FORMATS.include?(@format) # Read without ERB
+        IO.read(received_path).chomp == IO.read(approved_path).chomp
+      else
+        IO.read(received_path).chomp == ERB.new(IO.read(approved_path).chomp).result
+      end
     end
 
     def fail_with(message)
@@ -63,7 +78,11 @@ module Approvals
         subject.on_failure.call(received_text)
       end
 
-      raise ApprovalError.new("Approval Error: #{message}")
+      error = ApprovalError.new("Approval Error: #{message}")
+      error.approved_path = approved_path
+      error.received_path = received_path
+
+      raise error
     end
 
     def diff_path
@@ -87,11 +106,11 @@ module Approvals
     end
 
     def approved_text
-      File.read approved_path
+      File.read(approved_path).chomp
     end
 
     def received_text
-      File.read received_path
+      File.read(received_path).chomp
     end
   end
 end

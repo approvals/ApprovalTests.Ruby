@@ -3,12 +3,16 @@ module Approvals
     class HashWriter < TextWriter
 
       def format(data)
-        s = "{\n"
-        data.each do |key, value|
-          s << "\t#{key.inspect} => #{value.inspect}\n"
-        end
-        s << "}"
-        s
+        lines = filter(data).map do |key, value|
+          "\t#{key.inspect} => #{value.inspect}"
+        end.join("\n")
+
+        "{\n#{lines}\n}\n"
+      end
+
+      def filter data
+        filter = ::Approvals::Filter.new(Approvals.configuration.excluded_json_keys)
+        filter.apply(data)
       end
 
     end
