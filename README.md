@@ -150,7 +150,7 @@ page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
 Approvals.verify page, :format => :html
 
 data = "{\"beverage\":\"coffee\"}"
-Approvals.verify data, :format => :html
+Approvals.verify data, :format => :json
 ```
 
 In RSpec, it looks like this:
@@ -165,7 +165,7 @@ verify :format => :json do
 end
 ```
 
-### Exclude dynamicly changed values from json
+### Exclude dynamically changed values from json
 
 ```ruby
 Approvals.configure do |c|
