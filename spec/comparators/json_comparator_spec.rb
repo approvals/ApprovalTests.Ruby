@@ -25,6 +25,14 @@ describe Approvals::Comparators::JsonComparator do
         end
     end
 
+    context "and given plain arrays and the root scope" do
+        let(:json) { '[2,1,3]' }
+        let(:ignore_patterns) { '.' }
+        it "doesn't fail" do
+          subject
+        end
+    end
+
     context "and given nested arrays" do
         let(:json) { '{"nested": [2,1,3]}' }
         let(:ignore_patterns) { 'nested' }
