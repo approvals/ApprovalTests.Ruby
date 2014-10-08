@@ -18,11 +18,11 @@ module Approvals
 
         approved = JSON.parse(approved)
         received = JSON.parse(received)
-        _walkAndCompare(approved, received)
+        walk_and_compare(approved, received)
       end
 
       private
-      def _unorderedPathMatch(path)
+      def unordered_path_match(path)
         ignore_ordering_paths.any? do |search_key|
           # Don't attempt matching unless it has a chance of working
           path.length == search_key.length &&
@@ -33,22 +33,22 @@ module Approvals
         end
       end
 
-      def _walkAndCompare(a, b, path=[])
+      def walk_and_compare(a, b, path=[])
         return false if a.class != b.class
 
         if a.is_a?(Array)
           return false if a.length != b.length
           # Do we care if this array is properly ordered?
-          if _unorderedPathMatch(path)
+          if unordered_path_match(path)
             # This is hilariously inefficient
             # Since we compared lengths above, we don't need to worry about the use of any? here
-            return a.all? { |element_a| b.any? { |element_b| _walkAndCompare(element_a, element_b, path + ['*']) } }
+            return a.all? { |element_a| b.any? { |element_b| walk_and_compare(element_a, element_b, path + ['*']) } }
           else
-            return a.zip(b).all? { |element_a, element_b| _walkAndCompare(element_a, element_b, path + ['*']) }
+            return a.zip(b).all? { |element_a, element_b| walk_and_compare(element_a, element_b, path + ['*']) }
           end
         elsif a.is_a?(Hash)
           return false if a.keys.to_set != b.keys.to_set
-          return a.keys.all? { |key| _walkAndCompare(a[key], b[key], path + [key]) }
+          return a.keys.all? { |key| walk_and_compare(a[key], b[key], path + [key]) }
         else
           return a == b
         end
