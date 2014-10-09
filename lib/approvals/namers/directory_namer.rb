@@ -12,7 +12,7 @@ module Approvals
         parts     = [ ]
         metadata  = example.metadata
 
-        approvals_name_for = lambda do |metadata|
+        approvals_path = lambda do |metadata|
           description = normalize metadata[:description]
           example_group = if metadata.key?(:example_group)
                             metadata[:example_group]
@@ -21,13 +21,13 @@ module Approvals
                           end
 
           if example_group
-            [approvals_name_for[example_group], description].join('/')
+            [approvals_path[example_group], description].join('/')
           else
             description
           end
         end
 
-        approvals_name_for[example.metadata]
+        approvals_path[example.metadata]
       end
     end
   end
