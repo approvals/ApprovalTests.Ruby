@@ -15,7 +15,7 @@ describe Approvals::Comparators::JsonComparator do
     end
   end
 
-  context "when passed parameters" do
+  context "when passed params" do
     test_cases = [
       # case, input, ignore keys, success
       ["and given plain arrays", '[2,1,3]', '', true],
