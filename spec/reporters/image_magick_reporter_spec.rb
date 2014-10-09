@@ -11,6 +11,6 @@ describe Approvals::Reporters::ImageMagickReporter do
       system(result)
       system(expected)
     end
-    result.should eq(expected)
+    expect(result).to eq(expected)
   end
 end

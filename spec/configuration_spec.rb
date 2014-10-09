@@ -4,7 +4,7 @@ require 'approvals/configuration'
 describe Approvals::Configuration do
 
   it "defaults to 'fixtures/approvals/'" do
-    Approvals.configuration.approvals_path.should eq('fixtures/approvals/')
+    expect(Approvals.configuration.approvals_path).to eq('fixtures/approvals/')
   end
 
   describe "when set" do
@@ -21,7 +21,7 @@ describe Approvals::Configuration do
     end
 
     it "overrides the output directory" do
-      Approvals.configuration.approvals_path.should eq('output/dir/')
+      expect(Approvals.configuration.approvals_path).to eq('output/dir/')
     end
   end
 

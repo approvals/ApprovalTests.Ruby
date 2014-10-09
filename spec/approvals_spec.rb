@@ -6,10 +6,11 @@ describe Approvals do
   let(:namer) { |example| Approvals::Namers::RSpecNamer.new(example) }
 
   it "fails" do
-    Approvals::Dotfile.stub(:path => '/dev/null')
-    lambda {
+    allow(Approvals::Dotfile).to receive(:path).and_return('/dev/null')
+
+    expect do
       Approvals.verify "this one doesn't exist", :namer => namer
-    }.should raise_error Approvals::ApprovalError
+    end.to raise_error Approvals::ApprovalError
   end
 
   it "verifies a string" do

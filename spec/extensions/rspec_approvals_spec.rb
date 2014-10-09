@@ -67,13 +67,13 @@ shared_context 'verify examples' do
 
   specify "a failure diff" do
     ::RSpec.configuration.diff_on_approval_failure = true
-    ::RSpec::Expectations.should_receive( :fail_with )
+    expect(::RSpec::Expectations).to receive(:fail_with)
     verify { 'no.' }
     ::RSpec.configuration.diff_on_approval_failure = false
   end
 
   specify "a failure diff", :diff_on_approval_failure => true do
-    ::RSpec::Expectations.should_receive( :fail_with )
+    expect(::RSpec::Expectations).to receive(:fail_with)
     verify { 'no.' }
   end
 end

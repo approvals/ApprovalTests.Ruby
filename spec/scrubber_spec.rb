@@ -8,19 +8,19 @@ describe Approvals::Scrubber do
     subject { Approvals::Scrubber.new("I am currently at #{path}") }
 
     it "has a sensible to_s" do
-      subject.to_s.should eq("I am currently at {{current_dir}}")
+      expect(subject.to_s).to eq("I am currently at {{current_dir}}")
     end
 
     it "unscrubs" do
-      subject.unscrub.should eq("I am currently at #{path}")
+      expect(subject.unscrub).to eq("I am currently at #{path}")
     end
 
     it "unscrubs any old string" do
-      subject.unscrub("Hoy, where's {{current_dir}}?").should eq("Hoy, where's #{path}?")
+      expect(subject.unscrub("Hoy, where's {{current_dir}}?")).to eq("Hoy, where's #{path}?")
     end
   end
 
   it "overrides default hash" do
-    Approvals::Scrubber.new("oh, my GAWD", {"deity" => "GAWD"}).to_s.should eq('oh, my {{deity}}')
+    expect(Approvals::Scrubber.new("oh, my GAWD", {"deity" => "GAWD"}).to_s).to eq('oh, my {{deity}}')
   end
 end
