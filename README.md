@@ -1,9 +1,9 @@
 # Approvals
 
-[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.png?branch=master)](http://travis-ci.org/kytrinyx/approvals)
-[![Gem Version](https://badge.fury.io/rb/approvals.png)](http://badge.fury.io/rb/approvals)
-[![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.png)](https://codeclimate.com/github/kytrinyx/approvals)
-[![Gemnasium](https://gemnasium.com/kytrinyx/approvals.png)](https://gemnasium.com/kytrinyx/approvals)
+[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.svg?branch=master)](http://travis-ci.org/kytrinyx/approvals)
+[![Gem Version](https://badge.fury.io/rb/approvals.svg)](http://badge.fury.io/rb/approvals)
+[![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.svg)](https://codeclimate.com/github/kytrinyx/approvals)
+[![Gemnasium](https://gemnasium.com/kytrinyx/approvals.svg)](https://gemnasium.com/kytrinyx/approvals)
 
 
 Approvals are based on the idea of the *_golden master_*.
