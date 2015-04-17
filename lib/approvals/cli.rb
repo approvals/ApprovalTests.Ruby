@@ -11,7 +11,8 @@ module Approvals
 
       rejected = []
       approvals.each do |approval|
-        system("#{options[:diff]} #{approval}")
+        received, approved = *approval.split
+        system("#{options[:diff]} #{approved} #{received}")
 
         if options[:ask] && yes?("Approve? [y/N] ")
           system("mv #{approval}")
