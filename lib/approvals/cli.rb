@@ -11,6 +11,7 @@ module Approvals
 
       rejected = []
       approvals.each do |approval|
+        puts "Comparing #{approval}"
         system("#{options[:diff]} #{approval}")
 
         if options[:ask] && yes?("Approve? [y/N] ")
