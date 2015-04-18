@@ -11,7 +11,9 @@ module Approvals
 
       rejected = []
       approvals.each do |approval|
-        system("#{options[:diff]} #{approval}")
+        diff_command = "#{options[:diff]} #{approval}"
+        puts diff_command
+        system(diff_command)
 
         if options[:ask] && yes?("Approve? [y/N] ")
           system("mv #{approval}")
