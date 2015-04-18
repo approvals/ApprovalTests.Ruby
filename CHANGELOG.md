@@ -2,9 +2,12 @@
 
 ### Next Release
 
+* Your contribution here
+
+### v0.0.18 (2015-04-18)
+
 - Greatly improve output on failure (Show the diff even if approved file is missing, don't complain if there's no .approvals file, print diff command before showing each diff for better context, and reverse the order of the arguments to the diff so that the additions/removals make sense). - [@randycoulman](https://github.com/randycoulman)
 - General improvements (fix typos, replace PNG badges with SVG ones) - [@jamonholmgren](https://github.com/jamonholmgren), [@olivierlacan](https://github.com/olivierlacan)
-* Your contribution here
 
 ### v0.0.17 (2014-10-10)
 
