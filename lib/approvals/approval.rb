@@ -86,7 +86,7 @@ module Approvals
     end
 
     def diff_path
-      "#{received_path} #{approved_path}"
+      "#{approved_path} #{received_path}"
     end
 
     def full_path(state)
