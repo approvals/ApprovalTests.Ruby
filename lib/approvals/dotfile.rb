@@ -20,7 +20,7 @@ module Approvals
       end
 
       def includes?(text)
-        system("cat #{path} | grep -q \"^#{text}$\"")
+        system("cat #{path} 2> /dev/null | grep -q \"^#{text}$\"")
       end
 
       def write(text)
