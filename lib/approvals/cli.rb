@@ -11,7 +11,8 @@ module Approvals
 
       rejected = []
       approvals.each do |approval|
-        diff_command = "#{options[:diff]} #{approval}"
+        received, approved = *approval.split
+        diff_command = "#{options[:diff]} #{approved} #{received}"
         puts diff_command
         system(diff_command)
 
