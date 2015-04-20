@@ -16,8 +16,7 @@ module Approvals
         system(diff_command)
 
         if options[:ask] && yes?("Approve? [y/N] ")
-          approved, received = *approval.split
-          system("mv #{received} #{approved}")
+          system("mv #{approval}")
         else
           rejected << approval
         end
