@@ -4,6 +4,10 @@
 
 * Your contribution here
 
+### v0.0.20 (2015-04-21)
+
+* [#63](https://github.com/kytrinyx/approvals/issues/62) Make CLI --ask compatible with new or old .approval file. - [@kytrinyx](https://github.com/kytrinyx)
+
 ### v0.0.19 (2015-04-20)
 
 * [#62](https://github.com/kytrinyx/approvals/issues/62) Fix bug in CLI with --ask option that deletes approval file instead of overwriting it. - [@kytrinyx](https://github.com/kytrinyx)
