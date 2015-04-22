@@ -35,7 +35,7 @@ module Approvals
     end
 
     def verify
-      unless File.exists?(namer.output_dir)
+      unless File.exist?(namer.output_dir)
         FileUtils.mkdir_p(namer.output_dir)
       end
 
@@ -57,11 +57,11 @@ module Approvals
     end
 
     def approved?
-      File.exists? approved_path
+      File.exist? approved_path
     end
 
     BINARY_FORMATS = [:binary]
-    
+
     def received_matches?
       if BINARY_FORMATS.include?(@format) # Read without ERB
         IO.read(received_path).chomp == IO.read(approved_path).chomp
