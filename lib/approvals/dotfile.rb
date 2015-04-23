@@ -4,7 +4,7 @@ module Approvals
     class << self
 
       def reset
-        File.truncate(path, 0) if File.exists?(path)
+        File.truncate(path, 0) if File.exist?(path)
       end
 
       def append(text)
