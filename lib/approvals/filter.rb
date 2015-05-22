@@ -20,7 +20,7 @@ module Approvals
       when Array
         value.map { |item| censored(item) }
       when Hash
-        Hash[value.map { |key, value| [key, censored(value, key)] }]
+        Hash[value.map { |inner_key, inner_value| [inner_key, censored(inner_value, inner_key)] }]
       else
         if value.nil?
           nil
