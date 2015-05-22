@@ -15,7 +15,7 @@ module Approvals
         unless @output_dir
           begin
             @output_dir = ::RSpec.configuration.approvals_path
-          rescue NoMethodError => e
+          rescue NoMethodError
           end
           @output_dir ||= 'spec/fixtures/approvals/'
         end
