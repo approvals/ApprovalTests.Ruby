@@ -9,9 +9,6 @@ module Approvals
       private
 
       def directorize(example)
-        parts     = [ ]
-        metadata  = example.metadata
-
         approvals_path = lambda do |metadata|
           description = normalize metadata[:description]
           example_group = if metadata.key?(:example_group)
