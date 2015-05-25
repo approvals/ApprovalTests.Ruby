@@ -1,17 +1,13 @@
 module Approvals
   module Namers
     class DirectoryNamer < RSpecNamer
-
-      def initialize(example)
-        @name = directorize example
-      end
-
       private
 
-      def directorize(example)
-        parts     = [ ]
-        metadata  = example.metadata
+      def name_for_example(example)
+        directorize example
+      end
 
+      def directorize(example)
         approvals_path = lambda do |metadata|
           description = normalize metadata[:description]
           example_group = if metadata.key?(:example_group)
