@@ -1,4 +1,4 @@
-require 'erb' # It is referenced on line 56
+require 'erb' # It is referenced on line 69
 module Approvals
   class Approval
     class << self
