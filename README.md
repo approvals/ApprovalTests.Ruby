@@ -165,7 +165,7 @@ verify :format => :json do
 end
 ```
 
-### Exclude dynamicly changed values from json
+### Exclude dynamically changed values from json
 
 ```ruby
 Approvals.configure do |c|
