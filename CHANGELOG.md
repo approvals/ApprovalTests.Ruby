@@ -2,8 +2,12 @@
 
 ### Next Release
 
-* [#64](https://github.com/kytrinyx/approvals/pull/64) Silence deprecation warnings - [@tmock12](https://github.com/tmock12)
 * Your contribution here
+
+### v0.0.21 (2015-10-12)
+
+* [#64](https://github.com/kytrinyx/approvals/pull/64) Silence deprecation warnings - [@tmock12](https://github.com/tmock12)
+* Fixed typos and replaced a deprecated standard library method call.
 
 ### v0.0.20 (2015-04-21)
 
