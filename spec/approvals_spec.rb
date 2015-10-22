@@ -108,6 +108,13 @@ describe Approvals do
     Approvals.verify string, :namer => namer
   end
 
+  # Bugfix: If only the approved file gets passed through ERB,
+  # then <% (received) is not equal to <% (approved).
+  it "passes the received files through ERB" do
+    string = "<%"
+    Approvals.verify string, :namer => namer
+  end
+
   describe "supports excluded keys option" do
     let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
 
