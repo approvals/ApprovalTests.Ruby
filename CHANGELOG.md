@@ -4,6 +4,10 @@
 
 * Your contribution here
 
+### v0.0.22 (2015-10-22)
+
+* Fix bug in non-binary comparisons.
+
 ### v0.0.21 (2015-10-12)
 
 * [#64](https://github.com/kytrinyx/approvals/pull/64) Silence deprecation warnings - [@tmock12](https://github.com/tmock12)
