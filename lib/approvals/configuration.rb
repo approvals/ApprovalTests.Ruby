@@ -15,8 +15,7 @@ module Approvals
   class Configuration
     include Singleton
 
-    attr_writer :approvals_path
-    attr_writer :excluded_json_keys
+    attr_writer :approvals_path, :excluded_json_keys, :default_format
 
     def approvals_path
       @approvals_path ||= 'fixtures/approvals/'
@@ -24,6 +23,10 @@ module Approvals
 
     def excluded_json_keys
       @excluded_json_keys ||= {}
+    end
+
+    def default_format
+      @default_format ||= :txt
     end
   end
 end

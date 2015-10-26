@@ -27,7 +27,7 @@ module Approvals
         return format if id_test.call(subject)
       end
       # otherwise
-      return :txt
+      Approvals.configuration.default_format
     end
 
     def writer

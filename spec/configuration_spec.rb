@@ -7,6 +7,10 @@ describe Approvals::Configuration do
     expect(Approvals.configuration.approvals_path).to eq('fixtures/approvals/')
   end
 
+  it "defaults the format to :txt" do
+    expect(Approvals.configuration.default_format).to eq(:txt)
+  end
+
   describe "when set" do
     before(:each) do
       Approvals.configure do |c|
