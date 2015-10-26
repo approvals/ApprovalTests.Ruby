@@ -141,7 +141,7 @@ Approvals.verify(thing, :name => "the name of your test")
 ### Formatting
 
 You can pass a format for your output before it gets written to the file.
-At the moment, only text, xml, html, and json are supported.
+At the moment, only text, xml, html, and json are supported, while text is the default.
 
 Simply add a `:format => :text`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
 
@@ -162,6 +162,14 @@ end
 
 verify :format => :json do
   "{\"beverage\":\"coffee\"}"
+end
+```
+
+If you like you could also change the default format globally with:
+
+```ruby
+RSpec.configure do |config|
+  config.approvals_default_format = :json # or :xml, :html
 end
 ```
 
