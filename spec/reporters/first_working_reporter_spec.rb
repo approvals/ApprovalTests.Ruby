@@ -10,20 +10,20 @@ describe Approvals::Reporters::FirstWorkingReporter do
 
   it "when at least one reporter works it is working" do
     reporter = Approvals::Reporters::FirstWorkingReporter.new(no, yes)
-    reporter.should be_working_in_this_environment
+    expect(reporter).to be_working_in_this_environment
   end
 
   it "when no reporters work it's not working" do
     reporter = Approvals::Reporters::FirstWorkingReporter.new(no, no)
-    reporter.should_not be_working_in_this_environment
+    expect(reporter).not_to be_working_in_this_environment
   end
 
   it "calls the first working reporter" do
     working = Approvals::Reporters::FirstWorkingReporter.new(no, yes, yes_too)
 
-    no.should_not_receive(:report)
-    yes.should_receive(:report)
-    yes_too.should_not_receive(:report)
+    expect(no).not_to receive(:report)
+    expect(yes).to receive(:report)
+    expect(yes_too).not_to receive(:report)
 
     working.report("r", "a")
   end

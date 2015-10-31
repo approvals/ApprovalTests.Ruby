@@ -4,7 +4,7 @@ module Approvals
     class << self
 
       def reset
-        File.truncate(path, 0) if File.exists?(path)
+        File.truncate(path, 0) if File.exist?(path)
       end
 
       def append(text)
@@ -20,7 +20,7 @@ module Approvals
       end
 
       def includes?(text)
-        system("cat #{path} | grep -q \"^#{text}$\"")
+        system("cat #{path} 2> /dev/null | grep -q \"^#{text}$\"")
       end
 
       def write(text)

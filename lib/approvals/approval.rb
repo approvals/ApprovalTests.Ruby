@@ -1,4 +1,4 @@
-require 'erb' # It is referenced on line 56
+require 'erb' # It is referenced on line 69
 module Approvals
   class Approval
     class << self
@@ -20,9 +20,9 @@ module Approvals
     # Add a Proc that tests if subject is a kind of format
     IDENTITIES = {
       hash: Proc.new(){|subject|subject.respond_to? :each_pair},
-      array: Proc.new(){|subject|subject.respond_to? :each_with_index},      
+      array: Proc.new(){|subject|subject.respond_to? :each_with_index},
     }
-    
+
     def identify_format
       IDENTITIES.each_pair do |format, id_test|
         return format if id_test.call(subject)
@@ -40,7 +40,7 @@ module Approvals
     end
 
     def verify
-      unless File.exists?(namer.output_dir)
+      unless File.exist?(namer.output_dir)
         FileUtils.mkdir_p(namer.output_dir)
       end
 
@@ -62,19 +62,21 @@ module Approvals
     end
 
     def approved?
-      File.exists? approved_path
+      File.exist? approved_path
     end
 
     BINARY_FORMATS = [:binary]
-    
+
     def received_matches?
       received_content = IO.read(received_path).chomp
       approved_content = IO.read(approved_path).chomp
-      if !BINARY_FORMATS.include?(@format) # Read with ERB
-        approved_content = ERB.new(approved_content).result
+
+      if BINARY_FORMATS.include?(@format) # Read without ERB
+        return received_content == approved_content
       end
 
-      comparator.compare(approved_content, received_content)
+      comparator.compare(ERB.new(approved_content).result,
+                         ERB.new(received_content).result)
     end
 
     def fail_with(message)
@@ -93,7 +95,7 @@ module Approvals
     end
 
     def diff_path
-      "#{received_path} #{approved_path}"
+      "#{approved_path} #{received_path}"
     end
 
     def full_path(state)
