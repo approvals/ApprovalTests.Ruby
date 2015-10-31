@@ -5,11 +5,12 @@ module Approvals
       attr_accessor :namer
     end
 
-    attr_reader :subject, :namer, :failure
+    attr_reader :subject, :namer, :failure, :comparator_options
     def initialize(subject, options = {})
       @subject = subject
       @namer = options[:namer] || default_namer(options[:name])
       @format = options[:format] || identify_format
+      @comparator_options = options[:comparator]
     end
 
     def default_namer(name)
@@ -19,9 +20,9 @@ module Approvals
     # Add a Proc that tests if subject is a kind of format
     IDENTITIES = {
       hash: Proc.new(){|subject|subject.respond_to? :each_pair},
-      array: Proc.new(){|subject|subject.respond_to? :each_with_index},      
+      array: Proc.new(){|subject|subject.respond_to? :each_with_index},
     }
-    
+
     def identify_format
       IDENTITIES.each_pair do |format, id_test|
         return format if id_test.call(subject)
@@ -32,6 +33,10 @@ module Approvals
 
     def writer
       @writer ||= Writer.for(@format)
+    end
+
+    def comparator
+      @comparator ||= Comparator.for(@format, comparator_options)
     end
 
     def verify
@@ -63,11 +68,15 @@ module Approvals
     BINARY_FORMATS = [:binary]
 
     def received_matches?
+      received_content = IO.read(received_path).chomp
+      approved_content = IO.read(approved_path).chomp
+
       if BINARY_FORMATS.include?(@format) # Read without ERB
-        IO.read(received_path).chomp == IO.read(approved_path).chomp
-      else
-        ERB.new(IO.read(received_path).chomp).result == ERB.new(IO.read(approved_path).chomp).result
+        return received_content == approved_content
       end
+
+      comparator.compare(ERB.new(approved_content).result,
+                         ERB.new(received_content).result)
     end
 
     def fail_with(message)
