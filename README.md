@@ -1,9 +1,9 @@
 # Approvals
 
-[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.png?branch=master)](http://travis-ci.org/kytrinyx/approvals)
-[![Gem Version](https://badge.fury.io/rb/approvals.png)](http://badge.fury.io/rb/approvals)
-[![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.png)](https://codeclimate.com/github/kytrinyx/approvals)
-[![Gemnasium](https://gemnasium.com/kytrinyx/approvals.png)](https://gemnasium.com/kytrinyx/approvals)
+[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.svg?branch=master)](http://travis-ci.org/kytrinyx/approvals)
+[![Gem Version](https://badge.fury.io/rb/approvals.svg)](http://badge.fury.io/rb/approvals)
+[![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.svg)](https://codeclimate.com/github/kytrinyx/approvals)
+[![Gemnasium](https://gemnasium.com/kytrinyx/approvals.svg)](https://gemnasium.com/kytrinyx/approvals)
 
 
 Approvals are based on the idea of the *_golden master_*.
@@ -150,7 +150,7 @@ page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
 Approvals.verify page, :format => :html
 
 data = "{\"beverage\":\"coffee\"}"
-Approvals.verify data, :format => :html
+Approvals.verify data, :format => :json
 ```
 
 In RSpec, it looks like this:
@@ -165,7 +165,7 @@ verify :format => :json do
 end
 ```
 
-### Exclude dynamicly changed values from json
+### Exclude dynamically changed values from json
 
 ```ruby
 Approvals.configure do |c|

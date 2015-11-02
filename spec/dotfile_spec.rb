@@ -5,18 +5,18 @@ describe Approvals::Dotfile do
   let(:dotfile) { '/tmp/.approvals' }
 
   before(:each) do
-    Approvals::Dotfile.stub(:path => dotfile)
+    allow(Approvals::Dotfile).to receive(:path).and_return dotfile
     Approvals::Dotfile.reset
   end
 
   it "appends the text" do
     Approvals::Dotfile.append('text')
-    File.readlines(dotfile).map(&:chomp).should eq(['text'])
+    expect(File.readlines(dotfile).map(&:chomp)).to eq ['text']
   end
 
   it "appends the text exactly once" do
     Approvals::Dotfile.append('text')
     Approvals::Dotfile.append('text')
-    File.readlines(dotfile).map(&:chomp).should eq(['text'])
+    expect(File.readlines(dotfile).map(&:chomp)).to eq ['text']
   end
 end

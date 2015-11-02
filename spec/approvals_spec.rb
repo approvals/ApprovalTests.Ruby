@@ -6,10 +6,11 @@ describe Approvals do
   let(:namer) { |example| Approvals::Namers::RSpecNamer.new(example) }
 
   it "fails" do
-    Approvals::Dotfile.stub(:path => '/dev/null')
-    lambda {
+    allow(Approvals::Dotfile).to receive(:path).and_return('/dev/null')
+
+    expect do
       Approvals.verify "this one doesn't exist", :namer => namer
-    }.should raise_error Approvals::ApprovalError
+    end.to raise_error Approvals::ApprovalError
   end
 
   it "verifies a string" do
@@ -104,6 +105,13 @@ describe Approvals do
   it "passes approved files through ERB" do
     $what  = 'greatness'
     string = "We have, I fear, confused power with greatness."
+    Approvals.verify string, :namer => namer
+  end
+
+  # Bugfix: If only the approved file gets passed through ERB,
+  # then <% (received) is not equal to <% (approved).
+  it "passes the received files through ERB" do
+    string = "<%"
     Approvals.verify string, :namer => namer
   end
 

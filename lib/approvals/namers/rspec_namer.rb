@@ -1,10 +1,15 @@
 module Approvals
   module Namers
     class RSpecNamer
-
       attr_reader :name
+
       def initialize(example)
-        @name = normalize example.full_description
+        @name = name_for_example(example)
+        @output_dir = nil
+      end
+
+      def name_for_example(example)
+        normalize example.full_description
       end
 
       def normalize(string)
@@ -15,7 +20,7 @@ module Approvals
         unless @output_dir
           begin
             @output_dir = ::RSpec.configuration.approvals_path
-          rescue NoMethodError => e
+          rescue NoMethodError
           end
           @output_dir ||= 'spec/fixtures/approvals/'
         end

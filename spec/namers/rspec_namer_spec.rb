@@ -3,11 +3,11 @@ require 'spec_helper'
 describe Approvals::Namers::RSpecNamer do
 
   it "uses non-$%^&*funky example description" do |example|
-    Approvals::Namers::RSpecNamer.new(example).name.should eq("approvals_namers_rspecnamer_uses_non_funky_example_description")
+    expect(Approvals::Namers::RSpecNamer.new(example).name).to eq 'approvals_namers_rspecnamer_uses_non_funky_example_description'
   end
 
   it "has a decent default" do |example|
-    Approvals::Namers::RSpecNamer.new(example).output_dir.should eq('spec/fixtures/approvals/')
+    expect(Approvals::Namers::RSpecNamer.new(example).output_dir).to eq 'spec/fixtures/approvals/'
   end
 
   context "when RSpec is configured" do
@@ -24,7 +24,7 @@ describe Approvals::Namers::RSpecNamer do
     end
 
     it "uses the rspec config option" do |example|
-      Approvals::Namers::RSpecNamer.new(example).output_dir.should eq('spec/output/dir/')
+      expect(Approvals::Namers::RSpecNamer.new(example).output_dir).to eq 'spec/output/dir/'
     end
   end
 end

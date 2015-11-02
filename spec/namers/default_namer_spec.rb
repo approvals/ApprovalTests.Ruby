@@ -7,7 +7,7 @@ describe Approvals::Namers::DefaultNamer do
   subject { Approvals::Namers::DefaultNamer.new("a f!$^%&*(unky name") }
 
   it "normalizes the name" do
-    subject.name.should eq("a_funky_name")
+    expect(subject.name).to eq 'a_funky_name'
   end
 
   context "when configured" do
@@ -24,12 +24,14 @@ describe Approvals::Namers::DefaultNamer do
     end
 
     it "uses the approvals output dir" do
-      subject.output_dir.should eq('path/to/files/')
+      expect(subject.output_dir).to eq 'path/to/files/'
     end
   end
 
   it "must have a name" do
-    lambda { Approvals::Namers::DefaultNamer.new(nil) }.should raise_error(ArgumentError)
+    expect do
+      Approvals::Namers::DefaultNamer.new nil
+    end.to raise_error ArgumentError
   end
 
 end
