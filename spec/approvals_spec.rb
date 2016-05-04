@@ -51,6 +51,25 @@ describe Approvals do
     Approvals.verify hello, :namer => namer
   end
 
+  context "custom writer" do
+    let(:hello) { Object.new }
+
+    class MyCustomWriter < Approvals::Writers::TextWriter
+      def format(data)
+        filter(data)
+      end
+
+      def filter(data)
+        data.to_s.chars.reject {|c| c =~ /[a-zA-Z0-9]/}
+      end
+    end
+
+    it "verifies a complex object" do
+      Approvals.verify hello, :namer => namer, :format => MyCustomWriter
+    end
+  end
+
+
   it "verifies html" do
     html = <<-HTML
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html><head><title>Approval</title></head><body><h1>An Approval</h1><p>It has a paragraph</p></body></html>

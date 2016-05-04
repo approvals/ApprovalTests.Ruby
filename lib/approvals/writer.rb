@@ -16,16 +16,13 @@ module Approvals
       html: Writers::HtmlWriter.new,
       hash: Writers::HashWriter.new,
       array: Writers::ArrayWriter.new,
+      txt: Writers::TextWriter.new,
     }
 
 
     class << self
       def for(format)
-        if REGISTRY.include?(format)
-          REGISTRY[format]
-        else
-          TextWriter.new
-        end
+        REGISTRY[format] || format.new
       end
     end
 

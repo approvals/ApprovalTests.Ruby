@@ -42,17 +42,42 @@ Approvals.verify(your_subject, :format => :json)
 
 This will raise an `ApprovalError` in the case of a failure.
 
-The default writer uses the `:to_s` method on the subject to generate the output for
-the `received` file. For custom complex objects you will need to override
-`:to_s` to get helpful output, rather than the default:
-
-    #<Object:0x0000010105ea40> # or whatever the object id is
-
 The first time the approval is run, a file will be created with the contents of the subject of your approval:
 
     the_name_of_the_approval.received.txt # or .json, .html, .xml as appropriate
 
 Since you have not yet approved anything, the `*.approved` file does not exist, and the comparison will fail.
+
+### Customizing formatted output
+
+The default writer uses the `:to_s` method on the subject to generate the output for the received file.
+For custom complex objects you will need to provide a custom writer to get helpful output, rather than the default:
+
+    #<Object:0x0000010105ea40> # or whatever the object id is
+
+Create a custom writer class somewhere accessible to your test:
+
+```
+class MyCustomWriter < Approvals::Writers::TextWriter
+  def format(data)
+    # Custom data formatting here
+  end
+
+  def filter(data)
+    # Custom data filtering here
+  end
+end
+```
+
+In your test, use your custom class:
+
+```
+it "verifies a complex object" do
+  Approvals.verify hello, :format => MyCustomWriter
+end
+```
+
+Define and use different custom writers as needed!
 
 ## CLI
 
