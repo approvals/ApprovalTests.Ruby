@@ -74,6 +74,40 @@ describe Approvals::Filter do
     })
   end
 
+  it "filters array keys" do
+    filter = Approvals::Filter.new({foolist: /^foolist$/})
+    input = {
+      foo: 'bar124',
+      foolist: [{foo: 'bar 145', bar: 'foo'}, 'foobar'],
+      nonfoo: 'bar',
+    }
+
+    output = filter.apply(input)
+
+    expect(output).to eq({
+      foo: 'bar124',
+      foolist: '<foolist>',
+      nonfoo: 'bar',
+    })
+  end
+
+  it "filters hash keys" do
+    filter = Approvals::Filter.new({foohash: /^foohash$/})
+    input = {
+      foo: 'bar124',
+      foohash: {foo: 'bar 145', barlist: ['foo', 'bar']},
+      nonfoo: 'bar',
+    }
+
+    output = filter.apply(input)
+
+    expect(output).to eq({
+      foo: 'bar124',
+      foohash: '<foohash>',
+      nonfoo: 'bar',
+    })
+  end
+
   it "takes the last applicable filter" do
     filter = Approvals::Filter.new({foo: /^foo/, bar: /bar$/})
     input = {
