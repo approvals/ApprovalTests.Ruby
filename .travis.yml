@@ -6,5 +6,7 @@ rvm:
   - 2.1.0
   - ruby-head
   - rbx-2
+before_install:
+  - gem update bundler
 script: bundle exec rspec spec
 cache: bundler
