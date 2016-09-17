@@ -23,8 +23,8 @@ which Llewellyn Falco is interviewed about approvals.
 ## Configuration
 
 ```ruby
-Approvals.configure do |c|
-  c.approvals_path = 'output/goes/here/'
+Approvals.configure do |config|
+  config.approvals_path = 'output/goes/here/'
 end
 ```
 
@@ -115,8 +115,8 @@ spec/fixtures/approvals/
 You can override this:
 
 ```ruby
-RSpec.configure do |c|
-  c.approvals_path = 'some/other/path'
+RSpec.configure do |config|
+  config.approvals_path = 'some/other/path'
 end
 ```
 
@@ -176,8 +176,8 @@ end
 ### Exclude dynamically changed values from json
 
 ```ruby
-Approvals.configure do |c|
-  c.excluded_json_keys = {
+Approvals.configure do |config|
+  config.excluded_json_keys = {
     :id =>/(\A|_)id$/,
     :date => /_at$/
   }
