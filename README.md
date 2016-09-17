@@ -123,9 +123,9 @@ end
 The basic format of the approval is modeled after RSpec's `it`:
 
 ```ruby
-it "works" do
+it 'works' do
   verify do
-    "this is the the thing you want to verify"
+    'this is the the thing you want to verify'
   end
 end
 ```
@@ -135,7 +135,7 @@ end
 When using RSpec, the namer is set for you, using the example's `full_description`.
 
 ```ruby
-Approvals.verify(thing, :name => "the name of your test")
+Approvals.verify(thing, :name => 'the name of your test')
 ```
 
 ### Formatting
@@ -146,10 +146,10 @@ At the moment, only text, xml, html, and json are supported, while text is the d
 Simply add a `:format => :text`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
 
 ```ruby
-page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
+page = '<html><head></head><body><h1>ZOMG</h1></body></html>'
 Approvals.verify page, :format => :html
 
-data = "{\"beverage\":\"coffee\"}"
+data = '{\'beverage\':\'coffee\'}'
 Approvals.verify data, :format => :json
 ```
 
@@ -157,11 +157,11 @@ In RSpec, it looks like this:
 
 ```ruby
 verify :format => :html do
-  "<html><head></head><body><h1>ZOMG</h1></body></html>"
+  '<html><head></head><body><h1>ZOMG</h1></body></html>'
 end
 
 verify :format => :json do
-  "{\"beverage\":\"coffee\"}"
+  '{\'beverage\':\'coffee\'}'
 end
 ```
 
