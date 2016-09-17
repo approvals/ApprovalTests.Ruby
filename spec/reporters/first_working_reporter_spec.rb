@@ -4,9 +4,9 @@ require 'approvals/reporters/first_working_reporter'
 describe Approvals::Reporters::FirstWorkingReporter do
 
 
-  let(:no) { double(:working_in_this_environment? => false) }
-  let(:yes) { double(:working_in_this_environment? => true) }
-  let(:yes_too) { double(:working_in_this_environment? => true) }
+  let(:no) { double(working_in_this_environment?: false) }
+  let(:yes) { double(working_in_this_environment?: true) }
+  let(:yes_too) { double(working_in_this_environment?: true) }
 
   it "when at least one reporter works it is working" do
     reporter = Approvals::Reporters::FirstWorkingReporter.new(no, yes)

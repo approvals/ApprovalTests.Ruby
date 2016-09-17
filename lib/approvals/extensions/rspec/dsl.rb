@@ -16,7 +16,7 @@ module Approvals
         group = eval "self", block.binding
         namer = ::RSpec.configuration.approvals_namer_class.new(fetch_current_example.call(group))
         defaults = {
-          :namer => namer
+          namer: namer
         }
         format = ::RSpec.configuration.approvals_default_format
         defaults[:format] = format if format
