@@ -37,7 +37,7 @@ approvals/
 ## Usage
 
 ```ruby
-Approvals.verify(your_subject, :format => :json)
+Approvals.verify(your_subject, format: :json)
 ```
 
 This will raise an `ApprovalError` in the case of a failure.
@@ -135,7 +135,7 @@ end
 When using RSpec, the namer is set for you, using the example's `full_description`.
 
 ```ruby
-Approvals.verify(thing, :name => "the name of your test")
+Approvals.verify(thing, name: "the name of your test")
 ```
 
 ### Formatting
@@ -143,24 +143,24 @@ Approvals.verify(thing, :name => "the name of your test")
 You can pass a format for your output before it gets written to the file.
 At the moment, only text, xml, html, and json are supported, while text is the default.
 
-Simply add a `:format => :text`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
+Simply add a `format: :text`, `format: :xml`, `format: :html`, or `format: :json` option to the example:
 
 ```ruby
 page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
-Approvals.verify page, :format => :html
+Approvals.verify page, format: :html
 
 data = "{\"beverage\":\"coffee\"}"
-Approvals.verify data, :format => :json
+Approvals.verify data, format: :json
 ```
 
 In RSpec, it looks like this:
 
 ```ruby
-verify :format => :html do
+verify format: :html do
   "<html><head></head><body><h1>ZOMG</h1></body></html>"
 end
 
-verify :format => :json do
+verify format: :json do
   "{\"beverage\":\"coffee\"}"
 end
 ```
@@ -178,8 +178,8 @@ end
 ```ruby
 Approvals.configure do |c|
   c.excluded_json_keys = {
-    :id =>/(\A|_)id$/,
-    :date => /_at$/
+    id: /(\A|_)id$/,
+    date: /_at$/
   }
 end
 ```
@@ -219,7 +219,7 @@ executable = Approvals::Executable.new(subject.slow_sql) do |output|
   # do something on failure
 end
 
-Approvals.verify(executable, :options => :here)
+Approvals.verify(executable, options: :here)
 ```
 
 ### RSpec executable
