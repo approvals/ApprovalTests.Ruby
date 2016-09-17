@@ -42,7 +42,7 @@ Approvals.verify(your_subject, :format => :json)
 
 This will raise an `ApprovalError` in the case of a failure.
 
-The default writer uses the `:to_s` method on the subject will be used to generate the output for
+The default writer uses the `:to_s` method on the subject to generate the output for
 the `received` file. For custom complex objects you will need to override
 `:to_s` to get helpful output, rather than the default:
 
