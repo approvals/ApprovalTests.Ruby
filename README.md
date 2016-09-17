@@ -23,8 +23,8 @@ which Llewellyn Falco is interviewed about approvals.
 ## Configuration
 
 ```ruby
-Approvals.configure do |c|
-  c.approvals_path = 'output/goes/here/'
+Approvals.configure do |config|
+  config.approvals_path = 'output/goes/here/'
 end
 ```
 
@@ -42,7 +42,7 @@ Approvals.verify(your_subject, format: :json)
 
 This will raise an `ApprovalError` in the case of a failure.
 
-The default writer uses the `:to_s` method on the subject will be used to generate the output for
+The default writer uses the `:to_s` method on the subject to generate the output for
 the `received` file. For custom complex objects you will need to override
 `:to_s` to get helpful output, rather than the default:
 
@@ -115,17 +115,17 @@ spec/fixtures/approvals/
 You can override this:
 
 ```ruby
-RSpec.configure do |c|
-  c.approvals_path = 'some/other/path'
+RSpec.configure do |config|
+  config.approvals_path = 'some/other/path'
 end
 ```
 
 The basic format of the approval is modeled after RSpec's `it`:
 
 ```ruby
-it "works" do
+it 'works' do
   verify do
-    "this is the the thing you want to verify"
+    'this is the the thing you want to verify'
   end
 end
 ```
@@ -135,7 +135,7 @@ end
 When using RSpec, the namer is set for you, using the example's `full_description`.
 
 ```ruby
-Approvals.verify(thing, name: "the name of your test")
+Approvals.verify(thing, :name => 'the name of your test')
 ```
 
 ### Formatting
@@ -146,22 +146,22 @@ At the moment, only text, xml, html, and json are supported, while text is the d
 Simply add a `format: :text`, `format: :xml`, `format: :html`, or `format: :json` option to the example:
 
 ```ruby
-page = "<html><head></head><body><h1>ZOMG</h1></body></html>"
-Approvals.verify page, format: :html
+page = '<html><head></head><body><h1>ZOMG</h1></body></html>'
+Approvals.verify page, :format => :html
 
-data = "{\"beverage\":\"coffee\"}"
-Approvals.verify data, format: :json
+data = '{\'beverage\':\'coffee\'}'
+Approvals.verify data, :format => :json
 ```
 
 In RSpec, it looks like this:
 
 ```ruby
-verify format: :html do
-  "<html><head></head><body><h1>ZOMG</h1></body></html>"
+verify :format => :html do
+  '<html><head></head><body><h1>ZOMG</h1></body></html>'
 end
 
-verify format: :json do
-  "{\"beverage\":\"coffee\"}"
+verify :format => :json do
+  '{\'beverage\':\'coffee\'}'
 end
 ```
 
@@ -176,10 +176,10 @@ end
 ### Exclude dynamically changed values from json
 
 ```ruby
-Approvals.configure do |c|
-  c.excluded_json_keys = {
-    id: /(\A|_)id$/,
-    date: /_at$/
+Approvals.configure do |config|
+  config.excluded_json_keys = {
+    :id =>/(\A|_)id$/,
+    :date => /_at$/
   }
 end
 ```
