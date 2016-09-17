@@ -24,7 +24,7 @@ which Llewellyn Falco is interviewed about approvals.
 
 ```ruby
 Approvals.configure do |config|
-  config.approvals_path = "output/goes/here/"
+  config.approvals_path = 'output/goes/here/'
 end
 ```
 
@@ -103,7 +103,7 @@ multiple diffs, this handles each failure in turn.
 For the moment the only direct integration is with RSpec.
 
 ```ruby
-require "approvals/rspec"
+require 'approvals/rspec'
 ```
 
 The default directory for output files when using RSpec is
@@ -116,7 +116,7 @@ You can override this:
 
 ```ruby
 RSpec.configure do |config|
-  config.approvals_path = "some/other/path"
+  config.approvals_path = 'some/other/path'
 end
 ```
 
