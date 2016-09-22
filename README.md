@@ -69,11 +69,11 @@ class MyCustomWriter < Approvals::Writers::TextWriter
 end
 ```
 
-In your test, use your custom class:
+In your test, use a string to reference your custom class:
 
 ```
 it "verifies a complex object" do
-  Approvals.verify hello, :format => MyCustomWriter
+  Approvals.verify hello, :format => "MyCustomWriter"
 end
 ```
 

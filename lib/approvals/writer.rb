@@ -22,7 +22,15 @@ module Approvals
 
     class << self
       def for(format)
-        REGISTRY[format] || format.new
+        begin
+          REGISTRY[format] || Object.const_get(format).new
+        rescue NameError => e
+          error = ApprovalError.new(
+            "Approval Error: #{ e }. Please define a custom writer as outlined"\
+            " in the 'Customizing formatted output' documentation."
+          )
+          raise error
+        end
       end
     end
 

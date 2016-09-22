@@ -65,10 +65,17 @@ describe Approvals do
     end
 
     it "verifies a complex object" do
-      Approvals.verify hello, :namer => namer, :format => MyCustomWriter
+      Approvals.verify hello, :namer => namer, :format => "MyCustomWriter"
     end
-  end
 
+    it "raises an error with an uninitialized custom writer class" do
+      expect{
+        Approvals.verify hello, :namer => namer, :format => "UninitializedWriter"
+      }.to raise_error.with_message(
+        /Please define a custom writer as outlined in the 'Customizing formatted output' documentation./
+      )
+    end
+ end
 
   it "verifies html" do
     html = <<-HTML
