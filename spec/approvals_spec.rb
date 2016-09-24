@@ -72,7 +72,7 @@ describe Approvals do
       expect{
         Approvals.verify hello, :namer => namer, :format => "UninitializedWriter"
       }.to raise_error.with_message(
-        /Please define a custom writer as outlined in the 'Customizing formatted output' documentation./
+        /Please define a custom writer as outlined in README section 'Customizing formatted output':/
       )
     end
  end

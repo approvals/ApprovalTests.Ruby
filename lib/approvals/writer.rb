@@ -27,7 +27,8 @@ module Approvals
         rescue NameError => e
           error = ApprovalError.new(
             "Approval Error: #{ e }. Please define a custom writer as outlined"\
-            " in the 'Customizing formatted output' documentation."
+            " in README section 'Customizing formatted output': "\
+            "https://github.com/kytrinyx/approvals#customizing-formatted-output"
           )
           raise error
         end
