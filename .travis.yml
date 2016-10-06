@@ -13,3 +13,5 @@ before_install:
   - gem update bundler
 script: bundle exec rspec spec
 cache: bundler
+sudo: required
+dist: trusty
