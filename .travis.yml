@@ -8,7 +8,6 @@ rvm:
   - rbx
 matrix:
   allow_failures:
-    - rvm: ruby-head
     - rvm: rbx
 before_install:
   - gem update bundler
