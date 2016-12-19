@@ -5,3 +5,5 @@ pkg/*
 *.received.txt
 .approvals
 tmp/
+
+ext/Rakefile
