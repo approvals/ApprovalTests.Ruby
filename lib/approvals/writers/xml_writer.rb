@@ -7,7 +7,7 @@ module Approvals
       end
 
       def format(data)
-        Nokogiri::XML(data.to_s.strip,&:noblanks).to_xml(:indent => 2, :encoding => 'UTF-8')
+        Nokogiri::XML(data.to_s.strip,&:noblanks).to_xml(indent: 2, encoding: 'UTF-8')
       end
 
     end

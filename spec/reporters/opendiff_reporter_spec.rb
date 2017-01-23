@@ -10,6 +10,6 @@ describe Approvals::Reporters::OpendiffReporter do
       Approvals::Reporters::OpendiffReporter.report(one, two)
     end
 
-    Approvals.verify(executable, :name => 'opendiff launcher')
+    Approvals.verify(executable, name: 'opendiff launcher')
   end
 end

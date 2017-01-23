@@ -34,7 +34,7 @@ shared_context 'verify examples' do
   end
 
   specify "html" do
-    verify :format => :html do
+    verify format: :html do
       html = <<-HTML
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html><head><title>Approval</title></head><body><h1>An Approval</h1><p>It has a paragraph</p></body></html>
       HTML
@@ -42,13 +42,13 @@ shared_context 'verify examples' do
   end
 
   specify "xml" do
-    verify :format => :xml do
+    verify format: :xml do
       xml = "<xml char=\"kiddo\"><node><content name='beatrice' /></node><node aliases='5'><content /></node></xml>"
     end
   end
 
   specify "json" do
-    verify :format => :json do
+    verify format: :json do
       json = '{"pet":{"species":"turtle","color":"green","name":"Anthony"}}'
     end
   end
@@ -72,7 +72,7 @@ shared_context 'verify examples' do
     ::RSpec.configuration.diff_on_approval_failure = false
   end
 
-  specify "a failure diff", :diff_on_approval_failure => true do
+  specify "a failure diff", diff_on_approval_failure: true do
     expect(::RSpec::Expectations).to receive(:fail_with)
     verify { 'no.' }
   end

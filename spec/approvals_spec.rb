@@ -9,13 +9,13 @@ describe Approvals do
     allow(Approvals::Dotfile).to receive(:path).and_return('/dev/null')
 
     expect do
-      Approvals.verify "this one doesn't exist", :namer => namer
+      Approvals.verify "this one doesn't exist", namer: namer
     end.to raise_error Approvals::ApprovalError
   end
 
   it "verifies a string" do
     string = "We have, I fear, confused power with greatness."
-    Approvals.verify string, :namer => namer
+    Approvals.verify string, namer: namer
   end
 
   it "verifies an array" do
@@ -25,17 +25,17 @@ describe Approvals do
       :zomg_fooooood,
       %w(cheese burger ribs steak bacon)
     ]
-    Approvals.verify array, :namer => namer
+    Approvals.verify array, namer: namer
   end
 
   it "verifies a hash" do
     hash = {
-      :meal => 'breakfast',
-      :proteins => '90%',
-      :price => 38,
-      :delicious => true
+      meal: 'breakfast',
+      proteins: '90%',
+      price: 38,
+      delicious: true
     }
-    Approvals.verify hash, :namer => namer
+    Approvals.verify hash, namer: namer
   end
 
   it "verifies a complex object" do
@@ -48,7 +48,7 @@ describe Approvals do
       "#<The World Says: Hello!>"
     end
 
-    Approvals.verify hello, :namer => namer
+    Approvals.verify hello, namer: namer
   end
 
   context "custom writer" do
@@ -81,7 +81,7 @@ describe Approvals do
     html = <<-HTML
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html><head><title>Approval</title></head><body><h1>An Approval</h1><p>It has a paragraph</p></body></html>
     HTML
-    Approvals.verify html, :format => :html, :namer => namer
+    Approvals.verify html, format: :html, namer: namer
   end
 
   it "verifies a malformed html fragment" do
@@ -92,23 +92,23 @@ describe Approvals do
 <script async defer src="http://foo.com/bar.js"></script>
 <h1>yo</h1>
     HTML
-    Approvals.verify html, :format => :html, :namer => namer
+    Approvals.verify html, format: :html, namer: namer
   end
 
   it "verifies xml" do
     xml = "<xml char=\"kiddo\"><node><content name='beatrice' /></node><node aliases='5'><content /></node></xml>"
-    Approvals.verify xml, :format => :xml, :namer => namer
+    Approvals.verify xml, format: :xml, namer: namer
   end
 
   it "verifies json" do
     json = '{"pet":{"species":"turtle","color":"green","name":"Anthony"}}'
-    Approvals.verify json, :format => :json, :namer => namer
+    Approvals.verify json, format: :json, namer: namer
   end
 
 
   it "verifies json and is newline agnostic" do
     json = '{"pet":{"species":"turtle","color":"green","name":"Anthony"}}'
-    Approvals.verify json, :format => :json, :namer => namer
+    Approvals.verify json, format: :json, namer: namer
   end
 
   it "verifies an array as json when format is set to json" do
@@ -125,48 +125,48 @@ describe Approvals do
       puts "your slip is showing (#{command})"
     end
 
-    Approvals.verify executable, :namer => namer
+    Approvals.verify executable, namer: namer
   end
 
   it "passes approved files through ERB" do
     $what  = 'greatness'
     string = "We have, I fear, confused power with greatness."
-    Approvals.verify string, :namer => namer
+    Approvals.verify string, namer: namer
   end
 
   # Bugfix: If only the approved file gets passed through ERB,
   # then <% (received) is not equal to <% (approved).
   it "passes the received files through ERB" do
     string = "<%"
-    Approvals.verify string, :namer => namer
+    Approvals.verify string, namer: namer
   end
 
   describe "supports excluded keys option" do
-    let(:hash) { {:object => {:id => rand(100), :created_at => Time.now, :name => 'test', deleted_at: nil}} }
+    let(:hash) { {object: {id: rand(100), created_at: Time.now, name: 'test', deleted_at: nil}} }
 
     before do
       Approvals.configure do |c|
         c.excluded_json_keys = {
-          :id => /(\A|_)id$/,
-          :date => /_at$/
+          id: /(\A|_)id$/,
+          date: /_at$/
         }
       end
     end
 
     it "verifies json with excluded keys" do
-      Approvals.verify JSON.dump(hash), :format => :json, :namer => namer
+      Approvals.verify JSON.dump(hash), format: :json, namer: namer
     end
 
     it "also supports an array of hashes" do
-      Approvals.verify JSON.dump([hash]), :format => :json, :namer => namer
+      Approvals.verify JSON.dump([hash]), format: :json, namer: namer
     end
 
     it "supports the array writer" do
-      Approvals.verify [hash], :format => :array, :namer => namer
+      Approvals.verify [hash], format: :array, namer: namer
     end
 
     it "supports the hash writer" do
-      Approvals.verify hash, :format => :array, :namer => namer
+      Approvals.verify hash, format: :array, namer: namer
     end
   end
 end
