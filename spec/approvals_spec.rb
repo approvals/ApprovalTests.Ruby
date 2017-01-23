@@ -169,4 +169,13 @@ describe Approvals do
       Approvals.verify hash, :format => :array, :namer => namer
     end
   end
+
+  describe 'configured default format' do
+    before { Approvals.configure { |c| c.default_format = :json } }
+    after  { Approvals.configure { |c| c.default_format = :txt  } }
+
+    it "implicitly verifies with format" do
+      Approvals.verify JSON.dump({some: 'json'}), namer: namer
+    end
+  end
 end

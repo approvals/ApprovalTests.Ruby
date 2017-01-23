@@ -198,6 +198,14 @@ RSpec.configure do |config|
 end
 ```
 
+If you like you could also change the default format globally with:
+
+```ruby
+Approvals.configure do |c|
+  c.default_format = :json  # or :xml, :html
+end
+```
+
 ### Exclude dynamically changed values from json
 
 ```ruby
