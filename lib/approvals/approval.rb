@@ -45,11 +45,33 @@ module Approvals
         fail_with "Approval file \"#{approved_path}\" not found."
       end
 
+      @approved_content, @received_content = read_content
+
       unless received_matches?
-        fail_with "Received file \"#{received_path}\" does not match approved \"#{approved_path}\"."
+        fail_with "Received file does not match approved:\n"+
+          "#{received_path}\n#{approved_path}\n#{diff_preview}"
       end
 
       success!
+    end
+
+    def diff_preview
+      approved, received = diff_lines
+      return unless approved and received
+      diff_index =
+          approved.each_char.with_index.find_index do |approved_char, i|
+            approved_char != received[i]
+          end
+      "approved fragment: #{approved[diff_index - 10 .. diff_index + 30]}\n"+
+      "received fragment: #{received[diff_index - 10 .. diff_index + 30]}"
+    end
+
+    def diff_lines
+      approved = @approved_content.split("\n")
+      received = @received_content.split("\n")
+      approved.each_with_index do |line, i|
+        return line, received[i] unless line == received[i]
+      end
     end
 
     def success!
@@ -62,12 +84,18 @@ module Approvals
 
     BINARY_FORMATS = [:binary]
 
-    def received_matches?
+    def read_content
       if BINARY_FORMATS.include?(@format) # Read without ERB
-        IO.read(received_path).chomp == IO.read(approved_path).chomp
+        [IO.read(approved_path).chomp,
+         IO.read(received_path).chomp]
       else
-        ERB.new(IO.read(received_path).chomp).result == ERB.new(IO.read(approved_path).chomp).result
+        [ERB.new(IO.read(approved_path).chomp).result,
+         ERB.new(IO.read(received_path).chomp).result]
       end
+    end
+
+    def received_matches?
+      @approved_content == @received_content
     end
 
     def fail_with(message)
