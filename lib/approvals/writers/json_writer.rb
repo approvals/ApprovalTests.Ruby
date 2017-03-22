@@ -8,7 +8,14 @@ module Approvals
       def format(data)
         hash_or_array = filter(parse_data(data))
 
-        JSON.pretty_generate(hash_or_array) + "\n"
+        # These are the same options as pretty_generate but when using the Oj
+        # gem, a space is added in front of the ":" for some reason.
+        JSON.generate(hash_or_array, {
+          indent: '  ',
+          space: ' ',
+          object_nl: "\n",
+          array_nl: "\n"
+        }) + "\n"
       end
 
       private
