@@ -34,6 +34,10 @@ module Approvals
       @writer ||= Writer.for(@format)
     end
 
+    def verifier
+      @verifier ||= Verifier.for(@format)
+    end
+
     def verify
       unless File.exist?(namer.output_dir)
         FileUtils.mkdir_p(namer.output_dir)
@@ -63,6 +67,10 @@ module Approvals
     BINARY_FORMATS = [:binary]
 
     def received_matches?
+      return verifier
+        .new(received_path, approved_path)
+        .verify if verifier
+
       if BINARY_FORMATS.include?(@format) # Read without ERB
         IO.read(received_path).chomp == IO.read(approved_path).chomp
       else
