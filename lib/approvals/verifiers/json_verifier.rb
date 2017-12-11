@@ -16,11 +16,11 @@ module Approvals
       attr_accessor :approved_path, :received_path
 
       def approved
-        @approved = JSON.parse(File.read(approved_path))
+        JSON.parse(File.read(approved_path))
       end
 
       def received
-        @receiver = JSON.parse(File.read(received_path))
+        JSON.parse(File.read(received_path))
       end
     end
   end
