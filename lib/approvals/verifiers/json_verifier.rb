@@ -7,8 +7,7 @@ module Approvals
       end
 
       def verify
-        return false unless approved == received
-        true
+        approved == received
       end
 
       private
