@@ -13,6 +13,7 @@ require 'approvals/executable'
 require 'approvals/reporters'
 require 'approvals/filter'
 require 'approvals/writer'
+require 'approvals/verifier'
 require 'approvals/namers/default_namer'
 
 module Approvals
