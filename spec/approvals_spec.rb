@@ -105,7 +105,7 @@ describe Approvals do
     Approvals.verify json, :format => :json, :namer => namer
   end
 
-  it "verifies json where the pretty generation is different but the content is the same" do
+  it "ignores whitespace differences in json" do
     hash = { foo: {} }
 
     Approvals.verify hash, :format => :json, :namer => namer
