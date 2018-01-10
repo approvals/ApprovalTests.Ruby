@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.licenses    = ['MIT']
   s.authors     = ["Katrina Owen"]
   s.email       = ["katrina.owen@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/kytrinyx/approvals"
   s.summary     = %q{Approval Tests for Ruby}
-  s.description = %q{Approval Tests for Ruby}
+  s.description = %q{A library to make it easier to do golden-master style testing in Ruby}
 
   s.rubyforge_project = "approvals"
 
