@@ -3,13 +3,18 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
-  - 2.1.0
+  - 2.1.10
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
   - ruby-head
-  - rbx
+  - rbx-3
 matrix:
   allow_failures:
-    - rvm: rbx
+    - rvm: rbx-3
 before_install:
+  - gem update --system
   - gem update bundler
 script: bundle exec rspec spec
 cache: bundler
