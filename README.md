@@ -168,7 +168,7 @@ Approvals.verify(thing, :name => 'the name of your test')
 You can pass a format for your output before it gets written to the file.
 At the moment, only text, xml, html, and json are supported, while text is the default.
 
-Simply add a `:format => :text`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
+Simply add a `:format => :txt`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
 
 ```ruby
 page = '<html><head></head><body><h1>ZOMG</h1></body></html>'
