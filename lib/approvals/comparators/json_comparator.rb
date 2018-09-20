@@ -1,6 +1,6 @@
 module Approvals
   module Comparators
-    class JsonComparator < EqualityComparator
+    class JsonComparator
       attr_accessor :ignore_ordering_paths
 
       def initialize(options)
@@ -14,10 +14,11 @@ module Approvals
       end
 
       def compare(approved, received)
-        return super if ignore_ordering_paths.nil?
-
         approved = JSON.parse(approved)
         received = JSON.parse(received)
+
+        return approved == received if ignore_ordering_paths.nil?
+
         walk_and_compare(approved, received)
       end
 
