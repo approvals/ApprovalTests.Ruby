@@ -23,12 +23,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 3.1'
   s.add_dependency 'thor', '~> 0.18'
-
-  if RUBY_VERSION < "2.1"
-    s.add_dependency 'nokogiri', '~> 1.6.8'
-  else
-    s.add_dependency 'nokogiri', '~> 1.8'
-  end
+  
   # We also depend on the json gem, but the version we need is
   # Ruby-version-specific. See `ext/mkrf_conf.rb`.
 end

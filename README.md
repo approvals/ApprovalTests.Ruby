@@ -44,7 +44,7 @@ This will raise an `ApprovalError` in the case of a failure.
 
 The first time the approval is run, a file will be created with the contents of the subject of your approval:
 
-    the_name_of_the_approval.received.txt # or .json, .html, .xml as appropriate
+    the_name_of_the_approval.received.txt # or .json as appropriate
 
 Since you have not yet approved anything, the `*.approved` file does not exist, and the comparison will fail.
 
@@ -166,9 +166,9 @@ Approvals.verify(thing, :name => 'the name of your test')
 ### Formatting
 
 You can pass a format for your output before it gets written to the file.
-At the moment, only text, xml, html, and json are supported, while text is the default.
+At the moment, only text, and json are supported, while text is the default.
 
-Simply add a `:format => :txt`, `:format => :xml`, `:format => :html`, or `:format => :json` option to the example:
+Simply add a `:format => :txt` or `:format => :json` option to the example:
 
 ```ruby
 page = '<html><head></head><body><h1>ZOMG</h1></body></html>'
@@ -194,7 +194,7 @@ If you like you could also change the default format globally with:
 
 ```ruby
 RSpec.configure do |config|
-  config.approvals_default_format = :json # or :xml, :html
+  config.approvals_default_format = :json
 end
 ```
 

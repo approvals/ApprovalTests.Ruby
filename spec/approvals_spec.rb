@@ -76,30 +76,7 @@ describe Approvals do
       )
     end
  end
-
-  it "verifies html" do
-    html = <<-HTML
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd"><html><head><title>Approval</title></head><body><h1>An Approval</h1><p>It has a paragraph</p></body></html>
-    HTML
-    Approvals.verify html, :format => :html, :namer => namer
-  end
-
-  it "verifies a malformed html fragment" do
-    html = <<-HTML
-<!DOCTYPE html>
-<html>
-<title>Hoi</title>
-<script async defer src="http://foo.com/bar.js"></script>
-<h1>yo</h1>
-    HTML
-    Approvals.verify html, :format => :html, :namer => namer
-  end
-
-  it "verifies xml" do
-    xml = "<xml char=\"kiddo\"><node><content name='beatrice' /></node><node aliases='5'><content /></node></xml>"
-    Approvals.verify xml, :format => :xml, :namer => namer
-  end
-
+ 
   it "verifies json" do
     json = '{"pet":{"species":"turtle","color":"green","name":"Anthony"}}'
     Approvals.verify json, :format => :json, :namer => namer
