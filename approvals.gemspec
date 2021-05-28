@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.extensions    << 'ext/mkrf_conf.rb'
 
   s.add_development_dependency 'rspec', '~> 3.1'
-  s.add_dependency 'thor', '~> 0.18'
+  s.add_dependency 'thor', '~> 1.0'
 
   if RUBY_VERSION < "2.1"
     s.add_dependency 'nokogiri', '~> 1.6.8'

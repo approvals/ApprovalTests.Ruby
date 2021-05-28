@@ -1,20 +1,27 @@
 language: ruby
 rvm:
-  - 1.9.2
-  - 1.9.3
   - 2.0.0
   - 2.1.10
-  - 2.2.9
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
+  - 2.2.10
+  - 2.3.8
+  - 2.4.8
+  - 2.5.7
+  - 2.6.5
+  - 2.7.0
   - ruby-head
   - rbx-3
 matrix:
   allow_failures:
     - rvm: rbx-3
 before_install:
-  - gem update --system
+  - |
+    r_eng="$(ruby -e 'STDOUT.write RUBY_ENGINE')";
+    rv="$(ruby -e 'STDOUT.write RUBY_VERSION')";
+    if [ "$r_eng" == "ruby" ]; then
+      if   [ "$rv" \< "2.3" ]; then gem update --system 2.7.10 --no-document
+      elif [ "$rv" \< "2.6" ]; then gem update --system --no-document --conservative
+      fi
+    fi
   - gem update bundler
 script: bundle exec rspec spec
 cache: bundler
