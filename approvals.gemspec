@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.extensions    << 'ext/mkrf_conf.rb'
 
-  s.add_development_dependency 'rspec', '~> 3.1'
   s.add_dependency 'thor', '~> 1.0'
 
   if RUBY_VERSION < "2.1"
@@ -31,4 +30,7 @@ Gem::Specification.new do |s|
   end
   # We also depend on the json gem, but the version we need is
   # Ruby-version-specific. See `ext/mkrf_conf.rb`.
+
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'rspec', '~> 3.1'
 end
