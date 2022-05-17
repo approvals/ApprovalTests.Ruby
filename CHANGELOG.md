@@ -4,6 +4,8 @@
 
 * Your contribution here
 
+* Updated gemspec to make 'json' an explicit dependency
+
 ### v0.0.22 (2015-10-22)
 
 * Fix bug in non-binary comparisons.
