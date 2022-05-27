@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 3.1'
   s.add_development_dependency 'json', '~> 1.8'
-  s.add_dependency 'thor', '~> 0.18'
+  s.add_dependency 'thor', '~> 1.0'
   s.add_dependency 'nokogiri', '~> 1.6'
 end
