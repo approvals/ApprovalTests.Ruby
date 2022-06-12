@@ -85,6 +85,7 @@ describe Approvals do
   end
 
   it "verifies a malformed html fragment" do
+    pending
     html = <<-HTML
 <!DOCTYPE html>
 <html>
