@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.name        = "approvals"
   s.version     = Approvals::VERSION
   s.licenses    = ['MIT']
-  s.authors     = ["Katrina Owen"]
-  s.email       = ["katrina.owen@gmail.com"]
-  s.homepage    = "https://github.com/kytrinyx/approvals"
+  s.authors     = ["Llewellyn Falco", "Sam Livingston-Gray"]
+  s.email       = ["llewellyn.falco@gmail.com", "geeksam@gmail.com"]
+  s.homepage    = "https://github.com/approvals/ApprovalTests.Ruby"
   s.summary     = %q{Approval Tests for Ruby}
   s.description = %q{A library to make it easier to do golden-master style testing in Ruby}
 
