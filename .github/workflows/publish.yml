@@ -15,5 +15,34 @@ jobs:
         run: bundle install
       - name: Run Tests
         run: ./run_tests.sh
+      - name: Determine version from git tag
+        id: version
+        run: |
+          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+
+      - name: set version
+        run: |
+          rm ./lib/approvals/version.rb
+          echo module Approvals;  VERSION = "0.0.26a" ; end  > ./lib/approvals/version.rb
+          # echo module Approvals;  VERSION = \"${{ steps.version.outputs.tag }}\"; end  > ./lib/approvals/version.rb
+  
+      - name: Push changes
+        run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "${{ steps.version.outputs.tag }}" -a  || echo "nothing to commit"
+            git checkout -b temp
+            git fetch
+            git checkout main
+            git merge temp
+            remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+            branch="main"
+            git push "${remote}" ${branch} || echo "nothing to push"
+        shell: bash
+        
+      - name: Publish
+        run: |
+          bundle exec rake release
 
  
