@@ -1,7 +1,6 @@
 # Approvals
 
-[![Build Status](https://secure.travis-ci.org/kytrinyx/approvals.svg?branch=master)](http://travis-ci.org/kytrinyx/approvals)
-[![Gem Version](https://badge.fury.io/rb/approvals.svg)](http://badge.fury.io/rb/approvals)
+[![Build](https://github.com/approvals/ApprovalTests.Ruby/actions/workflows/test.yml/badge.svg)](https://github.com/approvals/ApprovalTests.Ruby/actions/workflows/test.yml)[![Gem Version](https://badge.fury.io/rb/approvals.svg)](http://badge.fury.io/rb/approvals)
 [![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.svg)](https://codeclimate.com/github/kytrinyx/approvals)
 [![Gemnasium](https://gemnasium.com/kytrinyx/approvals.svg)](https://gemnasium.com/kytrinyx/approvals)
 
