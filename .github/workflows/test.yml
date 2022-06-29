@@ -1,5 +1,5 @@
 name: RunTests
-
+on:
   push:
     branches: [ main ]
   pull_request:
