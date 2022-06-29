@@ -1,4 +1,4 @@
-name: RunTests
+name: Build
 on:
   push:
     branches: [ main ]
