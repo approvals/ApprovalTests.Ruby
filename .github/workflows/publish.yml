@@ -31,7 +31,7 @@ jobs:
         run: |
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
-            git commit -m "${{ steps.version.outputs.tag }}" -a  || echo "nothing to commit"
+            git commit -m "v${{ steps.version.outputs.tag }}" -a  || echo "nothing to commit"
             git checkout -b temp
             git fetch
             git checkout main
@@ -41,6 +41,18 @@ jobs:
             git push "${remote}" ${branch} || echo "nothing to push"
         shell: bash
         
+       
+
+      - name: Generate gem credentials
+        run: |
+          mkdir -p ~/.gem
+          cat << EOF > ~/.gem/credentials
+          ---
+          :rubygems_api_key: ${{ secrets.RUBY_GEMS_KEY }}
+          EOF
+      - name: Chmod file
+        run: chmod 0600 ~/.gem/credentials
+  
       - name: Publish
         run: |
           bundle exec rake release
