@@ -24,7 +24,7 @@ jobs:
       - name: set version
         run: |
           rm ./lib/approvals/version.rb
-          echo 'module Approvals;  VERSION = "0.0.26a" ; end'  > ./lib/approvals/version.rb
+          echo 'module Approvals;  VERSION = "0.0.26b" ; end'  > ./lib/approvals/version.rb
           # echo "module Approvals;  VERSION = \"${{ steps.version.outputs.tag }}\"; end"  > ./lib/approvals/version.rb
   
       - name: Push changes
