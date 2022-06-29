@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1.111.0
+      - name: Run stuff
         run: |
           ruby --version
           bundle install
