@@ -10,10 +10,10 @@ jobs:
         uses: ruby/setup-ruby@v1.111.0
         with:
           ruby-version : 2.7.6
-      - uses: actions/checkout@v2    
-      - name: Run stuff
-        run: |
-          bundle install
-          bundle exec rspec
+      - uses: actions/checkout@v2   
+      - name: Install dependecies
+        run: bundle install
+      - name: Run Tests
+        run: ./run_tests.sh
 
  
