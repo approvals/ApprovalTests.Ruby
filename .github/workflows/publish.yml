@@ -1,6 +1,8 @@
-name: Run tests
+name: Publish
 
-on: [push, pull_request,workflow_dispatch]
+on:
+  release:
+    types: [created]
 
 jobs:
   test:
@@ -24,8 +26,7 @@ jobs:
       - name: set version
         run: |
           rm ./lib/approvals/version.rb
-          echo 'module Approvals;  VERSION = "0.0.26b" ; end'  > ./lib/approvals/version.rb
-          # echo "module Approvals;  VERSION = \"${{ steps.version.outputs.tag }}\"; end"  > ./lib/approvals/version.rb
+          echo "module Approvals;  VERSION = \"${{ steps.version.outputs.tag }}\"; end"  > ./lib/approvals/version.rb
   
       - name: Push changes
         run: |
@@ -40,9 +41,6 @@ jobs:
             branch="main"
             git push "${remote}" ${branch} || echo "nothing to push"
         shell: bash
-        
-       
-
       - name: Generate gem credentials
         run: |
           mkdir -p ~/.gem
@@ -52,7 +50,6 @@ jobs:
           EOF
       - name: Chmod file
         run: chmod 0600 ~/.gem/credentials
-  
       - name: Publish
         run: |
           bundle exec rake release
