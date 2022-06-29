@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  test:
+  publish-rubygems:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Ruby, JRuby and TruffleRuby
