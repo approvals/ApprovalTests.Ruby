@@ -9,9 +9,11 @@ describe Approvals::Configuration do
 
   describe "when set" do
     before(:each) do
-      Approvals.configure do |c|
-        c.approvals_path = 'output/dir/'
+      # begin-snippet: config-example
+      Approvals.configure do |config|
+        config.approvals_path = 'output/dir/'
       end
+      # end-snippet
     end
 
     after(:each) do

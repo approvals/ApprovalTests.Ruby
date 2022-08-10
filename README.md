@@ -36,11 +36,7 @@ which Llewellyn Falco is interviewed about approvals.
 
 ## Configuration
 
-```ruby
-Approvals.configure do |config|
-  config.approvals_path = 'output/goes/here/'
-end
-```
+snippet: config-example
 
 The default location for the output files is
 
