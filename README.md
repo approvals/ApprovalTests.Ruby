@@ -7,6 +7,8 @@
 <!-- toc -->
 ## Contents
 
+  * [Getting Started](#getting-started)
+    * [New Projects](#new-projects)
   * [Configuration](#configuration)
   * [Usage](#usage)
     * [Customizing formatted output](#customizing-formatted-output)
