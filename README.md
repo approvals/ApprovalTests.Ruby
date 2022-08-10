@@ -33,7 +33,11 @@ See [ApprovalTests](http://www.approvaltests.com) for videos and additional docu
 
 Also, check out  Herding Code's [podcast #117](http://t.co/GLn88R5) in
 which Llewellyn Falco is interviewed about approvals.
+## Getting Started
 
+### New Projects
+
+The easiest way to get started with a new project is to clone the [Starter Project](https://github.com/approvals/ApprovalTests.Ruby.starterproject)
 ## Configuration
 
 <!-- snippet: config-example -->
