@@ -8,11 +8,15 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [ '2.7.6', '3.0.4', '3.1.2' ]
     steps:
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1.114.0
         with:
-          ruby-version : 2.7.6
+          ruby-version: ${{ matrix.ruby }}
       - uses: actions/checkout@v3   
       - name: Install dependecies
         run: bundle install
