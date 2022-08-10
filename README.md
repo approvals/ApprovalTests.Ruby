@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.svg)](https://codeclimate.com/github/kytrinyx/approvals)
 [![Gemnasium](https://gemnasium.com/kytrinyx/approvals.svg)](https://gemnasium.com/kytrinyx/approvals)
 
+toc
 
 Approvals are based on the idea of the *_golden master_*.
 
