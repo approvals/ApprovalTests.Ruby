@@ -4,7 +4,21 @@
 [![Code Climate](https://codeclimate.com/github/kytrinyx/approvals.svg)](https://codeclimate.com/github/kytrinyx/approvals)
 [![Gemnasium](https://gemnasium.com/kytrinyx/approvals.svg)](https://gemnasium.com/kytrinyx/approvals)
 
-toc
+<!-- toc -->
+## Contents
+
+  * [Configuration](#configuration)
+  * [Usage](#usage)
+    * [Customizing formatted output](#customizing-formatted-output)
+  * [CLI](#cli)
+    * [Workflow Using VimDiff](#workflow-using-vimdiff)
+    * [RSpec](#rspec)
+    * [Naming](#naming)
+    * [Formatting](#formatting)
+    * [Exclude dynamically changed values from json](#exclude-dynamically-changed-values-from-json)
+    * [Approving a spec](#approving-a-spec)
+    * [Expensive computations](#expensive-computations)
+    * [RSpec executable](#rspec-executable)<!-- endToc -->
 
 Approvals are based on the idea of the *_golden master_*.
 
