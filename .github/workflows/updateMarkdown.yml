@@ -1,4 +1,4 @@
-me: Update markdown snippets
+name: Update markdown snippets
 on:
   push:
 jobs:
