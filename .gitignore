@@ -2,7 +2,7 @@
 .gem/
 .bundle
 pkg/*
-*.received.txt
+*.received.*
 .approvals
 tmp/
 vendor/
