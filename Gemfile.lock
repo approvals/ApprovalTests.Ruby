@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    approvals (0.1.4)
+    approvals (0.1.5)
       json (~> 2.0)
       nokogiri (~> 1.8)
       thor (~> 1.0)
