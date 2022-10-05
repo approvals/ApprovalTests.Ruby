@@ -52,6 +52,6 @@ jobs:
         run: chmod 0600 ~/.gem/credentials
       - name: Publish
         run: |
-          bundle exec rake release
+          bundle exec rake release --trace
 
  
