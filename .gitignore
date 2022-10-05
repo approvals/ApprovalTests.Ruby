@@ -1,4 +1,5 @@
 *.gem
+.gem/
 .bundle
 pkg/*
 *.received.txt
