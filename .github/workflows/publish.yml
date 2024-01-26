@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Ruby, JRuby and TruffleRuby
-        uses: ruby/setup-ruby@v1.169.0
+        uses: ruby/setup-ruby@v1.170.0
         with:
           ruby-version : 2.7.6
       - uses: actions/checkout@v4   
