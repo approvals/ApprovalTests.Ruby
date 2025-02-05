@@ -1,1 +1,1 @@
-module Approvals;  VERSION = "0.1.6"; end
+module Approvals;  VERSION = "0.1.7"; end
