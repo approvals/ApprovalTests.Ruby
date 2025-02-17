@@ -14,7 +14,7 @@ jobs:
         ruby: [ '2.7.6', '3.0.4', '3.1.2' ] #, 'jruby-head' ]
     steps:
       - name: Setup Ruby, JRuby and TruffleRuby
-        uses: ruby/setup-ruby@v1.215.0
+        uses: ruby/setup-ruby@v1.221.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - uses: actions/checkout@v4   
