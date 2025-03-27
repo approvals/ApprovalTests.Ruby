@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [ '3.2.8', '3.3.7', '3.4.2' ] #, 'jruby-head' ]
+        ruby: [ '3.2.6', '3.3.7', '3.4.1' ] #, 'jruby-head' ]
     steps:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1.215.0
