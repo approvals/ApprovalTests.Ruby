@@ -10,3 +10,4 @@ vendor/
 ext/Rakefile
 .ruby-version
 .gitpod.yml
+.idea/
