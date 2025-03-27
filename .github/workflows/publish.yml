@@ -11,8 +11,8 @@ jobs:
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1.215.0
         with:
-      - uses: actions/checkout@v4   
           ruby-version : 3.2.8
+      - uses: actions/checkout@v4
       - name: Install dependecies
         run: bundle install
       - name: Run Tests
@@ -27,7 +27,7 @@ jobs:
         run: |
           rm ./lib/approvals/version.rb
           echo "module Approvals;  VERSION = \"${{ steps.version.outputs.tag }}\"; end"  > ./lib/approvals/version.rb
-  
+
       - name: Push changes
         run: |
             git config --local user.email "action@github.com"
@@ -54,5 +54,3 @@ jobs:
         run: |
           git status
           bundle exec rake release --trace
-
- 
