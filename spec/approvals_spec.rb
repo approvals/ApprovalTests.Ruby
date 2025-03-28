@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'approvals/namers/rspec_namer'
+require 'date'
 
 describe Approvals do
 
@@ -168,12 +169,61 @@ describe Approvals do
       Approvals.verify JSON.dump([hash]), :format => :json, :namer => namer
     end
 
-    it "supports the array writer" do
-      Approvals.verify [hash], :format => :array, :namer => namer
-    end
+    # NOTE: Ruby 3.4 changed the output of Hash#inspect:
+    # https://bugs.ruby-lang.org/issues/20433
+    #
+    # TODO: When the time has come, find two tests below that say "supports the
+    # [array|hash] writer", lift them out of the enclosing `context` block that
+    # says "(while we're still supporting Ruby < 3.4)", then delete that
+    # `context` block in its entirety.
+    #
+    # You'll then need to rerun `approvals verify` and accept the new fixtures.
+    # (You should probably also remove the old fixtures you'll have just
+    # orphaned, if this gem hasn't gained the ability to clean those up
+    # automagically.)
+    context "(while we're still supporting Ruby < 3.4)" do
+      before do
+        if '2027-03-31' < Date.today.iso8601
+          raise 'THE TIME HAS COME ... to remove a hack in the test suite (SEE COMMENTS)'
+        end
+      end
 
-    it "supports the hash writer" do
-      Approvals.verify hash, :format => :array, :namer => namer
+      def current_ruby = Gem::Version.new(RUBY_VERSION)
+      def ruby_3_4     = Gem::Version.new('3.4.0')
+
+      context "in Ruby versions prior to 3.4" do
+        before do
+          if ruby_3_4 <= current_ruby
+            skip "Don't test this for Ruby #{RUBY_VERSION}"
+          end
+        end
+
+        # TODO: promote these after 2027-03-31
+        it "supports the array writer" do
+          Approvals.verify [hash], format: :array, namer: namer
+        end
+
+        it "supports the hash writer" do
+          Approvals.verify hash, format: :array, namer: namer
+        end
+      end
+
+      context "in Ruby versions 3.4 AND BEYOND" do
+        before do
+          if current_ruby < ruby_3_4
+            skip "Don't test this for Ruby #{RUBY_VERSION}"
+          end
+        end
+
+        # TODO: delete these after 2027-03-31 (they'll be redundant to the 'promote these' tests, above)
+        it "supports the array writer" do
+          Approvals.verify [hash], format: :array, namer: namer
+        end
+
+        it "supports the hash writer" do
+          Approvals.verify hash, format: :array, namer: namer
+        end
+      end
     end
   end
 end
