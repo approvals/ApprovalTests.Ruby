@@ -6,7 +6,8 @@ describe Approvals do
   let(:namer) { |example| Approvals::Namers::RSpecNamer.new(example) }
 
   it "fails" do
-    allow(Approvals::Dotfile).to receive(:path).and_return('/dev/null')
+    dev_null = Gem.win_platform? ? 'nul' : '/dev/null'
+    allow(Approvals::Dotfile).to receive(:path).and_return(dev_null)
 
     expect do
       Approvals.verify "this one doesn't exist", :namer => namer
