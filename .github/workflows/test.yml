@@ -29,6 +29,7 @@ jobs:
         run: bundle install
       - name: Run Tests
         run: ./run_tests.sh
+        shell: bash
 
   auto-merge:
     needs: run-tests
