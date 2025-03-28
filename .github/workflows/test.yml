@@ -17,7 +17,7 @@ jobs:
           - '3.4.2'
           #, 'jruby-head'
         os:
-          - ubutu
+          - ubuntu
           - windows
     steps:
       - name: Setup Ruby
