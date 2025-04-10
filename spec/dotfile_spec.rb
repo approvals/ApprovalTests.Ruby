@@ -1,8 +1,9 @@
 require 'spec_helper'
 require 'approvals/dotfile'
+require 'tempfile'
 
 describe Approvals::Dotfile do
-  let(:dotfile) { '/tmp/.approvals' }
+  let(:dotfile) { Tempfile.create('.approvals').tap(&:close).path }
 
   before(:each) do
     allow(Approvals::Dotfile).to receive(:path).and_return dotfile
