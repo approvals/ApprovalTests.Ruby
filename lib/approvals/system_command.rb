@@ -4,7 +4,12 @@ module Approvals
 
     class << self
       def exists?(executable)
-        `which #{executable}` != ""
+        # if on a winodw system
+        if SystemUtils.windows?
+          `where #{executable}` != ""
+        else
+          `which #{executable}` != ""
+        end
       end
     end
 

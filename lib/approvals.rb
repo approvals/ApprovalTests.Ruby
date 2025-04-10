@@ -16,6 +16,7 @@ require 'approvals/filter'
 require 'approvals/writer'
 require 'approvals/verifier'
 require 'approvals/namers/default_namer'
+require 'approvals/system_utils'
 
 module Approvals
   extend DSL
