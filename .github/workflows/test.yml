@@ -19,6 +19,7 @@ jobs:
         os:
           - ubuntu
           - windows
+          - macos
     steps:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1.229.0
