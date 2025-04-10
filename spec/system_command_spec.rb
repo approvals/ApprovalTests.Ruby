@@ -1,10 +1,12 @@
 require 'spec_helper'
 require 'approvals/system_command'
+require 'approvals/system_utils'
 
 describe Approvals::SystemCommand, "#exists?" do
 
   it "does" do
-    expect(Approvals::SystemCommand.exists?("ls")).to be_truthy
+    program = Approvals::SystemUtils.windows? ? "where" : "ls"
+    expect(Approvals::SystemCommand.exists?(program)).to be_truthy
   end
 
   it "does not" do
