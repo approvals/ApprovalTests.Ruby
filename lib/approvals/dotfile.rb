@@ -20,7 +20,7 @@ module Approvals
       end
 
       def includes?(text)
-        system("cat #{path} 2> /dev/null | grep -q \"^#{text}$\"")
+        File.read(path).include?(text)
       end
 
       def write(text)
