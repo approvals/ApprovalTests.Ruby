@@ -20,6 +20,7 @@ module Approvals
       end
 
       def includes?(text)
+        return false unless File.exist?(path)
         File.read(path).include?(text)
       end
 
