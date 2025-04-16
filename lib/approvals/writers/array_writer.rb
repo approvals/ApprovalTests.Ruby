@@ -1,25 +1,54 @@
 module Approvals
   module Writers
-    class ArrayWriter < TextWriter
-      ORIGINAL_INSPECT = Hash.instance_method(:inspect)
+    # Module containing refinements for custom hash inspection
+    module HashInspectRefinements
+      refine Hash do
+        def inspect
+          '{' + map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ') + '}'
+        end
+      end
+      
+      # Add refinements for Array to handle nested hashes
+      refine Array do
+        def inspect_with_hash_refinements
+          '[' + map { |v| v.respond_to?(:inspect_with_hash_refinements) ? v.inspect_with_hash_refinements : v.inspect }.join(', ') + ']'
+        end
+      end
+      
+      # Add refinements for Object to handle any object type
+      refine Object do
+        def inspect_with_hash_refinements
+          inspect
+        end
+      end
+    end
 
-      def format(data)
-        Hash.define_method(:inspect) {'{' + map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ') + '}'}
-        filter(data).map.with_index do |value, i|
-          "[#{i.inspect}] #{value.inspect}\n"
-        end.join
-      ensure
-        Hash.define_method(:inspect, ORIGINAL_INSPECT)
+    class ArrayWriter < TextWriter
+      using HashInspectRefinements
+      
+      # Custom inspect method that uses the refinements
+      def inspect_with_refinements(obj)
+        case obj
+        when Hash
+          obj.inspect  # Uses the refined Hash#inspect
+        when Array
+          obj.inspect_with_hash_refinements
+        else
+          obj.inspect
+        end
       end
 
-      def filter data
+      def format(data)
+        filtered_data = filter(data)
+        filtered_data.map.with_index do |value, i|
+          "[#{i.inspect}] #{inspect_with_refinements(value)}\n"
+        end.join
+      end
+
+      def filter(data)
         filter = ::Approvals::Filter.new(Approvals.configuration.excluded_json_keys)
         filter.apply(data)
       end
-
-      private
-
     end
   end
-
 end
