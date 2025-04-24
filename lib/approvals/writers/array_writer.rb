@@ -1,7 +1,5 @@
 module Approvals
   module Writers
-    require_relative 'approvals/writers/hash_inspect_refinements.rb'
-
     class ArrayWriter < TextWriter
       using HashInspectRefinements
       def format(data)

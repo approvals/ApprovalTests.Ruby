@@ -6,6 +6,7 @@ module Approvals
           "{#{map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ')}}"
         end
       end
+
       refine Array do
         def inspect
           "[#{map(&:inspect).join(', ')}]"
