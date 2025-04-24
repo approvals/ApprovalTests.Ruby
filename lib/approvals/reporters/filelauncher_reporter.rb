@@ -2,7 +2,7 @@ module Approvals
   module Reporters
     class FilelauncherReporter < NamedReporter
       def self.command(received, _)
-        "open #{received}"
+        "open \"#{received}\""
       end
     end
   end
