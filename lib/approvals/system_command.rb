@@ -1,7 +1,5 @@
 module Approvals
-
   module SystemCommand
-
     class << self
       def exists?(executable)
         # if on a winodw system
@@ -12,7 +10,5 @@ module Approvals
         end
       end
     end
-
   end
-
 end

@@ -1,6 +1,5 @@
 module Approvals
   module Reporters
-
     class ImageReporter < FirstWorkingReporter
       include Singleton
 
@@ -8,6 +7,5 @@ module Approvals
         super(ImageMagickReporter.instance, HtmlImageReporter.instance)
       end
     end
-
   end
 end

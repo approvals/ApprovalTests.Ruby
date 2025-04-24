@@ -1,7 +1,6 @@
 module Approvals
   module Reporters
     class Reporter
-
       attr_reader :launcher
 
       def initialize(&launcher)

@@ -1,7 +1,6 @@
 module Approvals
   module Namers
     class DefaultNamer
-
       attr_reader :name
       def initialize(name = nil)
         raise ArgumentError.new("DefaultNamer: You must specify a name") if name.nil?

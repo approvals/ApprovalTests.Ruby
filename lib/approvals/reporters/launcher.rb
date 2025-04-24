@@ -1,8 +1,6 @@
-
 module Approvals
   module Reporters
     module Launcher
-
       class << self
         REPORTERS = [:opendiff, :diffmerge, :vimdiff, :tortoisediff, :filelauncher]
 

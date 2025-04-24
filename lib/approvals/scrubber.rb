@@ -32,12 +32,5 @@ module Approvals
     def to_s
       @string
     end
-
-    #def to_executable(&block)
-    #  Approvals::Executable.new(@string) do |scrubbed|
-    #    block.call(unscrub(scrubbed))
-    #  end
-    #end
-
   end
 end

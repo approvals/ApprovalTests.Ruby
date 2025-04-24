@@ -14,7 +14,6 @@ module Approvals
       def report(received, approved)
         system(create_command_line(received, approved))
       end
-
     end
   end
 end

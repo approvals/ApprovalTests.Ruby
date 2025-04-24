@@ -12,7 +12,6 @@ module Approvals
       def default_launcher
         Launcher.vimdiff
       end
-
     end
   end
 end

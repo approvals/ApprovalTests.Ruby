@@ -12,7 +12,6 @@ module Approvals
       def default_launcher
         Launcher.opendiff
       end
-
     end
   end
 end

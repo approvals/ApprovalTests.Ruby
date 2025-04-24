@@ -12,7 +12,6 @@ module Approvals
       def default_launcher
         Launcher.tortoisediff
       end
-
     end
   end
 end

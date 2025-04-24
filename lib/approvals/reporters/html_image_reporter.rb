@@ -29,7 +29,6 @@ module Approvals
         <html><head><title>Approval</title></head><body><center><table style="text-align: center;" border="1"><tr><td><img src="file://#{received}"></td><td><img src="file://#{approved}"></td></tr><tr><td>received</td><td>approved</td></tr></table></center></body></html>
         HTML
       end
-
     end
   end
 end

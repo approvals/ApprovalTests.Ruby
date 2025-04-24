@@ -19,7 +19,6 @@ module Approvals
   extend DSL
 
   class << self
-
     def project_dir
       @project_dir ||= FileUtils.pwd
     end

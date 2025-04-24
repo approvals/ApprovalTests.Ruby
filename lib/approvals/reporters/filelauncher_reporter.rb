@@ -12,7 +12,6 @@ module Approvals
       def default_launcher
         Launcher.filelauncher
       end
-
     end
   end
 end

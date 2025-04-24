@@ -1,6 +1,5 @@
 module Approvals
   class Executable
-
     attr_accessor :command, :on_failure
     def initialize(command, &block)
       self.command = command

@@ -3,14 +3,13 @@ module Approvals
     extend Writers
 
     REGISTRY = {
-      json: Writers::JsonWriter.new,
-      xml: Writers::XmlWriter.new,
-      html: Writers::HtmlWriter.new,
-      hash: Writers::HashWriter.new,
+      json:  Writers::JsonWriter.new,
+      xml:   Writers::XmlWriter.new,
+      html:  Writers::HtmlWriter.new,
+      hash:  Writers::HashWriter.new,
       array: Writers::ArrayWriter.new,
-      txt: Writers::TextWriter.new,
+      txt:   Writers::TextWriter.new,
     }
-
 
     class << self
       def for(format)
@@ -26,6 +25,5 @@ module Approvals
         end
       end
     end
-
   end
 end

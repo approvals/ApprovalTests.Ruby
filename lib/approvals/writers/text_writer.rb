@@ -15,7 +15,6 @@ module Approvals
       def format(data)
         data.to_s
       end
-
     end
   end
 end

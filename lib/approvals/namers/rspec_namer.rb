@@ -26,7 +26,6 @@ module Approvals
         end
         @output_dir
       end
-
     end
   end
 end

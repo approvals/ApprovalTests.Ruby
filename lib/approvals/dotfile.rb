@@ -1,8 +1,6 @@
 module Approvals
-
   class Dotfile
     class << self
-
       def reset
         File.truncate(path, 0) if File.exist?(path)
       end
