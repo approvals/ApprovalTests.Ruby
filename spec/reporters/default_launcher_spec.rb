@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# TODO: delete these tests when Launcher goes away
+
 describe "#default_launcher" do
   def default_launcher_for(reporter_name)
     klass = ::Approvals::Reporters.const_get(reporter_name)

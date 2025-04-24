@@ -1,6 +1,7 @@
 module Approvals
   module Reporters
     class NamedReporter
+      # TODO:  remove this if/when Launcher goes away
       def default_launcher
         Launcher.send(launcher_name)
       end

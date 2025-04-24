@@ -1,5 +1,7 @@
 module Approvals
   module Reporters
+    # TODO:  this module doesn't appear to be adding much value,
+    #        and could possibly go away?
     module Launcher
       module_function
 
