@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "#default_launcher" do
   def default_launcher_for(reporter_name)
     klass = ::Approvals::Reporters.const_get(reporter_name)
-    reporter = klass.ancestors.include?(Singleton) ? klass.instance : klass.new
-    reporter.default_launcher
+    klass.new.default_launcher
   end
 
   def launcher(name)
