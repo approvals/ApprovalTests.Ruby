@@ -1,12 +1,6 @@
 module Approvals
   module Reporters
-    class DiffmergeReporter < Reporter
-      include Singleton
-
-      def self.report(received, approved)
-        instance.report(received, approved)
-      end
-
+    class DiffmergeReporter < SingletonReporter
       def default_launcher
         Launcher.diffmerge
       end
