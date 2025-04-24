@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class TortoisediffReporter < SingletonReporter
+    class TortoisediffReporter < NamedReporter
     end
   end
 end

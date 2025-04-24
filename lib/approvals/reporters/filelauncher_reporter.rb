@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class FilelauncherReporter < SingletonReporter
+    class FilelauncherReporter < NamedReporter
     end
   end
 end

@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class VimdiffReporter < SingletonReporter
+    class VimdiffReporter < NamedReporter
     end
   end
 end

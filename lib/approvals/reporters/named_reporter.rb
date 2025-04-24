@@ -1,6 +1,6 @@
 module Approvals
   module Reporters
-    class SingletonReporter
+    class NamedReporter
       def default_launcher
         Launcher.send(launcher_name)
       end
