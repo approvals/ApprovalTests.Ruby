@@ -51,7 +51,7 @@ Approvals.configure do |config|
   config.approvals_path = 'output/dir/'
 end
 ```
-<sup><a href='/spec/configuration_spec.rb#L12-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-config-example' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/spec/configuration_spec.rb#L11-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-config-example' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The default location for the output files is
