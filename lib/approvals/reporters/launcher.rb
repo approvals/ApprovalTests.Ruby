@@ -1,7 +1,13 @@
 module Approvals
   module Reporters
     module Launcher
-      REPORTERS = [:opendiff, :diffmerge, :vimdiff, :tortoisediff, :filelauncher]
+      REPORTERS = {
+        opendiff:     OpendiffReporter,
+        diffmerge:    DiffmergeReporter,
+        vimdiff:      VimdiffReporter,
+        tortoisediff: TortoisediffReporter,
+        filelauncher: FilelauncherReporter,
+      }
 
       module_function
 
@@ -13,34 +19,14 @@ module Approvals
         self.instance_variable_get(instance_variable)
       end
 
-      REPORTERS.each do |name|
+      REPORTERS.each do |name, klass|
         define_method name do
           memoized(:"@#{name}") do
-            lambda {|received, approved|
-              self.send("#{name}_command".to_sym, received, approved)
+            lambda {  |received, approved|
+              klass.command(received, approved)
             }
           end
         end
-      end
-
-      def opendiff_command(received, approved)
-        OpendiffReporter.command(received, approved)
-      end
-
-      def diffmerge_command(received, approved)
-        DiffmergeReporter.command(received, approved)
-      end
-
-      def vimdiff_command(received, approved)
-        VimdiffReporter.command(received, approved)
-      end
-
-      def tortoisediff_command(received, approved)
-        TortoisediffReporter.command(received, approved)
-      end
-
-      def filelauncher_command(received, approved)
-        FilelauncherReporter.command(received, approved)
       end
     end
   end
