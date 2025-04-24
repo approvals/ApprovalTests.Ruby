@@ -24,23 +24,23 @@ module Approvals
       end
 
       def opendiff_command(received, approved)
-        "opendiff #{received} #{approved}"
+        OpendiffReporter.command(received, approved)
       end
 
       def diffmerge_command(received, approved)
-        "/Applications/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"#{received}\" \"#{approved}\""
+        DiffmergeReporter.command(received, approved)
       end
 
       def vimdiff_command(received, approved)
-        "vimdiff #{received} #{approved}"
+        VimdiffReporter.command(received, approved)
       end
 
       def tortoisediff_command(received, approved)
-        "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseMerge.exe #{received} #{approved}"
+        TortoisediffReporter.command(received, approved)
       end
 
       def filelauncher_command(received, approved)
-        "open #{received}"
+        FilelauncherReporter.command(received, approved)
       end
     end
   end
