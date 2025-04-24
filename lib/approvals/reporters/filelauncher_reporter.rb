@@ -3,10 +3,8 @@ module Approvals
     class FilelauncherReporter < Reporter
       include Singleton
 
-      class << self
-        def report(received, approved = nil)
-          self.instance.report(received, approved)
-        end
+      def self.report(received, approved = nil)
+        instance.report(received, approved)
       end
 
       def default_launcher

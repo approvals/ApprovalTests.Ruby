@@ -3,10 +3,8 @@ module Approvals
     class VimdiffReporter < Reporter
       include Singleton
 
-      class << self
-        def report(received, approved)
-          self.instance.report(received, approved)
-        end
+      def self.report(received, approved)
+        instance.report(received, approved)
       end
 
       def default_launcher

@@ -1,16 +1,16 @@
 module Approvals
-  class Dotfile
-    class << self
-      def reset
-        File.truncate(path, 0) if File.exist?(path)
-      end
+  module Dotfile
+    def self.reset
+      File.truncate(path, 0) if File.exist?(path)
+    end
 
-      def append(text)
-        unless includes?(text)
-          write text
-        end
+    def self.append(text)
+      unless includes?(text)
+        write text
       end
+    end
 
+    module Private
       private
 
       def path
@@ -28,5 +28,6 @@ module Approvals
         end
       end
     end
+    extend Private
   end
 end

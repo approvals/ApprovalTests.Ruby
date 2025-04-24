@@ -18,14 +18,12 @@ loader.setup
 module Approvals
   extend DSL
 
-  class << self
-    def project_dir
-      @project_dir ||= FileUtils.pwd
-    end
+  def self.project_dir
+    @project_dir ||= FileUtils.pwd
+  end
 
-    def reset
-      Dotfile.reset
-    end
+  def self.reset
+    Dotfile.reset
   end
 end
 

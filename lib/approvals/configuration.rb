@@ -1,14 +1,12 @@
 require 'singleton'
 
 module Approvals
-  class << self
-    def configure(&block)
-      block.call Approvals::Configuration.instance
-    end
+  def self.configure(&block)
+    block.call Approvals::Configuration.instance
+  end
 
-    def configuration
-      Approvals::Configuration.instance
-    end
+  def self.configuration
+    Approvals::Configuration.instance
   end
 
   class Configuration

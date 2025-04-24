@@ -4,10 +4,8 @@ module Approvals
       json: Verifiers::JsonVerifier,
     }
 
-    class << self
-      def for(format)
-        REGISTRY[format]
-      end
+    def self.for(format)
+      REGISTRY[format]
     end
   end
 end
