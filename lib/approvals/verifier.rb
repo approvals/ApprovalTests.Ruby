@@ -1,5 +1,3 @@
-require 'approvals/verifiers/json_verifier'
-
 module Approvals
   module Verifier
     REGISTRY = {

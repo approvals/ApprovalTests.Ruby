@@ -1,4 +1,5 @@
 module Approvals
+  # FIXME:  Naming Things
   class ApprovalError < Exception
     attr_accessor :received_path, :approved_path
 

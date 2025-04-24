@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/executable'
 
 describe Approvals::Executable do
 

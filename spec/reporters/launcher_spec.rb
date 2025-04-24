@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/reporters/launcher'
 
 describe Approvals::Reporters::Launcher do
   it "has a vimdiff launcher" do

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/scrubber'
 
 describe Approvals::Scrubber do
 

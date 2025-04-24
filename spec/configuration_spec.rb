@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/configuration'
 
 describe Approvals::Configuration do
 

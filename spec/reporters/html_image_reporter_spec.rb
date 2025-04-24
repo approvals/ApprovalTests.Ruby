@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'approvals/reporters'
-require 'approvals/scrubber'
 
 describe Approvals::Reporters::HtmlImageReporter do
 

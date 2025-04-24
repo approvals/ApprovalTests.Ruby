@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/dotfile'
 require 'tempfile'
 
 describe Approvals::Dotfile do

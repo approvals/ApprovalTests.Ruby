@@ -1,22 +1,19 @@
 require 'json'
 require 'fileutils'
 require 'nokogiri'
-require 'approvals/version'
-require 'approvals/combination_approvals'
-require 'approvals/configuration'
-require 'approvals/approval'
-require 'approvals/dsl'
-require 'approvals/error'
-require 'approvals/system_command'
-require 'approvals/scrubber'
-require 'approvals/dotfile'
-require 'approvals/executable'
-require 'approvals/reporters'
-require 'approvals/filter'
-require 'approvals/writer'
-require 'approvals/verifier'
-require 'approvals/namers/default_namer'
-require 'approvals/system_utils'
+
+require_relative 'approvals/error'
+
+require 'zeitwerk'
+loader = Zeitwerk::Loader.for_gem
+loader.inflector.inflect(
+  'dsl'         => 'DSL',
+  'rspec'       => 'RSpec',
+  'rspec_namer' => 'RSpecNamer',
+)
+loader.setup
+
+
 
 module Approvals
   extend DSL

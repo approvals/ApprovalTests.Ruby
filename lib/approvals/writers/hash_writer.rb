@@ -11,7 +11,7 @@ module Approvals
       end
 
       def filter data
-        filter = ::Approvals::Filter.new(Approvals.configuration.excluded_json_keys)
+        filter = ::Approvals::Filter.new(::Approvals.configuration.excluded_json_keys)
         filter.apply(data)
       end
 

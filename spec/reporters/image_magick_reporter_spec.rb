@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'approvals/reporters'
 
 describe Approvals::Reporters::ImageMagickReporter do
   subject { Approvals::Reporters::ImageMagickReporter.instance }

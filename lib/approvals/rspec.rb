@@ -1,4 +1,1 @@
-require 'approvals'
-require 'approvals/extensions/rspec'
-
-
+require_relative 'extensions/rspec'
