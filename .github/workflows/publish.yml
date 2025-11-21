@@ -12,7 +12,7 @@ jobs:
         uses: ruby/setup-ruby@v1.268.0
         with:
           ruby-version : 3.2.6
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install dependecies
         run: bundle install
       - name: Run Tests
