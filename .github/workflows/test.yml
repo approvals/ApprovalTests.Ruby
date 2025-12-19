@@ -22,7 +22,7 @@ jobs:
           - macos
     steps:
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1.271.0
+        uses: ruby/setup-ruby@v1.274.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - uses: actions/checkout@v6
