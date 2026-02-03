@@ -11,7 +11,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     diff-lcs (1.6.2)
-    json (2.18.0)
+    json (2.18.1)
     mini_portile2 (2.8.9)
     nokogiri (1.19.0)
       mini_portile2 (~> 2.8.2)
