@@ -34,7 +34,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.6)
     thor (1.5.0)
-    zeitwerk (2.7.4)
+    zeitwerk (2.7.5)
 
 PLATFORMS
   ruby
