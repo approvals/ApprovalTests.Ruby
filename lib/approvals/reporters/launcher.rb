@@ -1,9 +1,37 @@
 module Approvals
   module Reporters
+    # TODO:  this module doesn't appear to be adding much value,
+    #        and could possibly go away?
     module Launcher
-      REPORTERS = [:opendiff, :diffmerge, :vimdiff, :tortoisediff, :filelauncher]
-
       module_function
+
+      REPORTERS = {
+        diffmerge:    DiffmergeReporter,
+        filelauncher: FilelauncherReporter,
+        opendiff:     OpendiffReporter,
+        tortoisediff: TortoisediffReporter,
+        vimdiff:      VimdiffReporter,
+      }
+
+      # Metaprogramming: create a method for each key in REPORTERS.
+      # (NB: these will become class [AKA "static"] methods due to the
+      # module_function keyword above.)
+      #
+      # Those methods return a lambda that can be invoked (with args `received,
+      # approved` to return a command.
+      #
+      # They also memoize their results (which seems unnecessary?).
+      #
+      # See usage examples in: spec/reporters/launcher_spec.rb
+      REPORTERS.each do |name, klass|
+        define_method name do # method body starts here
+          memoized(:"@#{name}") do
+            lambda {  |received, approved|
+              klass.command(received, approved)
+            }
+          end
+        end # method body ends here
+      end
 
       def memoized(instance_variable)
         unless self.instance_variable_get(instance_variable)
@@ -11,36 +39,6 @@ module Approvals
           self.instance_variable_set(instance_variable, value)
         end
         self.instance_variable_get(instance_variable)
-      end
-
-      REPORTERS.each do |name|
-        define_method name do
-          memoized(:"@#{name}") do
-            lambda {|received, approved|
-              self.send("#{name}_command".to_sym, received, approved)
-            }
-          end
-        end
-      end
-
-      def opendiff_command(received, approved)
-        "opendiff #{received} #{approved}"
-      end
-
-      def diffmerge_command(received, approved)
-        "/Applications/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"#{received}\" \"#{approved}\""
-      end
-
-      def vimdiff_command(received, approved)
-        "vimdiff #{received} #{approved}"
-      end
-
-      def tortoisediff_command(received, approved)
-        "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseMerge.exe #{received} #{approved}"
-      end
-
-      def filelauncher_command(received, approved)
-        "open #{received}"
       end
     end
   end
