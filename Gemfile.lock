@@ -5,7 +5,7 @@ PATH
       json (~> 2.0)
       nokogiri (~> 1.8)
       thor (~> 1.0)
-      zeitwerk (~> 2.7.2)
+      zeitwerk (>= 2.7.2, < 2.9.0)
 
 GEM
   remote: http://rubygems.org/
@@ -34,7 +34,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.6)
     thor (1.5.0)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.1)
 
 PLATFORMS
   ruby
