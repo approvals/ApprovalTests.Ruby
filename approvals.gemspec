@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'thor', '~> 1.0'
   s.add_dependency 'json', '~> 2.0'
 
-  s.add_dependency 'zeitwerk', '~> 2.7.2'
+  s.add_dependency 'zeitwerk', '>= 2.7.2', '< 2.9.0'
 
   s.add_dependency 'nokogiri', '~> 1.8'
   # We also depend on the json gem, but the version we need is
