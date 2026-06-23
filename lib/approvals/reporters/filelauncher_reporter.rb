@@ -1,14 +1,8 @@
 module Approvals
   module Reporters
-    class FilelauncherReporter < Reporter
-      include Singleton
-
-      def self.report(received, approved = nil)
-        instance.report(received, approved)
-      end
-
-      def default_launcher
-        Launcher.filelauncher
+    class FilelauncherReporter < NamedReporter
+      def self.command(received, _)
+        "open \"#{received}\""
       end
     end
   end

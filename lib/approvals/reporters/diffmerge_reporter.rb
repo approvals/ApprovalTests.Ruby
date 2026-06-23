@@ -1,14 +1,8 @@
 module Approvals
   module Reporters
-    class DiffmergeReporter < Reporter
-      include Singleton
-
-      def self.report(received, approved)
-        instance.report(received, approved)
-      end
-
-      def default_launcher
-        Launcher.diffmerge
+    class DiffmergeReporter < NamedReporter
+      def self.command(received, approved)
+        "/Applications/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"#{received}\" \"#{approved}\""
       end
     end
   end
