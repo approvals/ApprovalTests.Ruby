@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'thor', '~> 1.0'
-  s.add_dependency 'json', '~> 2.0'
+  s.add_dependency 'json', '>= 2', '< 4'
 
   s.add_dependency 'zeitwerk', '>= 2.7.2', '< 2.9.0'
 
